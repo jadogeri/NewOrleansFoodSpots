@@ -1,12 +1,14 @@
 import React, {useState, useEffect} from "react";
-import {View, Text, FlatList, Image} from "react-native-web"
-import styles from "./ResultShowStyles"
+import {Platform,View, Text, FlatList, Image} from "react-native-web"
+import styles from "./ResultsShowStyles"
 import {api_root } from "../../api/yelp"
 import Location from "../../components/Location/Location";
 
 const ResultsShowScreen = (props)=>{
     const [result,setResult] = useState(null);
-    const id = props.navigation.getParam('id');
+    //const id = props.navigation.getParam('id');
+    const id = props.route.params.id;
+
     console.log(id);
 
     const getResult = async (id) => {
@@ -20,10 +22,12 @@ const ResultsShowScreen = (props)=>{
     if(!result){
         return null;
     }
-    return <View>
+    return Platform.OS === 'web'? <Text>this is web</Text>: <View>
         <Text>{result.name}</Text>
         <FlatList
+        
         horizontal
+        showsHorizontalScrollIndicator={true}
             data={result.photos}
             keyExtractor={(photo) =>{return photo}}
             renderItem={({item})=>{

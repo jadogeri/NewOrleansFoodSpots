@@ -8,7 +8,8 @@ import { createMaterialTopTabNavigator } from "@react-navigation/material-top-ta
 import Home from './src/screens/Home/HomeScreen'
 import About from './src/screens/About/AboutScreen'
 import Contact from './src/screens/Contact/ContactScreen'
-import ResultShow from './src/screens/ResultsShow/ResultsShowScreen'
+import ResultsShow from './src/screens/ResultsShow/ResultsShowScreen'
+import Search from './src/screens/Search/SearchScreen'
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -44,8 +45,18 @@ const screenOptionStyle = {
 const MainStackNavigator = () => {
   return (
     <Stack.Navigator screenOptions={screenOptionStyle}>
-      <Stack.Screen name="Home" component={Home} />
+      <Stack.Screen name="MainHome" component={Home} />
+      <Stack.Screen name="Main" component={MainFlowStackNavigator}/>
       <Stack.Screen name="About" component={About} />
+    </Stack.Navigator>
+  );
+};
+
+const MainFlowStackNavigator = () => {
+  return (
+    <Stack.Navigator initialRouteName='Search' screenOptions={screenOptionStyle}>
+      <Stack.Screen name="Search" component={Search} />
+      <Stack.Screen name="ResultsShow" component={ResultsShow} />
     </Stack.Navigator>
   );
 };
@@ -62,7 +73,6 @@ const DrawerNavigator = () => {
     <NavigationContainer>
     <Drawer.Navigator>
     <Drawer.Screen name="TopTab" component={TopTabNavigator} />
-
       <Drawer.Screen name="Home" component={BottomTabNavigator} />
       <Drawer.Screen name="Contact" component={ContactStackNavigator} />
     </Drawer.Navigator>
