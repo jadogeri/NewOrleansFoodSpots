@@ -1,9 +1,15 @@
 import React, {useState, useEffect} from "react";
-import {Platform,View, Text, FlatList, Image} from "react-native-web"
+import {Platform,View, Text, FlatList , Image} from "react-native"
+import {FlatList as ReactFlatList} from "flatlist-react/lib";
 import styles from "./ResultsShowStyles"
 import {api_root } from "../../api/yelp"
 import Location from "../../components/Location/Location";
 
+// const renderCompany = (company , index)=>{
+//     return(
+//         <Image  style={{width:400,height:200}} source={{uri : item}} />
+//     )
+// }
 const ResultsShowScreen = (props)=>{
     const [result,setResult] = useState(null);
     //const id = props.navigation.getParam('id');
@@ -22,7 +28,15 @@ const ResultsShowScreen = (props)=>{
     if(!result){
         return null;
     }
-    return Platform.OS === 'web'? <Text>this is web</Text>: <View>
+    return Platform.OS !== 'web'? 
+    <div>
+        <h1>this is web in div</h1>
+      
+
+    </div> : 
+    
+    
+    <View>
         <Text>{result.name}</Text>
         <FlatList
         
