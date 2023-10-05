@@ -1,6 +1,5 @@
 import React from "react"
-import { View, Text, TouchableOpacity } from "react-native"
-import FlatList  from "flatlist-react";
+import { View, Text, TouchableOpacity,FlatList } from "react-native"
 import styles from "./styles"
 import WebResultsDetail from "../ResultsDetail/ResultsDetail"
 import { useNavigation } from "@react-navigation/native";
@@ -15,17 +14,14 @@ const WebResultsList = (props) => {
         <Text style={styles.title}>{props.headerText}</Text>
         <Text>Results: {props.results.length} in webresultlist line 16</Text>
         <div style={{flex:1,flexDirection:'row'}}>
-        <FlatList    
-            key={(item)=>{return item.id}}
-            wrapperHtmlTag="div"            
-            list={props.results}
-            renderItem={(item,index) => {
-                return <TouchableOpacity onPress={()=>navigation.navigate("ResultsShow",{id: item.id})}>
-                         <br/>
-                        
-                     
-                            {/* <WebResultsDetail result={item} />  */}
-                    
+        <FlatList  
+            data={props.results}  
+            keyExtractor={(item)=>{return item.id}}          
+            renderItem={(item) => {
+                return <TouchableOpacity onPress={()=>navigation.navigate("ResultsShow",{id: item.id})}>                   
+                    <View style={{ flex: 1, flexDirection: 'row' }}>
+                            <WebResultsDetail result={item} /> 
+                        </View>
                        
                 </TouchableOpacity>
             }}
