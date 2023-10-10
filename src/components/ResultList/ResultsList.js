@@ -10,6 +10,7 @@ const ResultsList = (props) => {
     if(!props.results.length){
         return null;
     }
+    console.log(props.results.length)
     return <View style={styles.container}>
         <Text style={styles.title}>{props.headerText}</Text>
         <Text>Results: {props.results.length}</Text>
