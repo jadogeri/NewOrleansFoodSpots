@@ -11,8 +11,11 @@ import Contact from './src/screens/Contact/ContactScreen'
 import ResultsShow from './src/screens/ResultsShow/ResultsShowScreen'
 import WebResultsShow from './src/screens/WebResultsShow/WebResultsShowScreen'
 import Search from './src/screens/Search/SearchScreen'
-import  Icon  from "react-native-vector-icons/Ionicons";
+import Chat from "./src/screens/Chat/ChatScreen";
+import Setting from "./src/screens/Setting/SettingScreen"
+import Icon from "react-native-vector-icons/Ionicons";
 import MapViewScreen from "./src/screens/MapView/MapViewScreen";
+import { DrawerContent } from "./src/screens/DrawerContent/DrawerContentScreen";
 // import Test from './test'
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
@@ -23,10 +26,10 @@ const TopTabNavigator = () => {
   return (
     <TopTab.Navigator initialRouteName="MainTop">
       <TopTab.Screen name="MainTop" component={MainStackNavigator}
-       
+
       />
-      <TopTab.Screen name="ContactTop" component={ContactStackNavigator} 
-     />
+      <TopTab.Screen name="ContactTop" component={ContactStackNavigator}
+      />
     </TopTab.Navigator>
   );
 }
@@ -34,28 +37,25 @@ const TopTabNavigator = () => {
 
 const BottomTabNavigator = () => {
   return (
-    <Tab.Navigator  screenOptions={{
-
-      // tabBarActiveTintColor:'green',
-        tabBarInactiveTintColor:'gold',
-        tabBarActiveBackgroundColor:'brown',
-        activeColor:"pink",
-        inactiveColor:"black",
-        barStyle:{ backgroundColor: 'purple' },
-       
-      
-       
-
+    <Tab.Navigator screenOptions={{
+      tabBarInactiveTintColor: 'gold',
+      tabBarActiveBackgroundColor: 'brown',
+      activeColor: "pink",
+      inactiveColor: "black",
+      barStyle: { backgroundColor: 'purple' },
     }} activeColor='gold' >
       <Tab.Screen name="HomeTab" component={MainStackNavigator}
-      options={{
-        
-        tabBarIcon : ()=> ( <Icon  name="ios-home" size={26} color="gold"/>)}}
+        options={{ tabBarIcon: () => (<Icon name="ios-home" size={26} color="gold" />) }}
       />
-      <Tab.Screen name="ContactTab" component={ContactStackNavigator}
-      options={{
-        tabBarIcon : ()=> ( <Icon  name="ios-contact" size={26} color="gold"/>)}}
-         />
+      <Tab.Screen name="Search" component={Search}
+        options={{ tabBarIcon: () => (<Icon name="ios-search" size={26} color="gold" />) }}
+      />
+      <Tab.Screen name="Setting" component={Setting}
+        options={{ tabBarIcon: () => (<Icon name="ios-settings" size={26} color="gold" />) }}
+      />
+      <Tab.Screen name="Chat" component={Chat}
+        options={{ tabBarIcon: () => (<Icon name="ios-chatbox-ellipses" size={26} color="gold" />) }}
+      />
     </Tab.Navigator>
   );
 }
@@ -93,6 +93,7 @@ const MainFlowStackNavigator = () => {
 const ContactStackNavigator = () => {
   return (
     <Stack.Navigator screenOptions={screenOptionStyle}>
+
       <Stack.Screen name="Contact" component={Contact} />
     </Stack.Navigator>
   );
@@ -100,7 +101,7 @@ const ContactStackNavigator = () => {
 const DrawerNavigator = () => {
   return (
     <NavigationContainer>
-      <Drawer.Navigator screenOptions={{
+      <Drawer.Navigator drawerContent={props => <DrawerContent{...props} />} component={DrawerContent} screenOptions={{
         headerStyle: {
           backgroundColor: '#009387'
         },
@@ -109,9 +110,10 @@ const DrawerNavigator = () => {
           fontWeight: 'bold',
         }
       }}>
-        <Drawer.Screen name="TopTab" component={TopTabNavigator} />
+        <Drawer.Screen name="BottomTabNav" component={BottomTabNavigator} />
         <Drawer.Screen name="Home" component={BottomTabNavigator} />
         <Drawer.Screen name="ContactDrawer" component={ContactStackNavigator} options={{ title: 'Contact' }} />
+
       </Drawer.Navigator>
     </NavigationContainer>
   );
