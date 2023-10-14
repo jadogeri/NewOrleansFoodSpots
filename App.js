@@ -14,6 +14,7 @@ import Search from './src/screens/Search/SearchScreen'
 import Chat from "./src/screens/Chat/ChatScreen";
 import Setting from "./src/screens/Setting/SettingScreen"
 import Icon from "react-native-vector-icons/Ionicons";
+import Profile from './src/screens/Profile/ProfileScreen'
 import MapViewScreen from "./src/screens/MapView/MapViewScreen";
 import { DrawerContent } from "./src/screens/DrawerContent/DrawerContentScreen";
 // import Test from './test'
@@ -44,16 +45,19 @@ const BottomTabNavigator = () => {
       inactiveColor: "black",
       barStyle: { backgroundColor: 'purple' },
     }} activeColor='gold' >
-      <Tab.Screen name="HomeTab" component={MainStackNavigator}
+      <Tab.Screen name="Home" component={Home}
         options={{ tabBarIcon: () => (<Icon name="ios-home" size={26} color="gold" />) }}
       />
-      <Tab.Screen name="Search" component={Search}
+      <Tab.Screen name="Search" component={MainFlowStackNavigator}
         options={{ tabBarIcon: () => (<Icon name="ios-search" size={26} color="gold" />) }}
       />
       <Tab.Screen name="Setting" component={Setting}
         options={{ tabBarIcon: () => (<Icon name="ios-settings" size={26} color="gold" />) }}
       />
       <Tab.Screen name="Chat" component={Chat}
+        options={{ tabBarIcon: () => (<Icon name="ios-chatbox-ellipses" size={26} color="gold" />) }}
+      />
+      <Tab.Screen name="Profile" component={Profile}
         options={{ tabBarIcon: () => (<Icon name="ios-chatbox-ellipses" size={26} color="gold" />) }}
       />
     </Tab.Navigator>
@@ -100,7 +104,7 @@ const ContactStackNavigator = () => {
 };
 const DrawerNavigator = () => {
   return (
-    <NavigationContainer>
+    <NavigationContainer >
       <Drawer.Navigator drawerContent={props => <DrawerContent{...props} />} component={DrawerContent} screenOptions={{
         headerStyle: {
           backgroundColor: '#009387'
@@ -111,7 +115,7 @@ const DrawerNavigator = () => {
         }
       }}>
         <Drawer.Screen name="BottomTabNav" component={BottomTabNavigator} />
-        <Drawer.Screen name="Home" component={BottomTabNavigator} />
+        <Drawer.Screen name="Home" component={TopTabNavigator} />
         <Drawer.Screen name="ContactDrawer" component={ContactStackNavigator} options={{ title: 'Contact' }} />
 
       </Drawer.Navigator>

@@ -4,12 +4,12 @@ import styles from "./HomeStyles";
 
 const HomeScreen = (props) => {
 
-  useEffect(() => {
-    setTimeout(() => {
-      //alert('I am appearing...', 'After 5 seconds!');
-      props.navigation.navigate('Main',{nav:props})
-    }, 5000);
-  }, []);
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     //alert('I am appearing...', 'After 5 seconds!');
+  //     props.navigation.navigate('Main',{nav:props})
+  //   }, 5000);
+  // }, []);
   return (
     <ImageBackground style={{height:'100%',width:'100%',justifyContent:'center'}} source={require('../../../assets/food/logo-black.jpg')}>
     <View style={styles.center}>
