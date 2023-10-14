@@ -24,7 +24,7 @@ const TopTab = createMaterialTopTabNavigator();
 
 const TopTabNavigator = () => {
   return (
-    <TopTab.Navigator initialRouteName="MainTop">
+    <TopTab.Navigator container={TopTab}   initialRouteName="MainTop">
       <TopTab.Screen name="MainTop" component={MainStackNavigator}
 
       />

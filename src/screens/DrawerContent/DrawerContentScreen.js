@@ -31,8 +31,18 @@ export function DrawerContent(props) {
             <Text>Drawer Content</Text>
         </DrawerContentScrollView>
         <Drawer.Section style={styles.bottomDrawerSection}>
-
-        </Drawer.Section>
+                <DrawerItem 
+                    icon={({color, size}) => (
+                        <Icon 
+                        name="exit-to-app" 
+                        color={color}
+                        size={size}
+                        />
+                    )}
+                    label="Sign Out"
+                    onPress={() => {signOut()}}
+                />
+            </Drawer.Section>
     </View>
 }
 
