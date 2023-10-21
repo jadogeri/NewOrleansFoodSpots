@@ -4,9 +4,9 @@ const styles = StyleSheet.create({
     container: {
         width:'80%',
         height:'80%',
-        margin:30,
         padding:30,
-        alignSelf:'center'
+        alignSelf:'center',
+        marginBottom:100
     }
 })
 

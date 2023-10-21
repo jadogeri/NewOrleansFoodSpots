@@ -115,7 +115,7 @@ const DrawerNavigator = () => {
         }
       }}>
         <Drawer.Screen name="BottomTabNav" component={BottomTabNavigator} />
-        <Drawer.Screen name="Home" component={TopTabNavigator} />
+        {/* <Drawer.Screen name="Home1" component={TopTabNavigator} /> */}
         <Drawer.Screen name="ContactDrawer" component={ContactStackNavigator} options={{ title: 'Contact' }} />
 
       </Drawer.Navigator>

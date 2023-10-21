@@ -20,7 +20,7 @@ function Layout() {
   return (
     <View style={styles.container}>  
        <GoogleMap zoom={17} center={center} //mapContainerClassName="map-container" 
-    mapContainerStyle={{ width: '75vw', height: "75vh" }}
+    mapContainerStyle={{ width: '75vw', height: "50vh" }}
     >
       <Marker position={center} />
     </GoogleMap>

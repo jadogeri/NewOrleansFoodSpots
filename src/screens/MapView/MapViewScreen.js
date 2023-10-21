@@ -8,7 +8,7 @@ const MapViewScreen = (props) =>{
     const lng = props.route.params.lng;
 
 
-    return<View>
+    return<View style={{justifyContent: 'center'}}>
         <Text></Text>
      <Map lat={lat} lng={lng}/>
 
