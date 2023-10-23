@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useReducer, useMemo, useContext } from "react";
 import { StyleSheet, View, Text, Button } from "react-native";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { createStackNavigator } from "@react-navigation/stack";
@@ -17,15 +17,33 @@ import Icon from "react-native-vector-icons/Ionicons";
 import Profile from './src/screens/Profile/ProfileScreen'
 import MapViewScreen from "./src/screens/MapView/MapViewScreen";
 import { DrawerContent } from "./src/screens/DrawerContent/DrawerContentScreen";
+import SplashScreen from "./src/screens/Splash/SplashScreen"
+import SignInScreen from "./src/screens/SignIn/SignInScreen";
+import SignUpScreen from "./src/screens/SignUp/SignUpScreen"
+import {Provider as AuthProvider} from './src/comtext/AuthContext'
+import axios from 'axios'
 // import Test from './test'
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
+const Root = createStackNavigator();
 const Tab = createBottomTabNavigator();
 const TopTab = createMaterialTopTabNavigator();
 
+
+const RootStackNavigator = () => {
+  return (
+    <Root.Navigator screenOptions={screenOptionStyle} headerMode='none'>
+      <Root.Screen name="splash" component={SplashScreen} />
+      <Root.Screen name="signup" component={SignUpScreen} />
+      <Root.Screen name="signin" component={SignInScreen} />
+
+    </Root.Navigator>
+  );
+};
+
 const TopTabNavigator = () => {
   return (
-    <TopTab.Navigator container={TopTab}   initialRouteName="MainTop">
+    <TopTab.Navigator container={TopTab} initialRouteName="MainTop" >
       <TopTab.Screen name="MainTop" component={MainStackNavigator}
 
       />
@@ -103,25 +121,37 @@ const ContactStackNavigator = () => {
   );
 };
 const DrawerNavigator = () => {
+  // const [isLoading, setIsLoading] = React.useState(true);
+  // const [userToken, setUserToken] = React.useState(null); 
   return (
-    <NavigationContainer >
-      <Drawer.Navigator drawerContent={props => <DrawerContent{...props} />} component={DrawerContent} screenOptions={{
-        headerStyle: {
-          backgroundColor: '#009387'
-        },
-        headerTintColor: '#fff',
-        headerTitle: {
-          fontWeight: 'bold',
-        }
-      }}>
-        <Drawer.Screen name="BottomTabNav" component={BottomTabNavigator} />
-        {/* <Drawer.Screen name="Home1" component={TopTabNavigator} /> */}
-        <Drawer.Screen name="ContactDrawer" component={ContactStackNavigator} options={{ title: 'Contact' }} />
 
-      </Drawer.Navigator>
-    </NavigationContainer>
+    <Drawer.Navigator drawerContent={props => <DrawerContent{...props} />} component={DrawerContent} screenOptions={{
+      headerStyle: {
+        backgroundColor: '#009387'
+      },
+      headerTintColor: '#fff',
+      headerTitle: {
+        fontWeight: 'bold',
+      }
+    }}>
+      <Drawer.Screen name="root" component={RootStackNavigator} />
+      <Drawer.Screen name="BottomTabNav" component={BottomTabNavigator} />
+      <Drawer.Screen name="Home1" component={TopTabNavigator} />
+      <Drawer.Screen name="ContactDrawer" component={ContactStackNavigator} options={{ title: 'Contact' }} />
+
+    </Drawer.Navigator>
   );
 };
+
+const App = () => {
+  return (
+    <NavigationContainer >
+      <RootStackNavigator />
+
+    </NavigationContainer>
+  )
+
+}
 
 
 const styles = StyleSheet.create({
@@ -134,4 +164,42 @@ const styles = StyleSheet.create({
 });
 
 
-export default DrawerNavigator;
+//export default App;
+
+const App1 = () => {
+  const [data, setData] = useState('default')
+
+
+  const apiHandler = () => {
+   
+      axios.post('http://localhost:5000/api/users/login', {
+
+        
+          "username": "admin",
+          "password": "admin",
+          "email": "admin"
+      
+
+      }).then((response) => {
+        console.log(response);
+        setData(JSON.stringify(response))
+      }, (error) => {
+        console.log(error);
+      });   
+
+  }
+
+
+  return <View>
+    <Text> test app</Text>
+    < Button onPress={apiHandler} />
+    <Text>data below</Text>
+    <Text style={{ marginTop: 50 }}>default == {data}</Text>
+
+  </View>
+
+}
+
+export default ()=>(<AuthProvider>
+  <App1 />
+</AuthProvider>);

@@ -11,7 +11,7 @@ const HomeScreen = (props) => {
   //   }, 5000);
   // }, []);
   return (
-    <ImageBackground style={{height:'100%',width:'100%',justifyContent:'center'}} source={require('../../../assets/food/logo-black.jpg')}>
+    <ImageBackground style={{height:'100%',width:'100%',justifyContent:'center'}} source={require('../../../assets/logo/logo-black.jpg')}>
     <View style={styles.center}>
       {/* <Text>{Platform.OS === 'web'?'web':'not web'}</Text> */}
     </View>

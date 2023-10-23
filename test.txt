@@ -1,0 +1,144 @@
+import React, { useContext, useEffect } from 'react'
+import { View, StyleSheet, TouchableOpacity } from 'react-native'
+import AuthForm from '../components/AuthForm'
+import NavLink from '../components/NavLink'
+import { Context as AuthContext } from '../context/AuthContext'
+//import { NavigationEvents } from 'react-navigation'
+import { useIsFocused } from '@react-navigation/native'
+
+
+const SignInScreen = (props) => {
+
+    const { state, signin, clearErrorMessage } = useContext(AuthContext)
+    const isFocused = useIsFocused();
+
+    return <View style={styles.container}>
+        {() =>{clearErrorMessage();}}
+        {/* {isFocused?()=>{clearErrorMessage()}:()=>clearErrorMessage()} */}
+
+        {/* <NavigationEvents 
+            onWillFocus={()=>{clearErrorMessage();}}
+        
+        /> */}
+        <AuthForm
+            headerText='Sign in to your Account'
+            errorMessage={state.errorMessage}
+            submitButtonText='Sign In'
+            onSubmit={({ email, password }) => {
+                signin({ email, password });
+                if (state.errorMessage === '') {
+                    props.navigation.navigate('MainFlow');
+                }
+            }}
+
+        />
+        <NavLink
+            navigation={props.navigation}
+            text="Don't have an account? Sign up instead"
+            routeName='Signup'
+        />
+    </View>
+}
+
+SignInScreen.navigationOptions = function () {
+
+    return {
+        headerShown: false
+    };
+
+}
+const styles = StyleSheet.create({
+    container: {
+        width: 700,
+        flex: 1,
+        justifyContent: 'center',
+        marginBottom: 200
+    },
+    link: {
+        color: 'blue'
+    },
+    errorMessage: {
+        fontSize: 16,
+        color: 'red',
+        marginLeft: 15
+    }
+
+});
+
+export default SignInScreen;
+
+
+import React, { useState, useContext, useEffect } from 'react'
+import { View, StyleSheet, TouchableOpacity } from 'react-native'
+import { Button } from 'react-native-elements'
+import { Text, Input } from 'react-native-elements'
+import Spacer from '../components/Spacer'
+import { Context as AuthContext } from '../context/AuthContext'
+import AuthForm from '../components/AuthForm'
+import NavLink from '../components/NavLink'
+//import { NavigationEvents } from 'react-navigation'
+import { useIsFocused } from '@react-navigation/native'
+
+const SignUpScreen = (props) => {
+    const { state, signup, clearErrorMessage, tryLocalSignin } = useContext(AuthContext);
+    {() =>{clearErrorMessage();}}
+
+    // useEffect(() => {
+    //     tryLocalSignin();
+    // }, [])
+
+    return <View style={styles.container}>
+        {/* {isFocused?()=>{clearErrorMessage()}:()=>clearErrorMessage()} */}
+
+        <AuthForm
+            headerText='Sign Up for Tracker'
+            errorMessage={state.errorMessage}
+            submitButtonText='Sign Up'
+            onSubmit={({ email, password }) => {
+                signup(email, password);
+                if (state.errorMessage === ''){
+                   props.navigation.navigate('MainFlow');
+                }
+
+            }}
+/>
+        <NavLink
+            navigation={props.navigation}
+            routeName='Signin'
+            text='Already have an account? Sign in!'
+        />
+
+
+
+    </View>
+}
+
+SignUpScreen.navigationOptions = function () {
+
+    return {
+        headerShown: false
+
+    };
+
+}
+const styles = StyleSheet.create({
+    container: {
+        width: 700,
+        flex: 1,
+        justifyContent: 'center',
+        marginBottom: 200
+    },
+    link: {
+        color: 'blue'
+    },
+    errorMessage: {
+        fontSize: 16,
+        color: 'red',
+        marginLeft: 15
+    }
+
+});
+
+export default SignUpScreen;
+
+
