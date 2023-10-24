@@ -1,10 +1,9 @@
 import createDataContext from "./createDataContext";
-//import trackerApi from '../api/Tracker'
 import AsyncStorage from "@react-native-async-storage/async-storage";
 //import { navigate } from "../navigationRef";
 
-const initialState = {token : null,username : null, errorMessage : '', isLoading :  true}
-
+const initialState = {token : null,username : null, errorMessage : 'Josco Lee', isLoading :  true}
+const authApi = process.env.AUTH_API
 /**
  *  const loginReducer = (prevState, action) => {
     switch( action.type ) {
@@ -48,7 +47,7 @@ const authReducer = (state, action) => {
         case 'SIGN_UP':
             return { ...state, token: action.payload }
         case 'SIGN_IN':
-            return { ...state, token: action.payload }
+            return { ...state, token: action.payload,errorMessage:'joseph signed in' }
         case 'SIGN_OUT':
             return { errorMessage: '', token: action.payload }
         case 'clear_error_messade':
@@ -77,7 +76,7 @@ const clearErrorMessage = (dispatch) => {
 const signup = (dispatch) => {
     return async ({ email, password }) => {
         try {
-            const response = await trackerApi.post('./signup', { email, password });
+            const response = await authApi.post('.signup', { email, password });
             await AsyncStorage.setItem('token', response.data.token)
             dispatch({ type: 'SIGN_UP', payload: response.data.token })
 
@@ -89,10 +88,13 @@ const signup = (dispatch) => {
 }
 
 const signin = (dispatch) => {
-    return async ({ email, password }) => {
+    return async (email,password ) => {
         try {
-            const response = await trackerApi.post('./signin', { email, password });
+            console.log('called sig in with data')
+            console.log('email: ' + email + ' password: '+password)
+            const response = await authApi.post('./login', { email, password });
             await AsyncStorage.setItem('token', response.data.token)
+            console.log(response.data.token)
             dispatch({ type: 'SIGN_IN', payload: response.data.token })
 
         } catch (err) {

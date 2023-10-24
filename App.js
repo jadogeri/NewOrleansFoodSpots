@@ -20,7 +20,7 @@ import { DrawerContent } from "./src/screens/DrawerContent/DrawerContentScreen";
 import SplashScreen from "./src/screens/Splash/SplashScreen"
 import SignInScreen from "./src/screens/SignIn/SignInScreen";
 import SignUpScreen from "./src/screens/SignUp/SignUpScreen"
-import {Provider as AuthProvider} from './src/comtext/AuthContext'
+import { Provider as AuthProvider, Context as AuthContext } from './src/context/AuthContext'
 import axios from 'axios'
 // import Test from './test'
 const Drawer = createDrawerNavigator();
@@ -145,10 +145,12 @@ const DrawerNavigator = () => {
 
 const App = () => {
   return (
+
     <NavigationContainer >
       <RootStackNavigator />
 
     </NavigationContainer>
+
   )
 
 }
@@ -164,42 +166,9 @@ const styles = StyleSheet.create({
 });
 
 
-//export default App;
+export default () => {
+  return <AuthProvider>
+    <App />
+  </AuthProvider>
+};
 
-const App1 = () => {
-  const [data, setData] = useState('default')
-
-
-  const apiHandler = () => {
-   
-      axios.post('http://localhost:5000/api/users/login', {
-
-        
-          "username": "admin",
-          "password": "admin",
-          "email": "admin"
-      
-
-      }).then((response) => {
-        console.log(response);
-        setData(JSON.stringify(response))
-      }, (error) => {
-        console.log(error);
-      });   
-
-  }
-
-
-  return <View>
-    <Text> test app</Text>
-    < Button onPress={apiHandler} />
-    <Text>data below</Text>
-    <Text style={{ marginTop: 50 }}>default == {data}</Text>
-
-  </View>
-
-}
-
-export default ()=>(<AuthProvider>
-  <App1 />
-</AuthProvider>);

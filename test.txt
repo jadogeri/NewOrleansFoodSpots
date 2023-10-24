@@ -142,3 +142,46 @@ const styles = StyleSheet.create({
 export default SignUpScreen;
 
 
+------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------
+----------------------------------------------------------------------------------
+
+
+const App1 = () => {
+  const {initialState} = useContext(AuthContext)
+  const [data, setData] = useState('default')
+
+
+  const apiHandler = () => {
+   
+      axios.post('http://localhost:5000/api/users/login', {
+
+        
+          "username": "admin",
+          "password": "admin",
+          "email": "admin"
+      
+
+      }).then((response) => {
+        console.log(response);
+        setData(JSON.stringify(response))
+      }, (error) => {
+        console.log(error);
+      });   
+
+  }
+
+
+  return <View>
+    <Text> test app</Text>
+    < Button onPress={apiHandler} />
+    <Text>data below {initialState.errorMessage}</Text>
+    <Text style={{ marginTop: 50 }}>default == {data}</Text>
+
+  </View>
+
+}
+
+export default ()=>(<AuthProvider>
+  <App1 />
+</AuthProvider>);
