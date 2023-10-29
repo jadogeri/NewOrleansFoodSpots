@@ -1,13 +1,13 @@
 import { StyleSheet, Dimensions } from "react-native";
 
 
-const {height} = Dimensions.get("screen");
+const { height } = Dimensions.get("screen");
 const height_logo = height * 0.28;
 
 const styles = StyleSheet.create({
     container: {
-      flex: 1, 
-      backgroundColor: '#FDFBE2'
+        flex: 1,
+        backgroundColor: '#FDFBE2'
     },
     header: {
         flex: 2,
@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
     },
     text: {
         color: 'grey',
-        marginTop:5
+        marginTop: 5
     },
     button: {
         alignItems: 'flex-end',
@@ -46,12 +46,12 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         borderRadius: 50,
         flexDirection: 'row',
-        backgroundColor:'#08d4c4'
+        backgroundColor: '#08d4c4'
     },
     textSign: {
         color: 'white',
         fontWeight: 'bold'
     }
-  });
+});
 
-  export default styles;
+export default styles;

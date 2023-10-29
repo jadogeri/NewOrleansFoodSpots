@@ -1,5 +1,5 @@
-import React, { useState, useReducer, useMemo, useContext } from "react";
-import { StyleSheet, View, Text, Button } from "react-native";
+import React, { useState, useReducer, useMemo, useContext,useEffect } from "react";
+import { StyleSheet, View, Text, Button, ActivityIndicator } from "react-native";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
@@ -21,6 +21,15 @@ import SplashScreen from "./src/screens/Splash/SplashScreen"
 import SignInScreen from "./src/screens/SignIn/SignInScreen";
 import SignUpScreen from "./src/screens/SignUp/SignUpScreen"
 import { Provider as AuthProvider, Context as AuthContext } from './src/context/AuthContext'
+import { 
+  DefaultTheme as NavigationDefaultTheme,
+  DarkTheme as NavigationDarkTheme
+} from '@react-navigation/native';
+import { 
+  Provider as PaperProvider, 
+  DefaultTheme as PaperDefaultTheme,
+  DarkTheme as PaperDarkTheme 
+} from 'react-native-paper'
 import axios from 'axios'
 // import Test from './test'
 const Drawer = createDrawerNavigator();
@@ -134,7 +143,6 @@ const DrawerNavigator = () => {
         fontWeight: 'bold',
       }
     }}>
-      <Drawer.Screen name="root" component={RootStackNavigator} />
       <Drawer.Screen name="BottomTabNav" component={BottomTabNavigator} />
       <Drawer.Screen name="Home1" component={TopTabNavigator} />
       <Drawer.Screen name="ContactDrawer" component={ContactStackNavigator} options={{ title: 'Contact' }} />
@@ -144,13 +152,62 @@ const DrawerNavigator = () => {
 };
 
 const App = () => {
-  return (
+  const {state, tryLocalSignin} = useContext(AuthContext)
 
-    <NavigationContainer >
+  const [isDarkTheme, setIsDarkTheme] = React.useState(false);
+
+  const CustomDefaultTheme = {
+    ...NavigationDefaultTheme,
+    ...PaperDefaultTheme,
+      ...NavigationDefaultTheme,
+      ...PaperDefaultTheme,
+      background: '#ffffff',
+      text: '#333333'
+    
+  }
+  
+  const CustomDarkTheme = {
+    ...NavigationDarkTheme,
+    ...PaperDarkTheme,
+    ...NavigationDarkTheme,
+      ...PaperDarkTheme,
+      background: '#333333',
+      text: '#ffffff'
+    
+  }
+
+  const theme = isDarkTheme ? CustomDarkTheme : CustomDefaultTheme;
+
+  // //setNavigator(props.navigation)
+
+  useEffect(() => {
+  
+      tryLocalSignin();
+    
+    //NavigationEvents
+     
+  }, [])
+
+  if( state.isLoading ) {
+    return(
+      <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
+        <ActivityIndicator size="large"/>
+      </View>
+    );
+  }
+  
+  return (
+<PaperProvider theme={theme}>
+    <NavigationContainer  >
+      {state.isLoggedIn ?
+      <DrawerNavigator/>
+      :
       <RootStackNavigator />
 
-    </NavigationContainer>
+      }
 
+    </NavigationContainer>
+    </PaperProvider>
   )
 
 }

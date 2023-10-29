@@ -1,46 +1,33 @@
 import React, { useContext, useState } from "react";
 import styles from "./SignInStyles";
-import { View, Text, Button, Image, TouchableOpacity , TextInput} from 'react-native'
+import { View, Text, Button, Image, TouchableOpacity, TextInput } from 'react-native'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import * as Animatable from 'react-native-animatable'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
 import Feather from 'react-native-vector-icons/Feather'
-import { StatusBar } from "react-native-web";
-import {Context as AuthContext} from '../../context/AuthContext'
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import axios from "axios";
+import { StatusBar } from "react-native";
+import { Context as AuthContext } from '../../context/AuthContext'
 
+let defaultData = { email: '', password: '', username: '', secureTextEntry: true, check_textInputChange: false, hash: '' }
+const SignInScreen = ({ navigation }) => {
 
-let defaultData = { email: '', password: '', username: '', secureTextEntry: true, check_textInputChange: false,hash: '' }
-const SignInScreen = ({navigation}) => {
-    //const authApi = process.env.AUTH_API
-
-    const {signin,state} = useContext(AuthContext)
-    const apiAuth = axios.create({baseURL:"http://localhost:5000"})
-
+    const { signin, state ,token} = useContext(AuthContext)
 
     const [data, setData] = useState(defaultData)
 
-    const handleLogin = async (email, password)=>{
+    const handleLogin = async (email, password) => {
         try {
-    //const apiAuth = process.env.AUTH_API
-    
-    console.log(`email=== ${email} , password=== ${password}`)
-    signin(email,password)
-    const username = email
-    const response = await apiAuth.post('/api/users/login',{"email":email,"password":password,"username":username})   
+            console.log(`email=== ${email} , password=== ${password}`)
+            signin(email,password)
+            if(state.isLoggedIn)
+                navigation.navigate('Home')
+            //await AsyncStorage.setItem('token', JSON.parse(response.data))
+            //console.log(JSON.parse(response.data))
 
-console.log(typeof response.data)
+        } catch (err) {
+            console.log(err, 'an error')
+        }
 
-/console.log(JSON.stringify(response.data))
-setData({...data,hash:JSON.stringify(response.data)})
-        //await AsyncStorage.setItem('token', JSON.parse(response.data))
-        //console.log(JSON.parse(response.data))
-
-    } catch (err) {
-        console.log(err, 'an error')
-    }
-        
     }
     const textInputChange = (val) => {
         if (val.trim().length !== 0) {
@@ -73,14 +60,14 @@ setData({...data,hash:JSON.stringify(response.data)})
 
 
     return <View style={styles.container}>
-        <StatusBar backgroundColor='white' barStyle="light-content"/>
+        <StatusBar backgroundColor='white' barStyle="light-content" />
         <View style={styles.header}>
             <Text style={styles.text_header}>Welcome</Text>
         </View>
         <Animatable.View style={styles.footer} animation='fadeInUpBig'>
             <Text style={styles.text_footer}>Email</Text>
             <View style={styles.action}>
-                <FontAwesome name='user-o' color='#05375a' size={20}
+                <MaterialIcons name='email' color='#05375a' size={20}
                 />
                 <TextInput placeholder="Your Email" style={styles.textInput}
                     autoCapitalize="none" onChangeText={(input) => { textInputChange(input) }}
@@ -103,22 +90,22 @@ setData({...data,hash:JSON.stringify(response.data)})
                 />
                 <TouchableOpacity onPress={updateSecureEntry}>
                     {data.secureTextEntry ?
-                    <Feather name='eye-off' color='brown' size={20} />
-                    :
-                    <Feather name='eye' color='brown' size={20} />}
+                        <Feather name='eye-off' color='brown' size={20} />
+                        :
+                        <Feather name='eye' color='brown' size={20} />}
                 </TouchableOpacity>
             </View>
             <View style={styles.button}>
-            <TouchableOpacity onPress={()=>handleLogin(data.email,data.password) }
-                                         
-                style={[styles.signIn,{backgroundColor:'brown'}]}>
-                <Text style={{color:'white'}}>Sign In</Text>           
-            </TouchableOpacity>
+                <TouchableOpacity onPress={() => handleLogin(data.email, data.password)}
+
+                    style={[styles.signIn, { backgroundColor: 'brown' }]}>
+                    <Text style={{ color: 'white' }}>Sign In</Text>
+                </TouchableOpacity>
             </View>
-            <TouchableOpacity //onPress={()=>{navigation.navigate('signup')}}
-                style={[styles.signIn,{borderColor:'brown',borderWidth:1,marginTop: 15}]}>
-                <Text style={{color:'brown'}}>Sign Up</Text>   
-                <Text>has === {data.hash}</Text>        
+            <TouchableOpacity onPress={()=>{navigation.navigate('signup')}}
+                style={[styles.signIn, { borderColor: 'brown', borderWidth: 1, marginTop: 15 }]}>
+                <Text style={{ color: 'brown' }}>Sign Up</Text>
+                <Text>has === {state.token}</Text>
             </TouchableOpacity>
         </Animatable.View>
 
