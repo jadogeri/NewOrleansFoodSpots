@@ -2,6 +2,7 @@
 
 # dependencies
 node_modules/
+server/node_modules/
 config.js
 
 # Expo
@@ -34,3 +35,7 @@ yarn-error.*
 
 # typescript
 *.tsbuildinfo
+
+
+.env
+.vercel

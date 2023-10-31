@@ -105,7 +105,6 @@ const SignInScreen = ({ navigation }) => {
             <TouchableOpacity onPress={()=>{navigation.navigate('signup')}}
                 style={[styles.signIn, { borderColor: 'brown', borderWidth: 1, marginTop: 15 }]}>
                 <Text style={{ color: 'brown' }}>Sign Up</Text>
-                <Text>has === {state.token}</Text>
             </TouchableOpacity>
         </Animatable.View>
 
