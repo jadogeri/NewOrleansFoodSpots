@@ -149,7 +149,7 @@ const SignUpScreen = ({ navigation }) => {
             </View>
             <View style={styles.button}>
                 <TouchableOpacity onPress={() => { signup({username :data.username, email: data.email, password: data.password}) ;
-                                                    navigation.naigate('signin')}}
+                                                    navigation.navigate('signin')}}
                     style={[styles.signIn, { backgroundColor: 'brown' }]}>
                     <Text style={{ color: 'white' }}>Sign Up</Text>
                 </TouchableOpacity>
