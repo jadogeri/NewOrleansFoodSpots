@@ -4,7 +4,8 @@ import SearchBar from "../../components/SearchBar/SearchBar"
 import useResults from "../../hooks/useResults";
 import ResultsList from "../../components/ResultList/ResultsList";
 import WebResultsList from "../../components/WebResultsList/WebResultsList";
-
+import Sidebar from '../../components/Sidebar/Sidebar'
+import styles from "./SearchStyles";
 
 const SearchScreen = (props) => {
 
@@ -23,18 +24,23 @@ const SearchScreen = (props) => {
 
     console.log(results);    
 
-    return Platform.OS === 'web' ? <ScrollView style={{backgroundColor:'cream'}}>
+    return Platform.OS === 'web' ? <ScrollView style={{backgroundColor:'gold'}}>
+    
         <View>
       <SearchBar searchTerm={searchTerm}
             onTermChange={(newTerm) => { setSearchTerm(newTerm) }}
         />
         <Button title="Search" onPress={()=>{searchApi(searchTerm)}}/>  
         </View> 
-        <View style={{flexDirection:'column'}}>
-        <WebResultsList results={filterResultsByPrice('$')} headerText="Budget Options" />
+        <View style={{flexDirection:'row'}}>
+        <View style={styles.container}>
+
+            <Sidebar />
+           <View></View>
+        {/* <WebResultsList results={filterResultsByPrice('$')} headerText="Budget Options" />
          <WebResultsList results={filterResultsByPrice('$$')} headerText="Kinda Pricey" />
          <WebResultsList results={filterResultsByPrice('$$$')} headerText="$$$  wowza $$$" />
-         <WebResultsList results={filterResultsByPrice('$$$$')} headerText="Extravagant" /> 
+         <WebResultsList results={filterResultsByPrice('$$$$')} headerText="Extravagant" />  */}
 
  </View>
 
@@ -51,7 +57,7 @@ const SearchScreen = (props) => {
      renderWhenEmpty={() => <div>List is empty!</div>}
 
      /> */}
-    
+    </View>
     </ScrollView>
 
     :

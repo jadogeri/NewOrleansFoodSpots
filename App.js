@@ -65,19 +65,27 @@ const TopTabNavigator = () => {
 
 const BottomTabNavigator = () => {
   return (
-    <Tab.Navigator screenOptions={{
+    <Tab.Navigator initialRouteName='Search' screenOptions={{
       tabBarInactiveTintColor: 'gold',
       tabBarActiveBackgroundColor: 'brown',
       activeColor: "pink",
       inactiveColor: "black",
       barStyle: { backgroundColor: 'purple' },
     }} activeColor='gold' >
-      <Tab.Screen name="Home" component={Home}
+      {/* <Tab.Screen name="Home" component={Home}
+        options={{ tabBarIcon: () => (<Icon name="ios-home" size={26} color="gold" />) }}
+      />
+      <Tab.Screen name="Search" component={MainFlowStackNavigator}
+        options={{ tabBarIcon: () => (<Icon name="ios-search" size={26} color="gold" />) }}
+      /> */}
+
+<Tab.Screen name="Home" component={Home}
         options={{ tabBarIcon: () => (<Icon name="ios-home" size={26} color="gold" />) }}
       />
       <Tab.Screen name="Search" component={MainFlowStackNavigator}
         options={{ tabBarIcon: () => (<Icon name="ios-search" size={26} color="gold" />) }}
       />
+
       <Tab.Screen name="Setting" component={Setting}
         options={{ tabBarIcon: () => (<Icon name="ios-settings" size={26} color="gold" />) }}
       />
@@ -199,8 +207,9 @@ const App = () => {
   return (
 <PaperProvider theme={theme}>
     <NavigationContainer  >
-      {state.isLoggedIn ?
-      <DrawerNavigator/>
+      {!state.isLoggedIn ?      
+
+       <DrawerNavigator/>
       :
       <RootStackNavigator />
 
