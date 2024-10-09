@@ -58,8 +58,10 @@ const { MongoClient } = require("mongodb");
 //import { MongoClient } from 'mongodb';
 
 // Enable command monitoring for debugging
-// const client = new MongoClient('mongodb://localhost:27017', { monitorCommands: true });
+const client = new MongoClient('mongodb://0.0.0.0:27017', { monitorCommands: true });
+client.connect()
+client.on('commandStarted', started => console.log(started));
+client.db().collection('pets');
+client.connect();
 
-// client.on('commandStarted', started => console.log(started));
-// client.db().collection('pets');
-// await client.insertOne({ name: 'spot', kind: 'dog' });
+//client.insertOne({ name: 'spot', kind: 'dog' });
