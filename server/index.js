@@ -65,3 +65,17 @@ client.db().collection('pets');
 client.connect();
 
 //client.insertOne({ name: 'spot', kind: 'dog' });
+
+
+
+//test 
+MongoClient.connect('mongodb://localhost:27017/blogdb', {useUnifiedTopology: true} , (err, client) =>
+    {
+      if (err) throw err;
+      const db = client.db('blogdb');
+      const collection = db.collection('posts');
+      const users = db.collection('users');
+      app.locals.collection = collection;
+      app.locals.users = users;
+    
+    });
