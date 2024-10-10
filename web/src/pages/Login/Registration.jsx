@@ -5,6 +5,8 @@ import { Signup } from "./Signup";
 import img from "../../assets/food_pics/food1.jpg"
 // import { FaFacebookF } from "react-icons/fa";
 // import { FaGoogle } from "react-icons/fa";
+import Icon, { FontAwesome, Feather } from 'react-web-vector-icons';
+
 export const Registration = () => {
   const [isLogin, setIsLogin] = useState(false);
   return (
@@ -22,6 +24,7 @@ export const Registration = () => {
         </div>
         <div className="my-4 flex items-center justify-center border border-black rounded-lg space-x-1 p-2">
           {/* <FaGoogle /> */}
+          
           <p>Sign in with Google</p>
         </div>
         <div className="flex items-center justify-center border border-black rounded-lg space-x-1 p-2">

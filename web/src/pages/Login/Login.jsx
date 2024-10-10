@@ -16,7 +16,7 @@ export const Login = () => {
           <form>
             <div className="flex items-center space-x-1 bg-gray-200 rounded-lg p-2">
               {/* <CiUser className="text-xl" /> */}
-              <FontAwesomeIcon icon={faUser} className='text-xl' size='30' style={{color:"red"}} />
+              
               
               <input
                 className="bg-transparent w-full outline-none"
