@@ -8,6 +8,7 @@ import DashBoard from '../pages/DashBoard/DashBoard.jsx'
 import Home from '../pages/Home/Home.jsx'
 import TestPage from "../pages/TestPage/TestPage.jsx";
 import Login from "../pages/Login/Login.jsx";
+import Register from "../pages/Register/Register.jsx";
 import Registration from "../pages/Login/Registration.jsx";
 
 
@@ -23,6 +24,7 @@ const ProjectRoutes = () => {
 			<Route path="/forgotpassword" element={<ForgotPassword />} /> 
 			{/* <Route path="/login" element={<Login />} />  */}
 			<Route path="/login" element={<Registration />} /> 
+			<Route path="/register" element={<Register />} /> 
       		<Route path="*" element={<NoPage />} /> 
 			
 			<Route path="/test" element={<TestPage />} /> 				
