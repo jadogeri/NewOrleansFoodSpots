@@ -1,4 +1,5 @@
 
+
 const height = window.innerHeight;
 // const height_logo = height * 0.20;
 const height_logo = height * 0.20;
@@ -25,9 +26,7 @@ const styles = {
         borderTopRightRadius: 30,
         paddingVertical: 50,
         paddingHorizontal: 30,
-        height:200,
-        
-        
+        height:300,
         
     },
     logo: {
