@@ -1,11 +1,7 @@
-import React,{useEffect} from "react";
-import styles from "./HomeStyles";
-import { useNavigate } from "react-router-dom";
-import { motion } from "framer-motion";
-import { BackgroundImage } from 'react-image-and-background-image-fade'
+import React from 'react'
 
 
-const Home = () => {
+const TestPage = () => {
   return (
     <html
   key="1"
@@ -39,25 +35,113 @@ const Home = () => {
      />
   </head>
   <body>
-  
-  <div className="w3-container w3-theme w3-padding" id="myHeader">
-
-
-
-
-
-    
-    
-  <i onclick="w3_open()" className="fa fa-bars w3-xlarge w3-button w3-theme"></i> 
-  <div className="w3-center">
-
-  <h4>BEAUTIFUL RESPONSIVE WEB SITES</h4>
-  <h1 className="w3-xxxlarge w3-animate-bottom">BUILT WITH W3.CSS</h1>
-    <div className="w3-padding-32">
+    <div className="w3-top">
+      <div className="w3-bar w3-black w3-card">
+        <a
+          className="w3-bar-item w3-button w3-padding-large w3-hide-medium w3-hide-large w3-right"
+          href="javascript:void(0)"
+          onclick="myFunction()"
+          title="Toggle Navigation Menu"
+        >
+          <i className="fa fa-bars" />
+        </a>
+        <a
+          className="w3-bar-item w3-button w3-padding-large"
+          href="#"
+        >
+          HOME
+        </a>
+        <a
+          className="w3-bar-item w3-button w3-padding-large w3-hide-small"
+          href="#band"
+        >
+          BAND
+        </a>
+        <a
+          className="w3-bar-item w3-button w3-padding-large w3-hide-small"
+          href="#tour"
+        >
+          TOUR
+        </a>
+        <a
+          className="w3-bar-item w3-button w3-padding-large w3-hide-small"
+          href="#contact"
+        >
+          CONTACT
+        </a>
+        <div className="w3-dropdown-hover w3-hide-small">
+          <button
+            className="w3-padding-large w3-button"
+            title="More"
+          >
+            MORE{' '}
+            <i className="fa fa-caret-down" />
+          </button>
+          <div className="w3-dropdown-content w3-bar-block w3-card-4">
+            <a
+              className="w3-bar-item w3-button"
+              href="#"
+            >
+              Merchandise
+            </a>
+            <a
+              className="w3-bar-item w3-button"
+              href="#"
+            >
+              Extras
+            </a>
+            <a
+              className="w3-bar-item w3-button"
+              href="#"
+            >
+              Media
+            </a>
+          </div>
+        </div>
+        <a
+          className="w3-padding-large w3-hover-red w3-hide-small w3-right"
+          href="javascript:void(0)"
+        >
+          <i className="fa fa-search" />
+        </a>
+      </div>
     </div>
-  </div>
-</div>
-
+    <div
+      className="w3-bar-block w3-black w3-hide w3-hide-large w3-hide-medium w3-top"
+      id="navDemo"
+      style={{
+        marginTop: '46px'
+      }}
+    >
+      <a
+        className="w3-bar-item w3-button w3-padding-large"
+        href="#band"
+        onclick="myFunction()"
+      >
+        BAND
+      </a>
+      <a
+        className="w3-bar-item w3-button w3-padding-large"
+        href="#tour"
+        onclick="myFunction()"
+      >
+        TOUR
+      </a>
+      <a
+        className="w3-bar-item w3-button w3-padding-large"
+        href="#contact"
+        onclick="myFunction()"
+      >
+        CONTACT
+      </a>
+      <a
+        className="w3-bar-item w3-button w3-padding-large"
+        href="#"
+        onclick="myFunction()"
+      >
+        MERCH
+      </a>
+    </div>
     <div
       className="w3-content"
       style={{
@@ -65,12 +149,12 @@ const Home = () => {
         maxWidth: '2000px'
       }}
     >
-      <div className=" w3-display-container ">
+      <div className=" w3-display-container w3-center">
         <img
           src="../../../assets/logo/logo_color.png"
           style={{
             width: '100%',      
-            //height:700,
+            height:700,
        
   
          
@@ -507,50 +591,4 @@ const Home = () => {
   )
 }
 
-export default Home
-
-/*
-const Home = () => { 
-  const navigate = useNavigate();
-  return (
-    <BackgroundImage 
-    src='../../assets/logo/logo-black.jpg'
-    width='400px'
-    height='400px'
-    lazyLoad
-    useChild="true"
-    isResponsive 
-    style={{opacity : 1}}>
-    <p>hey</p>
-    <motion.div 
-        initial={{opacity: 1, y: "100%"}} animate={{opacity: 1, y: "50%"}}    transition={{duration: 1, ease: "easeOut"}} 
-    > 
-        <div style={styles.container}>
-            
-            <div style={styles.header}>
-                <img style={styles.logo}
-                    animation='bounceIn'  duration={1500} 
-                    src={require('../../assets/food_pics/food1.jpg') }                
-                />
-                <h4 style={styles.logo_name}>OPAO CHANGE ORDERS</h4>
-
-            </div>
-            <div style={styles.footer}>
-                <h4 style={styles.title}>Start Change Orders</h4>
-                <h4 style={styles.text}>Start Processing Change Orders with Ease</h4>
-                <button style={styles.signIn} onClick={()=> navigate('/signin') }>
-                <h4 style={styles.textSign}>Get Started</h4>
-                    
-                </button>
-            </div>
-        </div>
-    </motion.div>
-    </BackgroundImage>
-  )
-}
-
-
-
-export default Home;
-
-*/
+export default TestPage
