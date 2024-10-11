@@ -18,7 +18,7 @@ const Register = () => {
       <RegisterForm />
         <div className="pb-4 text-sm flex items-center justify-between">
             <p>Already have an account?</p>
-            <button onClick={()=>handleNavClickDelay("/login",2500,navigate, true, setIsActive)} className="font-semibold underline">Login</button>
+            <button onClick={()=>handleNavClickDelay("/login",1000,navigate, true, setIsActive)} className="font-semibold underline">Login</button>
         </div>
         <div className="flex items-center space-x-4">
      

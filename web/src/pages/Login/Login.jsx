@@ -1,43 +1,46 @@
-import React from 'react'
-// import { CiUser } from "react-icons/ci";
-// import { RiLockPasswordLine } from "react-icons/ri";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUser, faEnvelope } from '@fortawesome/free-solid-svg-icons';
-
+import React, { useState } from "react";
+import img from "../../assets/food_pics/food1.jpg"
+import LoginForm from "../../components/form/LoginForm/LoginForm";
+import { useNavigate } from "react-router-dom";
+import { handleNavClickDelay } from "../../handleNavClickDelay";
 
 export const Login = () => {
-    return (
-        <div>
-          <div className="text-center py-4">
-            <h1 className="text-7xl font-semibold">Login</h1>
-            <p className="font-light text-lg">
-              Please login to access our services
-            </p>
-          </div>
-          <form>
-            <div className="flex items-center space-x-1 bg-gray-200 rounded-lg p-2">
-              {/* <CiUser className="text-xl" /> */}
-            <i className="fa fa-user fa-lg" ></i> 
-        <i className="fa fa-key fa-lg"></i>
-              
-              <input
-                className="bg-transparent w-full outline-none"
-                type="text"
-                placeholder="username"
-              />
-            </div>
-            <div className="my-4 flex items-center space-x-1 bg-gray-200 rounded-lg p-2">
-              {/* <RiLockPasswordLine className="text-xl" /> */}
+  const navigate = useNavigate();
+  const [isActive, setIsActive] = useState(false);
 
-              <input
-                className="bg-transparent w-full outline-none"
-                type="password"
-                placeholder="password"
-              />
-            </div>
-            <button className="bg-black text-white rounded-lg w-full p-2 mb-4">Login</button>
-          </form>
+  return (
+    <div className="px-4 max-w-7xl mx-auto lg:space-x-20 flex justify-center items-center h-screen">
+      <div className="lg:w-[40%]">
+
+      <LoginForm />
+        <div className="pb-4 text-sm flex items-center justify-between">
+            <p>Don't have an account?</p>
+            <button onClick={()=>handleNavClickDelay("/register",1000,navigate,true,setIsActive)} className="font-semibold underline">Sign up</button>
         </div>
-      );
-}
-export default Login;
+        <div className="flex items-center space-x-4">
+          <hr className="w-full" />
+          <p className="shrink-0">Login with Others</p>
+          <hr className="w-full" />
+        </div>
+        <div className="my-4 flex items-center justify-center border border-black rounded-lg space-x-1 p-2">
+          {/* <FaGoogle /> */}
+          
+          <p>Sign in with Google</p>
+        </div>
+        <div className="flex items-center justify-center border border-black rounded-lg space-x-1 p-2">
+          {/* <FaFacebookF /> */}
+          <p>Sign in with Facebook</p>
+        </div>
+      </div>
+
+      <div className="w-1/2 hidden lg:block">
+        {/* <img className="rounded-2xl"  alt=""  src={boy}/> */}
+        <img className="rounded-2xl"  alt=""  src={img}/>
+
+      </div>
+    </div>
+  );
+};
+
+
+export default Login
