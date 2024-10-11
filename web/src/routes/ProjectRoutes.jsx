@@ -10,15 +10,17 @@ import TestPage from "../pages/TestPage/TestPage.jsx";
 import Login from "../pages/Login/Login.jsx";
 import Register from "../pages/Register/Register.jsx";
 import Registration from "../pages/Login/Registration.jsx";
-
-
+import { TransitionGroup, CSSTransition } from "react-transition-group";
 
 const ProjectRoutes = () => {
-
   return (
+
+	
 	<BrowserRouter >	
+	
 		<Routes >	
-					
+			
+			<Route></Route>
 			<Route path="/" element={<Home />} index /> 
 			<Route path="/resetpassword" element={ <ResetPassword />} /> 
 			<Route path="/forgotpassword" element={<ForgotPassword />} /> 
@@ -44,3 +46,13 @@ const ProjectRoutes = () => {
 }
 
 export default ProjectRoutes
+
+/*
+<TransitionGroup>
+<CSSTransition
+key={location.key}
+timeout={450}
+classNames="fade"		
+>
+
+*/

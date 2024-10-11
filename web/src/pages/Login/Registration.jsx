@@ -1,21 +1,21 @@
 import React, { useState } from "react";
-import { Login } from "./Login";
-import { Signup } from "./Signup";
-// import boy from '../assets/a boy standing  5dc9d970-8c4f-48ab-a215-e490926e192d.png'
 import img from "../../assets/food_pics/food1.jpg"
-// import { FaFacebookF } from "react-icons/fa";
-// import { FaGoogle } from "react-icons/fa";
-import Icon, { FontAwesome, Feather } from 'react-web-vector-icons';
+import LoginForm from "../../components/form/LoginForm/LoginForm";
+import { useNavigate } from "react-router-dom";
+import { handleNavClickDelay } from "../../handleNavClickDelay";
 
 export const Registration = () => {
-  const [isLogin, setIsLogin] = useState(false);
+  const navigate = useNavigate();
+  const [isActive, setIsActive] = useState(false);
+
   return (
     <div className="px-4 max-w-7xl mx-auto lg:space-x-20 flex justify-center items-center h-screen">
       <div className="lg:w-[40%]">
-      {isLogin ? <Login /> : <Signup />}
+
+      <LoginForm />
         <div className="pb-4 text-sm flex items-center justify-between">
-            <p>{isLogin ? "Don't have an account?" : 'Already have an account?'}</p>
-            <button onClick={() => setIsLogin(!isLogin)} className="font-semibold underline">{isLogin ? 'Sign up' : 'Login'}</button>
+            <p>Don't have an account?</p>
+            <button onClick={()=>handleNavClickDelay("/register",2500,navigate,true,setIsActive)} className="font-semibold underline">Sign up</button>
         </div>
         <div className="flex items-center space-x-4">
           <hr className="w-full" />

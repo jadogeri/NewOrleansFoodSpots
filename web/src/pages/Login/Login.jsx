@@ -4,6 +4,7 @@ import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faEnvelope } from '@fortawesome/free-solid-svg-icons';
 
+
 export const Login = () => {
     return (
         <div>
@@ -16,7 +17,8 @@ export const Login = () => {
           <form>
             <div className="flex items-center space-x-1 bg-gray-200 rounded-lg p-2">
               {/* <CiUser className="text-xl" /> */}
-              
+            <i className="fa fa-user fa-lg" ></i> 
+        <i className="fa fa-key fa-lg"></i>
               
               <input
                 className="bg-transparent w-full outline-none"
