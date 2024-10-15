@@ -10,12 +10,11 @@ import { Navigate,  Outlet } from "react-router-dom";
 
 const PrivateRoutes = () => {
 
-
   try{    
-     let auth = ""
+     let auth = localStorage.getItem("authKey")
      console.log(auth)
       return(
-        !auth  ? <Navigate to= '/signin'/> : <Outlet />      
+        !auth  ? <Navigate to= '/login'/> : <Outlet />      
       )
       
   }catch(e){
@@ -23,4 +22,4 @@ const PrivateRoutes = () => {
   }
 };
 
-export default PrivateRoutes;
+export default PrivateRoutes

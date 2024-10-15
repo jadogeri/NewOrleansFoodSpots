@@ -4,7 +4,7 @@ const errorHandler = require("./src/middlewares/errorHandler");
 const dotenv = require("dotenv").config();
 const cors = require("cors");
 const bodyParser = require("body-parser")
-const corsOptions = require("./src/configs/cors")
+const {corsOptions} = require("./src/configs/cors")
 const app = express();
 
 
