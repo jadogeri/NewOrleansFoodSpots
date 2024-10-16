@@ -4,13 +4,6 @@ import LoginForm from "../../components/form/LoginForm/LoginForm";
 import { useNavigate } from "react-router-dom";
 import { handleNavClickDelay } from "../../handleNavClickDelay";
 
-// setTimeout(() => {
-//   setIsActive(false);
-//   callback(route);
-// }, time);
-
-
-
 export const Login = () => {
   const navigate = useNavigate();
   const [isActive, setIsActive] = useState(false);
