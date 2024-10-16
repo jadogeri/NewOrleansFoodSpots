@@ -3,6 +3,7 @@ import img from "../../assets/food_pics/food1.jpg"
 import RegisterForm from '../../components/form/RegisterForm/RegisterForm';
 import { useNavigate } from 'react-router-dom';
 import { handleNavClickDelay } from '../../handleNavClickDelay';
+import UserData from '../../components/UserData';
 
 
 const Register = () => {
@@ -15,6 +16,8 @@ const Register = () => {
       
       <div className="lg:w-[40%]">
       {/* {isLogin ? <Login /> : <Signup />} */}
+
+      <UserData />
       <RegisterForm />
         <div className="pb-4 text-sm flex items-center justify-between">
             <p>Already have an account?</p>

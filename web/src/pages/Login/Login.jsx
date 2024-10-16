@@ -3,6 +3,7 @@ import img from "../../assets/food_pics/food1.jpg"
 import LoginForm from "../../components/form/LoginForm/LoginForm";
 import { useNavigate } from "react-router-dom";
 import { handleNavClickDelay } from "../../handleNavClickDelay";
+import UserData from "../../components/UserData";
 
 export const Login = () => {
   const navigate = useNavigate();
@@ -11,6 +12,7 @@ export const Login = () => {
   return (
     <div className="px-4 max-w-7xl mx-auto lg:space-x-20 flex justify-center items-center h-screen">
       <div className="lg:w-[40%]">
+<UserData />
 
       <LoginForm />
         <div className="pb-4 text-sm flex items-center justify-between">

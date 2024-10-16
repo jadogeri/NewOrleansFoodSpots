@@ -10,7 +10,7 @@ class User {
         this.created_date = getFormattedDate();
 
     }    
-    
+
     setUsername = (username) => this.username = username;
 
     setEmail = (email) => this.email = email;
@@ -29,3 +29,5 @@ class User {
 
     
 }
+
+export default User;
