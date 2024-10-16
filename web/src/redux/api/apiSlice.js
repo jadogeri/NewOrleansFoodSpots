@@ -1,6 +1,6 @@
 import { fetchBaseQuery, createApi } from "@reduxjs/toolkit/query/react";
 
-const baseQuery = fetchBaseQuery({ baseUrl:"http://10.10.1.236/api" });
+const baseQuery = fetchBaseQuery({ baseUrl: process.env.BASE_URL });
 
 export const apiSlice = createApi({
   baseQuery,

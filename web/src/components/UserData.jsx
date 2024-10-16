@@ -8,7 +8,7 @@ const UserData = () => {
     console.log("session data in Header tag === ",session)
   return (
     <>
-        <h1><strong>User Data</strong></h1>
+        <h1><strong>User Data == {process.env.REACT_APP_BASE_URL}</strong></h1>
         <p>username == {session.username}</p>
         <p>email == {session.email}</p>
         -------------------------------------
