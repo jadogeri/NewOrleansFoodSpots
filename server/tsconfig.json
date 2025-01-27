@@ -111,6 +111,6 @@
     },
     "include": [
       "./**/*.ts", "./*.ts", "./**/**.*.ts","./**/**.*.ts"
-    ],
+, "../client/src/models/User.ts"    ],
     "exclude": ["./node_modules/*","node_modules"]
   }

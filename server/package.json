@@ -20,11 +20,18 @@
   },
   "homepage": "https://github.com/jadogeri/NewOrleansFoodSpots#readme",
   "dependencies": {
+    "bcrypt": "^5.1.1",
     "express": "^4.21.2",
+    "express-async-handler": "^1.2.0",
+    "jsonwebtoken": "^9.0.2",
+    "jwt-check-expiry": "^1.0.10",
+    "jwt-decode": "^4.0.0",
+    "nanoid": "^5.0.9",
     "ts-node": "^10.9.2",
     "ts-node-dev": "^2.0.0"
   },
   "devDependencies": {
-    "@types/express": "^5.0.0"
+    "@types/express": "^5.0.0",
+    "@types/jsonwebtoken": "^9.0.8"
   }
 }
