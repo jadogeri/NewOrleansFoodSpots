@@ -1,32 +1,32 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import PrivateRoutes from "./PrivateRoutes.jsx";
 import React from 'react'
-import DashBoard from '../pages/DashBoard/DashBoard.jsx'
-import Home from '../pages/Home/Home.jsx'
-import TestPage from "../pages/TestPage/TestPage.jsx";
+import DashBoard from '../pages/DashBoard.jsx'
+import Home from '../pages/Home.jsx'
+import TestPage from "../pages/TestPage.jsx";
+import ForgotPassword from "../pages/ForgotPassword.jsx";
+import ResetPassword from "../pages/ResetPassword.jsx";
+import Login from "../pages/Login.jsx";
+import Register from "../pages/Register.jsx";
+import NoPage from "../pages/NoPage.jsx";
 
 
 const ProjectRoutes = () => {
 	
   return (
 	
-	<BrowserRouter >	
-	
-		<Routes >	
-			
-			<Route></Route>
-			<Route path="/" element={<Home />} index /> 
-		
+	<BrowserRouter >		
+		<Routes >				
+			<Route path="/" element={<Home />} index /> 		
 			<Route path="/test" element={<TestPage />} /> 	
-			
-
-    		<Route element={<PrivateRoutes />}>
-			<Route path="/dashboard" element={<DashBoard />} />				
-
-
-
-    		</Route>
-
+			<Route path="/login" element={<Login />} /> 	
+			<Route path="/resetpassword" element={<ResetPassword />}/>
+			<Route path="/forgotpassword" element={<ForgotPassword />}/>	
+			<Route path="/register" element={<Register />} /> 	
+			<Route path="*" element={<NoPage />} /> 
+			<Route element={<PrivateRoutes />}>
+				<Route path="/dashboard" element={<DashBoard />} />		
+		 	</Route>
   		</Routes>
 	</BrowserRouter>
 
@@ -34,13 +34,3 @@ const ProjectRoutes = () => {
 }
 
 export default ProjectRoutes
-
-/*
-<TransitionGroup>
-<CSSTransition
-key={location.key}
-timeout={450}
-classNames="fade"		
->
-
-*/
