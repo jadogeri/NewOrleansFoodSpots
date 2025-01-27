@@ -1,4 +1,5 @@
 declare global {
+  var localStorage: LocalStorage;
     namespace Express {
       interface Request {
 
