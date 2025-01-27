@@ -1,10 +1,12 @@
-class User{
+export class User{
 
-    private username : string;
+    private username : string ;
     private email : string;
 
 
     constructor(){
+        this.username = "";
+        this.email =""
 
     }
 
@@ -25,4 +27,3 @@ class User{
     }
 }
 
-export default User;

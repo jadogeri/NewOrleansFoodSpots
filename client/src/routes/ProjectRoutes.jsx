@@ -1,14 +1,14 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import PrivateRoutes from "./PrivateRoutes.jsx";
+import PrivateRoutes from "../../../client/src/routes/PrivateRoutes.jsx";
 import React from 'react'
-import DashBoard from '../pages/DashBoard.jsx'
-import Home from '../pages/Home.jsx'
-import TestPage from "../pages/TestPage.jsx";
-import ForgotPassword from "../pages/ForgotPassword.jsx";
-import ResetPassword from "../pages/ResetPassword.jsx";
-import Login from "../pages/Login.jsx";
-import Register from "../pages/Register.jsx";
-import NoPage from "../pages/NoPage.jsx";
+import DashBoard from '../../../client/src/pages/DashBoard.jsx'
+import Home from '../../../client/src/pages/Home.jsx'
+import TestPage from "../../../client/src/pages/TestPage.jsx";
+import ForgotPassword from "../../../client/src/pages/ForgotPassword.jsx";
+import ResetPassword from "../../../client/src/pages/ResetPassword.jsx";
+import Login from "../../../client/src/pages/Login.jsx";
+import Register from "../../../client/src/pages/Register.jsx";
+import NoPage from "../../../client/src/pages/NoPage.jsx";
 
 
 const ProjectRoutes = () => {
