@@ -1,52 +1,39 @@
+import { StyleSheet, Dimensions } from "react-native";
 
 
-const height = window.innerHeight;
-// const height_logo = height * 0.20;
-const height_logo = height * 0.20;
+const { height } = Dimensions.get("screen");
+const height_logo = height * 0.28;
 
-const styles = {
+const styles = StyleSheet.create({
     container: {
-      flex: 1, 
-      backgroundColor: 'white',
-      //backgroundColor: 'green',
-
-      //color:"green"
+        flex: 1,
+        backgroundColor: '#FDFBE2'
     },
     header: {
         flex: 2,
-        //justifyContent: 'center',
-        alignItems: 'center',
-        marginTop:10,
-        
+        justifyContent: 'center',
+        alignItems: 'center'
     },
     footer: {
-        //flex: 1,
-        backgroundColor: 'black',
+        flex: 1,
+        backgroundColor: '#fff',
         borderTopLeftRadius: 30,
         borderTopRightRadius: 30,
         paddingVertical: 50,
-        paddingHorizontal: 30,
-        height:300,
-        
+        paddingHorizontal: 30
     },
     logo: {
         width: height_logo,
-        height: height_logo,
-        
-    },
-    logo_name:{
-        fontSize:30,
-        fontWeight: 500
-
+        height: height_logo
     },
     title: {
-        color: 'white',
+        color: '#05375a',
         fontSize: 30,
         fontWeight: 'bold'
     },
     text: {
-        color: 'white',
-        marginTop:5
+        color: 'grey',
+        marginTop: 5
     },
     button: {
         alignItems: 'flex-end',
@@ -59,12 +46,12 @@ const styles = {
         alignItems: 'center',
         borderRadius: 50,
         flexDirection: 'row',
-        backgroundColor:'#08d4c4'
+        backgroundColor: '#08d4c4'
     },
     textSign: {
         color: 'white',
         fontWeight: 'bold'
     }
-  }
+});
 
-  export default styles;
+export default styles;
