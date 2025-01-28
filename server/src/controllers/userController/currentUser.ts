@@ -1,3 +1,10 @@
+/**
+ * @author Joseph Adogeri
+ * @version 1.0
+ * @since 27-JAN-2025
+ *
+ */
+
 const asyncHandler = require("express-async-handler");
 import { Response} from 'express';
 import { IJwtPayload } from '../../interfaces/IJWTPayload';

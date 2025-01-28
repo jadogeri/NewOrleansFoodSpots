@@ -6,7 +6,7 @@ import * as Animatable from 'react-native-animatable'
 //import { Context as AuthContext } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 
-const Home = ({ navigation }) => {
+const Home = () => {
     //const { state } = useContext(AuthContext)
     const navigate = useNavigate();
     return <View style={styles.container}>
