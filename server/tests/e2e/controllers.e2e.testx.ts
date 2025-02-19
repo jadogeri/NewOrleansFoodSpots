@@ -19,7 +19,7 @@ import {deactivateUserTest } from "./deactivateUserTest";
 describe('testing user and contact api requests', () => {
   
     global.localStorage = new LocalStorage('./tests/storage');
-   //registerUserTest();  
+   registerUserTest();  
     loginUserTest();
       /*
     currentUserTest()
