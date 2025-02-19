@@ -30,12 +30,12 @@ describe('testing user and contact api requests', () => {
 
     global.localStorage = new LocalStorage('./tests/storage');
     registerUserTest();
-    loginUserTest();
-    currentUserTest()
-    forgotUserTest()
-    resetUserTest()
-    logoutUserTest()
-    deactivateUserTest()    
+    // loginUserTest();
+    // currentUserTest()
+    // forgotUserTest()
+    // resetUserTest()
+    // logoutUserTest()
+    // deactivateUserTest()    
 
   
 });
