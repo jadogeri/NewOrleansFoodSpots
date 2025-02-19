@@ -1,10 +1,12 @@
-import {   expect } from '@jest/globals';
+import {  test } from '@jest/globals';
 const request = require('supertest');
 import { fileReader } from "../fileReader";
 const {BASE_URL}  = require("../constants")
 
 
-export const registerUserTest=async () => {
+export const registerUserTest = () => {
+
+  test('registers user Tesing in isolation', async () => {
 
     console.log(__dirname)
     let path  : string = __dirname + "/../__mocks__/user.json"
@@ -25,7 +27,7 @@ export const registerUserTest=async () => {
 
     expect(res.statusCode).toEqual(201);
  
-  
+  },30000)
 
 
   
