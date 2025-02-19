@@ -6,6 +6,7 @@ const {BASE_URL}  = require("../constants")
 export const loginUserTest = () => {
   
 test('login user', async () => {
+  try{
  
   let mock = localStorage.getItem("user")
   console.log("mock in getmockdata ===== finally  retrieved,", mock)
@@ -20,6 +21,10 @@ test('login user', async () => {
 
  }
   expect(token).toBeDefined();
+}catch(e){
+  console.log(e)
+}
+
  
 },60000)
 

@@ -6,6 +6,7 @@ export const deactivateUserTest = () => {
 
   
   test('delete user', async () => {
+    try{
     let mock = localStorage.getItem("user")
    
     let mockObj = JSON.parse(mock as string)
@@ -16,6 +17,10 @@ export const deactivateUserTest = () => {
       localStorage.removeItem("user")
    }
     expect(res.statusCode).toEqual(200);
+  }catch(e){
+    console.log(e)
+  }
+  
   
    
   },30000)

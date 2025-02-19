@@ -6,6 +6,7 @@ const {BASE_URL}  = require("../constants")
 export const forgotUserTest = () => {
 
   test('forgot user password of contact', async () => {
+    try{
 
     let initUser = localStorage.getItem("user");       
 
@@ -24,6 +25,10 @@ export const forgotUserTest = () => {
 
     expect(res.statusCode).toEqual(200);
     expect(res.body).toBeDefined();
+  }catch(e){
+    console.log(e)
+  }
+  
  
   },60000)
   

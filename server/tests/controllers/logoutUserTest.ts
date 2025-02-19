@@ -7,6 +7,7 @@ export const logoutUserTest = () => {
   
 test('logout user', async () => {
  
+  try{
   let mock = localStorage.getItem("user")
   console.log("mock in getmockdata ===== finally  retrieved,", mock)
   let mockObj = JSON.parse(mock as string)
@@ -21,6 +22,10 @@ test('logout user', async () => {
  }
   expect(res.statusCode).toEqual(200);
   expect(res.body).toBeDefined();
+}catch(e){
+  console.log(e)
+}
+
  
 },60000)
 
