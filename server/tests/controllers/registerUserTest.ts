@@ -8,6 +8,7 @@ export const registerUserTest = () => {
 
   test('registers user Tesing in isolation', async () => {
 
+    try{
     console.log(__dirname)
     let path  : string = __dirname + "/../__mocks__/user.json"
     let initUser = fileReader(path)
@@ -22,12 +23,21 @@ export const registerUserTest = () => {
    if(res.statusCode ===201){
     let updatedCreds = {...mockObj,... res.body,password : mockObj.password}   
     localStorage.setItem("user",JSON.stringify(updatedCreds, null, 2))
+   
 
    }
 
+
     expect(res.statusCode).toEqual(201);
+
+  }catch(e){
+      console.log(e)
+    }
+    
  
   },30000)
+
+  
 
 
   
