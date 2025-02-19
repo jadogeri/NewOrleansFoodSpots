@@ -2,7 +2,7 @@
   "name": "servertemplate",
   "version": "1.0.0",
   "description": "New Orleans Food Spots Server",
-  "main": "index.js",
+  "main": "index.ts",
   "scripts": {
     "build": "tsc",
     "test": "jest --runInBand --detectOpenHandles --colors",

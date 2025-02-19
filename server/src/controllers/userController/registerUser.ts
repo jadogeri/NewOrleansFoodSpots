@@ -15,7 +15,6 @@ import { isValidEmail, isValidPassword, isValidUsername, isValidatePhoneNumber }
 
 import { Recipient } from "../../types/Recipient";
 import { sendEmail } from "../../tools/mail/utils/sendEmail";
-import { sendSms } from "../../tools/phone/sendSms";
 /**
 *@desc Register a user
 *@route POST /api/users/register
@@ -71,8 +70,6 @@ export const registerUser = asyncHandler(async (req: Request, res : Response) =>
     let recipient : Recipient= {username : user.username, email: user.email, company : company}  
 try{  
    sendEmail('register-account', recipient);
-   //TODO ADD PHONE SENDING
-   sendSms("+15045414308",recipient)
   console.log(`User created ${JSON.stringify(user)}`);
   if (user) {
     //send response 
