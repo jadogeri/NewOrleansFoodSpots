@@ -1,5 +1,5 @@
 
-import mockingoose from 'mockingoose';
+const mockingoose = require("mockingoose");
 import User from '../../../src/models/userModel'; // Your User model
 import { IUser } from '../../../src/interfaces/IUser';
 import { validateStringEquality, validateNotEmpty } from '../../validators';
