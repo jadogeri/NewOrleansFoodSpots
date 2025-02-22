@@ -41,6 +41,7 @@ const LoginForm = () => {
     const password = loginForm.current?.password?.value;
      
   alert("calling login endpoint................")
+  console.log(login)
 login({email : email ,password: password})
 
 .then((response)=>{
@@ -65,6 +66,7 @@ login({email : email ,password: password})
 
 })
 .catch((response)=>{
+  alert(JSON.stringify(response))
   console.log(response)
   console.log(JSON.stringify(response))
 
