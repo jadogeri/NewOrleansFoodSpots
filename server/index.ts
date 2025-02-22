@@ -16,6 +16,7 @@ const port = process.env.PORT || 6000;
 
 app.use(express.json());
 app.use(cors(corsOptions));
+app.options('*', cors())
 
 //app.use("/api/contacts", require("./src/routes/contactRoutes"))
 
