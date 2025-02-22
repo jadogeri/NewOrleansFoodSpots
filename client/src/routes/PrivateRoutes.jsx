@@ -11,10 +11,10 @@ import { Navigate,  Outlet } from "react-router-dom";
 const PrivateRoutes = () => {
 
   try{    
-     let auth = localStorage.getItem("authKey")
-     console.log(auth)
+     let auth = localStorage.getItem("AUTHKEY")
+
       return(
-        !auth  ? <Navigate to= '/login'/> : <Outlet />      
+        auth === null  ? <Navigate to= '/login'/> : <Outlet />      
       )
       
   }catch(e){

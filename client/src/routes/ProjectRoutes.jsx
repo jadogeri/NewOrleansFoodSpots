@@ -1,53 +1,43 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import PrivateRoutes from "./PrivateRoutes.jsx";
 import React from 'react'
-import DashBoard from "../pages/DashBoard.jsx";
-import ForgotPassword from "../pages/ForgotPassword.jsx";
-import ResetPassword from "../pages/ResetPassword.jsx"
-import NoPage from '../pages/NoPage.jsx';
-import Home from '../pages/Home.jsx'
-import TestPage from "../pages/TestPage.jsx";
-import Register from "../pages/Register.jsx";
-import Login from "../pages/Login.jsx";
-// import Header from "../layouts/Header.jsx";
-// import Footer from "../layouts/Footer.jsx";
-// import { Navigation } from "../layouts/Navigation.jsx";
-
+import ForgotPassword from "../pages/ForgotPassword/ForgotPassword.jsx";
+import ResetPassword from "../pages/ResetPassword/ResetPassword.jsx"
+import NoPage from '../pages/NoPage/NoPage.jsx';
+import DashBoard from '../pages/DashBoard/DashBoard'
+import Home from '../pages/Home/Home.jsx'
+import TestPage from "../pages/TestPage/TestPage.jsx";
+import Register from "../pages/Register/Register.jsx";
+import Login from "../pages/Login/Login.jsx";
 
 const ProjectRoutes = () => {
+	let auth = localStorage.getItem("AUTHKEY");
+	
+	console.log("in projectsss auth ===  ",auth)
+
   return (
 
 	
-	<BrowserRouter >	
-	{/* <Header />
-	<Footer />
-	 */}
-	 {/* <Navigation /> */}
-		<Routes >	
-			
-			<Route></Route>
-			
-			<Route path="/" element={<Home />} index /> 
-			<Route path="/resetpassword" element={ <ResetPassword />} /> 
-			<Route path="/forgotpassword" element={<ForgotPassword />} /> 
-			<Route path="/login" element={<Login />} /> 
-			<Route path="/register" element={<Register />} /> 
-      		<Route path="*" element={<NoPage />} /> 
-			
+	<BrowserRouter >
+		<Routes >				
+			<Route path="/" element={auth ? <Navigate to="/dashboard" /> : <Home />} index /> 
+			<Route path="/resetpassword" element={auth ? <Navigate to="/dashboard" /> : <ResetPassword />} /> 
+			<Route path="/forgotpassword" element={auth ? <Navigate to="/dashboard" /> :<ForgotPassword />} /> 
+			<Route path="/login" element={auth ? <Navigate to="/dashboard" /> :<Login />} /> 
+			<Route path="/register" element={auth ? <Navigate to="/dashboard" /> :<Register />} /> 
 			<Route path="/test" element={<TestPage />} /> 		
-
     		<Route element={<PrivateRoutes />}>
+            <Route path="/dashboard" element={<DashBoard />  } />
+  
 
-                <Route path="/dashboard" element={<DashBoard />} />				
 
     		</Route>
-
 			<Route path="*" element={<NoPage />} />
-
-  		</Routes>
+		</Routes>
 	</BrowserRouter>
 
   )
 }
 
 export default ProjectRoutes
+
