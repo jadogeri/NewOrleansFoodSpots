@@ -9,6 +9,8 @@ import { useSelector} from "react-redux";
 import { selectSessionError } from "../../redux/feature/session/sessionSlice";
 
 const Login = () => {
+  const BASE_URL =  process.env.REACT_APP_NOFS_SERVER_URL
+alert(BASE_URL)
     const errorMessage1 = useSelector(selectSessionError)
     const [isActive, setIsActive] = useState(false);
     const navigate = useNavigate();
