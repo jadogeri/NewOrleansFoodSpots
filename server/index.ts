@@ -4,7 +4,7 @@ dotenv.config();
 
 import express,{ Request, Response } from 'express';
 import MongoDatabase from './src/entities/MongoDatabase';
-const bodyParser = require('body-parser');
+import bodyParser from 'body-parser';
 const errorHandler = require("./src/middlewares/errorHandler");
 import {corsOptions} from "./src/configs/cors"
 import cors from "cors";
@@ -14,10 +14,9 @@ const app = express();
 
 const port = process.env.PORT || 6000;
 // Middleware
-
+app.use(bodyParser.json())
 app.use(express.json());
 app.use(cors(corsOptions)) // Use this after the variable declaration
-app.use(bodyParser.json())
 
 //app.use("/api/contacts", require("./src/routes/contactRoutes"))
 
