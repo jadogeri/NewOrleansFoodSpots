@@ -61,6 +61,7 @@
   "devDependencies": {
     "@types/bcrypt": "^5.0.2",
     "@types/bluebird": "^3.5.42",
+    "@types/cors": "^2.8.17",
     "@types/email-templates": "^10.0.4",
     "@types/express": "^5.0.0",
     "@types/jest": "^29.5.14",

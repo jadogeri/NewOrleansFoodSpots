@@ -1,8 +1,9 @@
-const corsOptions = {
+import { CorsOptions } from "cors";
+
+export const corsOptions : CorsOptions= {
     origin:'*', 
-    credentials:true,            //access-control-allow-credentials:true
-    optionSuccessStatus:200,
+    credentials:true,            
+    optionsSuccessStatus:200,
     methods: ["GET", "POST", "PUT", "DELETE"],
 }
 
-module.exports = {corsOptions};
