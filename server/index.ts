@@ -14,9 +14,9 @@ const app = express();
 
 const port = process.env.PORT || 5000;
 // Middleware
-app.use(bodyParser.json())
 app.use(express.json());
 app.use(cors(corsOptions)) // Use this after the variable declaration
+app.use(bodyParser.json())
 app.use(errorHandler);
 
 //app.use("/api/contacts", require("./src/routes/contactRoutes"))
