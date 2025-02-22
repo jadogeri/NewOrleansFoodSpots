@@ -12,17 +12,17 @@ import cors from "cors";
 
 const app = express();
 
-const port = process.env.PORT || 6000;
+const port = process.env.PORT || 5000;
 // Middleware
 app.use(bodyParser.json())
 app.use(express.json());
 app.use(cors(corsOptions)) // Use this after the variable declaration
+app.use(errorHandler);
 
 //app.use("/api/contacts", require("./src/routes/contactRoutes"))
 
 app.use("/api/users", require("./src/routes/userRoutes"));
 
-app.use(errorHandler);
 
 app.get('/', (req: Request, res : Response) => {
   res.send({message:"home"});
