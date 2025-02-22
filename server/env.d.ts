@@ -25,6 +25,8 @@ declare global {
         TWILIO_AUTH_TOKEN : string;
         TWILIO_PHONE_NUMBER : string;
         COMPANY : string;
+        DEV_ORIGIN : string;
+        PROD_ORIGIN : string;
       }
     }
   }
