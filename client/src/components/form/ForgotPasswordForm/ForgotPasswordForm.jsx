@@ -13,7 +13,6 @@ import ForgotPasswordModal from '../../modals/ForgotPasswordModal';
 
 
 const ForgotPasswordForm = () => {
-  const [isActive, setIsActive] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -100,7 +99,7 @@ const ForgotPasswordForm = () => {
           <div className="pb-4 text-sm flex items-center justify-between">
           <p style={{color:"green"}}>Remember Password?</p>
           <button onClick={()=>{dispatch(setError(""));
-                         handleNavClickDelay("/login",1000,navigate, true, setIsActive,{email : email})}} className="font-semibold underline"
+                         handleNavClickDelay("/login",1000,navigate, true, {email : email})}} className="font-semibold underline"
             style={{color:"green"}}
             >Login</button>
       </div>

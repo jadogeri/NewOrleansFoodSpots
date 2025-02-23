@@ -1,9 +1,9 @@
 
-export const handleNavClickDelay = (route, time,  callback, isActive, setIsActive,state = null) => {
+export const handleNavClickDelay = (route, time,  callback, isActive,state = null) => {
 
     if(isActive){
         setTimeout(() => {
-            setIsActive(false);
+            //setIsActive(false);
             callback(route,{state : state});
         }, time);
 

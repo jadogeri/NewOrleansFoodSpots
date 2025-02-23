@@ -13,7 +13,6 @@ const RegisterForm = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const [ register ] = useRegisterMutation();
-  const [isActive, setIsActive] = useState(false);
   const dispatch = useDispatch();
   const registerForm = useRef(null);
 

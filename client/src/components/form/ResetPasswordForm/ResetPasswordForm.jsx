@@ -11,7 +11,6 @@ import "./styles.css"
 import {openModal} from "../../../utils/htmlUtil/openModal"
 
 const ResetPasswordForm = () => {
-  const [isActive, setIsActive] = useState(false);
   const navigate = useNavigate();
 
  const resetPasswordFormRef = useRef("");
@@ -140,7 +139,7 @@ const onBlurHandler = function(current_className) {
     </div>
           <div className="pb-4 text-sm flex items-center justify-between">
           <p  style={{fontStyle:"italic",cursor: "pointer",color:"green"}}>Remember Password?</p>
-          <button onClick={()=>{ dispatch(setError(""));handleNavClickDelay("/login",1000,navigate, true, setIsActive,{email : email})}} className="font-semibold underline"
+          <button onClick={()=>{ dispatch(setError(""));handleNavClickDelay("/login",1000,navigate, true,{email : email})}} className="font-semibold underline"
             style={{fontStyle:"italic",cursor: "pointer",color:"green"}}
             
             >Login</button>

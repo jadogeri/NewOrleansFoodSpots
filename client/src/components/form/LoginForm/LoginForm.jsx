@@ -102,8 +102,8 @@ login({email : email ,password: password})
                   inputClassName="bg-transparent w-full outline-none" type="password" placeholder="password" 
                   iconClassName="fa fa-lock fa-lg" required={true}  onChange={onChangePasswordHandler}/>
           <div className="pb-4 text-sm flex items-center justify-between">
-            <p onClick={()=>handleNavClickDelay("/forgotpassword",1000,navigate,true,setIsActive, {email : email})}  style={{fontStyle:"italic",cursor: "pointer",color:"green" }}>Forgot password?</p>
-            <p onClick={()=>handleNavClickDelay("/resetpassword",1000,navigate,true,setIsActive, {email : email})} className="font-semibold underline" style={{fontStyle:"italic",cursor: "pointer",color:"green"}}
+            <p onClick={()=>handleNavClickDelay("/forgotpassword",1000,navigate,true, {email : email})}  style={{fontStyle:"italic",cursor: "pointer",color:"green" }}>Forgot password?</p>
+            <p onClick={()=>handleNavClickDelay("/resetpassword",1000,navigate,true, {email : email})} className="font-semibold underline" style={{fontStyle:"italic",cursor: "pointer",color:"green"}}
               >Change Password</p>
         </div>
 
