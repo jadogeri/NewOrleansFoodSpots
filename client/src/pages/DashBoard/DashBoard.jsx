@@ -1,25 +1,12 @@
 import React from 'react'
 import "./d.css"
 import {block, 
-  //carousel,
-  myFunction, none} from "./d.js"
+
+myFunction, none} from "./d.js"
+import Footer from '../../layouts/Footer.jsx'
 
 const DashBoard = () => {
-  //carousel()
-  let myIndex = 0;
-carousel();
- function carousel() {
-  let i;
-  let x = document.getElementsByClassName("mySlides");
-  console.log(x)
-  for (i = 0; i < x.length; i++) {
-    x[i].style.display = "none";  
-  }
-  myIndex++;
-  if (myIndex > x.length) {myIndex = 1}    
-  x[myIndex-1].style.display = "block";  
-  setTimeout(carousel, 4000);    
-}
+
   return (
   
 <>
@@ -203,18 +190,7 @@ carousel();
 {/* <!-- Image of location/map --> */}
 <img src="https://www.w3schools.com/w3images/map.jpg" className="w3-image w3-greyscale-min" style={{width:"100%"}}/>
 
-{/* <!-- Footer --> */}
-<footer className="w3-container w3-padding-64 w3-center w3-opacity w3-light-grey w3-xlarge">
-  <i className="fa fa-facebook-official w3-hover-opacity"></i>
-  <i className="fa fa-instagram w3-hover-opacity"></i>
-  <i className="fa fa-snapchat w3-hover-opacity"></i>
-  <i className="fa fa-pinterest-p w3-hover-opacity"></i>
-  <i className="fa fa-twitter w3-hover-opacity"></i>
-  <i className="fa fa-linkedin w3-hover-opacity"></i>
-  <p className="w3-medium">Powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</a></p>
-</footer>
-
-
+<Footer/>
 
 </>
 
