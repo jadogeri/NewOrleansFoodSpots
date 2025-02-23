@@ -12,69 +12,60 @@ const LoginForm = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState(location.state?.email ? location.state.email : ""  );
   const [password,setPassword] = useState(""); 
-  const [isActive, setIsActive] = useState(false);
   const dispatch = useDispatch();
-
-
 
   const loginForm = useRef(null);
   const [ login ] = useLoginMutation();
-
-
-
   const onChangeEmailHandler=(e)=>{
     e.preventDefault();
     setEmail(e.target.value);
-
   }
 
   const onChangePasswordHandler=(e)=>{
     e.preventDefault();
     setPassword(loginForm.current.password.value)
-    dispatch(setError(""))
-  
+    dispatch(setError(""))  
   }
 
   const handleSubmit = (e) => {
-
     e.preventDefault();  
     const password = loginForm.current?.password?.value;
      
-  alert("calling login endpoint................")
-  console.log(login)
-login({email : email ,password: password})
+    console.log(login)
+    login({email : email ,password: password})
+    .then((response)=>{
+      if(response.error){
+        if(response.error.originalStatus == 423 && !response?.error?.data?.message ){
+          dispatch(setError("Account is locked, use forget account to access acount"));
+        }
+        else{
+          console.log(response)
+          console.log(JSON.stringify(response))
+          
+        
+          console.log(response.error)
+          console.log(JSON.stringify(response.error))
+          dispatch(setError(response.error.data.message))
 
-.then((response)=>{
-  if(response.error){
+        }
 
-    console.log(response)
-    console.log(JSON.stringify(response))
-    
-  
-    console.log(response.error)
-    console.log(JSON.stringify(response.error))
-    dispatch(setError(response.error.data.message))
+      }
+      else{
+
+        console.log("logging in ..............")
+        console.log(response.data)
+      localStorage.setItem("AUTHKEY",JSON.stringify(response.data))
+      console.log("from storage == ",localStorage.getItem("AUTHKEY"))
+      navigate("/dashboard",{ state : response.data})
+      }
+
+    })
+    .catch((response)=>{
+      alert(JSON.stringify(response))
+      console.log(response)
+      console.log(JSON.stringify(response))
+    })
   }
-  else{
-
-    console.log("logging in ..............")
-    console.log(response.data)
-  localStorage.setItem("AUTHKEY",JSON.stringify(response.data))
-  console.log("from storage == ",localStorage.getItem("AUTHKEY"))
-  navigate("/dashboard",{ state : response.data})
-  }
-
-})
-.catch((response)=>{
-  alert(JSON.stringify(response))
-  console.log(response)
-  console.log(JSON.stringify(response))
-
-
-})
-
-
-}
     return (
       <div className='container' style={{backgroundColor:"black"}}>
         <div className="text-center py-4">
@@ -82,14 +73,14 @@ login({email : email ,password: password})
           style={{
 
             textAlign: 'center',
-            textShadowColor: 'green',
+            textShadowColor: 'gold',
             textShadowRadius: 20,
-            color:"green"
+            color:"gold"
         
           }}
           
           >Login</h1>
-          <p className="font-light text-lg" style={{fontStyle: "italic",fontWeight: "bold",color:"green" }}>
+          <p className="font-light text-lg" style={{fontStyle: "italic",fontWeight: "bold",color:"gold" }}>
             Please login to access our services
           </p>
         </div>
@@ -102,16 +93,14 @@ login({email : email ,password: password})
                   inputClassName="bg-transparent w-full outline-none" type="password" placeholder="password" 
                   iconClassName="fa fa-lock fa-lg" required={true}  onChange={onChangePasswordHandler}/>
           <div className="pb-4 text-sm flex items-center justify-between">
-            <p onClick={()=>handleNavClickDelay("/forgotpassword",1000,navigate,true, {email : email})}  style={{fontStyle:"italic",cursor: "pointer",color:"green" }}>Forgot password?</p>
-            <p onClick={()=>handleNavClickDelay("/resetpassword",1000,navigate,true, {email : email})} className="font-semibold underline" style={{fontStyle:"italic",cursor: "pointer",color:"green"}}
+            <p onClick={()=>handleNavClickDelay("/forgotpassword",1000,navigate,true, {email : email})}  style={{fontStyle:"italic",cursor: "pointer",color:"gold" }}>Forgot password?</p>
+            <p onClick={()=>handleNavClickDelay("/resetpassword",1000,navigate,true, {email : email})} className="font-semibold underline" style={{fontStyle:"italic",cursor: "pointer",color:"gold"}}
               >Change Password</p>
         </div>
 
-          <button className="bg- text-white rounded-lg w-full p-2 mb-4" style={{backgroundColor:"green"}}>Login</button>
+          <button className="bg- text-white rounded-lg w-full p-2 mb-4" style={{backgroundColor:"gold",color:"black"}}>Login</button>
         
         </form>
-
-
         
       </div>
     );
