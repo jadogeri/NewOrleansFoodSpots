@@ -35,14 +35,20 @@ const LoginForm = () => {
     login({email : email ,password: password})
     .then((response)=>{
       if(response.error){
-
-        console.log(response)
-        console.log(JSON.stringify(response))
+        if(response.error.originalStatus == 423 && !response?.error?.data?.message ){
+          dispatch(setError("Account is locked, use forget account to access acount"));
+        }
+        else{
+          console.log(response)
+          console.log(JSON.stringify(response))
+          
         
-      
-        console.log(response.error)
-        console.log(JSON.stringify(response.error))
-        dispatch(setError(response.error.data.message))
+          console.log(response.error)
+          console.log(JSON.stringify(response.error))
+          dispatch(setError(response.error.data.message))
+
+        }
+
       }
       else{
 
