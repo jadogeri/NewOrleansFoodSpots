@@ -9,7 +9,6 @@ import { selectSessionError } from "../../redux/feature/session/sessionSlice";
 
 const Register = () => {
   const errorMessage = useSelector(selectSessionError)
-  const [isActive, setIsActive] = useState(false);
   const navigate = useNavigate();
 
   return (
@@ -25,7 +24,7 @@ const Register = () => {
       <RegisterForm />
         <div className="pb-4 text-sm flex items-center justify-between">
             <p style={{color:"green"}}>Already have an account?</p>
-            <button onClick={()=>handleNavClickDelay("/login",1000,navigate, true, setIsActive)} className="font-semibold underline"
+            <button onClick={()=>handleNavClickDelay("/login",1000,navigate, true)} className="font-semibold underline"
               style={{color:"green"}}>Login</button>
         </div>
         {
