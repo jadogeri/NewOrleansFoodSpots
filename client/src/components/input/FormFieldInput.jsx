@@ -20,7 +20,8 @@ containerClassName,
 iconClassName,
 onInvalid,
 onInput,
-value
+value,
+width
 
 })  =>{
 
@@ -50,7 +51,8 @@ value
       className={inputClassName}
       onInvalid={onInvalid}
       onInput={onInput}
-      value={value}        
+      value={value}    
+      width={width}    
       />
 
 </div>
