@@ -15,6 +15,7 @@ import Contact from "../pages/Contact/Contact.jsx";
 import Profile from "../pages/Profile/Profile.jsx";
 import Review from "../pages/Review/Review.jsx";
 import NavBar from "../layouts/NavBar.jsx";
+import AppBar from "../layouts/AppBar.jsx";
 import Footer from "../layouts/Footer.jsx";
 import { Context as AuthContext } from "../contexts/AuthContext.js";
 
@@ -28,7 +29,8 @@ const ProjectRoutes = () => {
 
 	
 	<BrowserRouter >
-		<NavBar />		
+		<NavBar />	
+		<AppBar/>	
 		<Routes >				
 			<Route path="/" element={auth ? <Navigate to="/dashboard" /> : <Home />} index /> 
 			<Route path="/resetpassword" element={auth ? <Navigate to="/dashboard" /> : <ResetPassword />} /> 

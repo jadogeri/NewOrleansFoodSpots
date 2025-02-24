@@ -20,14 +20,6 @@ const DashBoard = () => {
 
 
 
-{/* <!-- Navbar on small screens (remove the onClick attribute if you want the navbar to always show on top of the content when clicking on the links) --> */}
-<div id="navDemo" className="w3-bar-block w3-black w3-hide w3-hide-large w3-hide-medium w3-top" style={{marginTop:"46px"}}>
-  <a href="#band" className="w3-bar-item w3-button w3-padding-large" onClick={()=>{myFunction()}}>BAND</a>
-  <a href="#tour" className="w3-bar-item w3-button w3-padding-large" onClick={()=>{myFunction()}}>TOUR</a>
-  <a href="#contact" className="w3-bar-item w3-button w3-padding-large" onClick={()=>{myFunction()}}>CONTACT</a>
-  <a href="#" className="w3-bar-item w3-button w3-padding-large" onClick={()=>{myFunction()}}>MERCH</a>
-</div>
-
 {/* <!-- Page content --> */}
 <div className="w3-content" style={{maxWidth:"2000px",marginTop:"46px", color:"green",backgroundColor:"gold"}}>
 
