@@ -1,21 +1,5 @@
 
-/*
-let myIndex = 0;
-carousel();
 
-export function carousel() {
-  let i;
-  let x = document.getElementsByClassName("mySlides");
-  console.log(x)
-  for (i = 0; i < x.length; i++) {
-    x[i].style.display = "none";  
-  }
-  myIndex++;
-  if (myIndex > x.length) {myIndex = 1}    
-  x[myIndex-1].style.display = "block";  
-  setTimeout(carousel, 4000);    
-}
-*/
 // Used to toggle the menu on small screens when clicking on the menu button
 export function myFunction() {
   let x = document.getElementById("navDemo");

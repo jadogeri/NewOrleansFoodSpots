@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState} from 'react'
+import React, { useEffect, useRef, useState, useContext} from 'react'
 import {useLocation, useNavigate } from 'react-router-dom'
 import FormFieldInput from '../../input/FormFieldInput';
 import { useLoginMutation } from '../../../redux/api/user'
@@ -6,8 +6,11 @@ import { handleNavClickDelay } from "../../../handleNavClickDelay";
 import "./styles.css"
 import {  useDispatch } from "react-redux";
 import { setError } from '../../../redux/feature/session/sessionSlice';
+import { Context as AuthContext } from '../../../contexts/AuthContext';
+
 
 const LoginForm = () => {
+  const { signIn } = useContext(AuthContext)
   const location = useLocation();
   const navigate = useNavigate();
   const [email, setEmail] = useState(location.state?.email ? location.state.email : ""  );
@@ -54,6 +57,7 @@ const LoginForm = () => {
 
         console.log("logging in ..............")
         console.log(response.data)
+        signIn(response.data.accessToken)
       localStorage.setItem("AUTHKEY",JSON.stringify(response.data))
       console.log("from storage == ",localStorage.getItem("AUTHKEY"))
       navigate("/dashboard",{ state : response.data})
