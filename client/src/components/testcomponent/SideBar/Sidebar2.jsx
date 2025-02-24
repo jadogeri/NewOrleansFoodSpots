@@ -1,10 +1,13 @@
 import React from 'react'
 import { w3_open,myAccFunc,w3_close } from './modules'
+import Spacer from '../../Spacer'
 
 const Sidebar2 = () => {
   return (
   
-<nav className="w3-sidebar w3-bar-block w3-white w3-collapse " style={{zIndex:3,width:"250px"}} id="mySidebar">
+<nav className="w3-sidebar w3-bar-block w3-white w3-collapse " style={{zIndex:-1,width:"250px"}} id="mySidebar">
+<Spacer  paddingTop={50}/>
+
   <div className="w3-container w3-display-container w3-padding-16">
     <i onClick={()=>{w3_close()}} className="fa fa-remove w3-hide-large w3-button w3-display-topright"></i>
     <h3 className="w3-wide"><b>LOGO</b></h3>

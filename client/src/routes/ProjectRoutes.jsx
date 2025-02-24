@@ -17,8 +17,7 @@ import Review from "../pages/Review/Review.jsx";
 import NavBar from "../layouts/NavBar.jsx";
 import AppBar from "../layouts/AppBar.jsx";
 import Footer from "../layouts/Footer.jsx";
-import { Context as AuthContext } from "../contexts/AuthContext.js";
-import TestStore from "../components/testcomponent/TestStore.jsx"
+// import TestStore from "../components/testcomponent/TestStore.jsx"
 
 
 const ProjectRoutes = () => {
@@ -38,7 +37,7 @@ const ProjectRoutes = () => {
 			<Route path="/forgotpassword" element={auth ? <Navigate to="/dashboard" /> :<ForgotPassword />} /> 
 			<Route path="/login" element={auth ? <Navigate to="/dashboard" /> :<Login />} /> 
 			<Route path="/register" element={auth ? <Navigate to="/dashboard" /> :<Register />} /> 
-			<Route path="/test" element={<TestStore />} /> 
+			{/* <Route path="/test" element={<TestStore />} />  */}
 			 
 
     		<Route element={<PrivateRoutes />}>
@@ -47,7 +46,9 @@ const ProjectRoutes = () => {
 			<Route path="/credits" element={<Credits />  } />
 			<Route path="/about" element={<About />  } />
 			<Route path="/contact" element={<Contact />  } />
-			<Route path="/profile" element={<Review />  } />
+			<Route path="/profile" element={<Profile />  } />
+			<Route path="/review" element={<Review />  } />
+
 
 
 
