@@ -1,9 +1,13 @@
 
-  export function w3_open() {
-    const mySidebar = document.getElementById("mySidebar");
-    if (mySidebar.style.display === 'block') {
-      mySidebar.style.display = 'none';
+  export function w3_open(id) {
+    console.log(id)
+    const element = document.getElementById(id);
+    console.log("element == ", element)
+    if (element.style.display === 'block') {
+      element.style.display = 'none';
     } else {
-      mySidebar.style.display = 'block';
+      element.style.display = 'block';
     }
   }
+
+
