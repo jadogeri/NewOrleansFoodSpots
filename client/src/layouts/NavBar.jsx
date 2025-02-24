@@ -1,5 +1,5 @@
 import React, {useEffect, useState, useContext} from 'react'
-import { myFunction } from '../pages/DashBoard/d'
+import { closeNavBar } from '../utils/htmlUtil/closeNavBar'
 import { Link } from 'react-router-dom'
 import { Context as AuthContext } from '../contexts/AuthContext'
 
@@ -25,7 +25,7 @@ const NavBar = () => {
       <div className="w3-top">
         <div className="w3-bar w3-black w3-card">
           <button className="w3-bar-item w3-button w3-padding-large w3-hide-medium w3-hide-large w3-right" 
-           onClick={()=>{myFunction()}} title="Toggle Navigation Menu"><i className="fa fa-bars"></i></button>
+           onClick={()=>{closeNavBar("navDemo")}} title="Toggle Navigation Menu"><i className="fa fa-bars"></i></button>
           
           <Link to="/dashboard" className="w3-bar-item w3-button w3-padding-large">HOME</Link>
           {state.token ? null :

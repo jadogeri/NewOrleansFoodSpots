@@ -1,7 +1,6 @@
 import React, {useEffect, useState, useContext} from 'react'
 import { Link } from 'react-router-dom'
 import { Context as AuthContext } from '../contexts/AuthContext'
-import { myFunction } from '../pages/DashBoard/d'
 
 const AppBar = () => {
     const [auth, setAuth] = useState(null);
