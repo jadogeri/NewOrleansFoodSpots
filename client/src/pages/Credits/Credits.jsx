@@ -1,11 +1,10 @@
 import React from 'react'
 import Spacer from "../../components/Spacer"
 import "./credits.css"
-
-const Pricing = () => {
+const Credits = () => {
   return (
-    < div className="tabcontent" id='credits' >
-      <Spacer marginBottom={150}/>
+    < div  id='credits' style={{minHeight:"100vh"}}>
+      <Spacer  paddingTop={100}/>
     <h1 style={{textAlign:"center"}}id="happy-learning-" > ⭐⭐⭐ Credits 📌 ⭐⭐⭐</h1>
 
 
@@ -55,7 +54,7 @@ const Pricing = () => {
   )
 }
 
-export default Pricing
+export default Credits
 
 
 

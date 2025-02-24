@@ -94,7 +94,7 @@ export const loginUser = asyncHandler(async (req : Request, res: Response)  => {
                 company : process.env.COMPANY
               }
         sendEmail("locked-account",recipient )
-        res.status(400).json("Account is locked beacause of too many failed login attempts. Use forget account to access acount");
+        res.status(400).json({message:"Account is locked beacause of too many failed login attempts. Use forget account to access acount"});
 
       }else{
         await userService.update(user._id, user)    

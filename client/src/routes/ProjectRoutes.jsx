@@ -18,6 +18,7 @@ import NavBar from "../layouts/NavBar.jsx";
 import AppBar from "../layouts/AppBar.jsx";
 import Footer from "../layouts/Footer.jsx";
 import { Context as AuthContext } from "../contexts/AuthContext.js";
+import TestStore from "../components/testcomponent/TestStore.jsx"
 
 
 const ProjectRoutes = () => {
@@ -37,7 +38,8 @@ const ProjectRoutes = () => {
 			<Route path="/forgotpassword" element={auth ? <Navigate to="/dashboard" /> :<ForgotPassword />} /> 
 			<Route path="/login" element={auth ? <Navigate to="/dashboard" /> :<Login />} /> 
 			<Route path="/register" element={auth ? <Navigate to="/dashboard" /> :<Register />} /> 
-			<Route path="/test" element={<TestPage />} /> 
+			<Route path="/test" element={<TestStore />} /> 
+			 
 
     		<Route element={<PrivateRoutes />}>
 			
