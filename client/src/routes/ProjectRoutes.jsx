@@ -27,10 +27,12 @@ const ProjectRoutes = () => {
 
   return (
 
+	<>
 	
 	<BrowserRouter >
-		<NavBar />	
-		<AppBar/>	
+	<NavBar />	
+	<AppBar/>	
+
 		<Routes >				
 			<Route path="/" element={auth ? <Navigate to="/dashboard" /> : <Home />} index /> 
 			<Route path="/resetpassword" element={auth ? <Navigate to="/dashboard" /> : <ResetPassword />} /> 
@@ -57,8 +59,10 @@ const ProjectRoutes = () => {
     		</Route>
 			<Route path="*" element={<NoPage />} />
 		</Routes>
-		<Footer/>
 	</BrowserRouter>
+	<Footer/>
+
+	</>
 
   )
 }
