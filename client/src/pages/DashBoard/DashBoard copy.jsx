@@ -3,7 +3,6 @@ import SideBarMenu from './SideBarMenu';
 import AppHeader from './AppHeader';
 import AppBarMenu from './AppBarMenu';
 import Spacer from '../../components/Spacer';
-import SearchBar from '../../components/SearchBar/SearchBar';
 
 
 const DashBoard = () => {
@@ -51,7 +50,6 @@ const DashBoard = () => {
     <header className="w3-container w3-xlarge">
       <p className="w3-left">Jeans</p>
       <p className="w3-right">
-        <SearchBar />
         <i className="fa fa-shopping-cart w3-margin-right" />
         <i className="fa fa-search" />
       </p>

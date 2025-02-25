@@ -2,6 +2,8 @@ import React, {useEffect, useState, useContext} from 'react'
 import { closeNavBar } from '../utils/htmlUtil/closeNavBar'
 import { Link } from 'react-router-dom'
 import { Context as AuthContext } from '../contexts/AuthContext'
+import { openModal } from '../utils/htmlUtil/openModal'
+import LogoutModal from '../components/modals/LogoutModal/LogoutModal'
 
 const NavBar = () => {
   const [auth, setAuth] = useState(null);
@@ -22,6 +24,7 @@ const NavBar = () => {
 
     <nav>
       {/* <!-- Navbar --> */}
+      <LogoutModal  id="logoutModal"/>
       <div className="w3-top">
         <div className="w3-bar w3-black w3-card">
           <button className="w3-bar-item w3-button w3-padding-large w3-hide-medium w3-hide-large w3-right" 
@@ -56,7 +59,7 @@ const NavBar = () => {
          
           {/* <a href="/" 
           className="w3-padding-large w3-hover-red w3-hide-small w3-right"><i className="fa fa-search"></i></a> */}
-            <button 
+            <button onClick={()=>{openModal("logoutModal")}}
           className="w3-padding-large w3-hover-red w3-right"><i className="fa fa-sign-out"></i></button>
         </div>
       </div>

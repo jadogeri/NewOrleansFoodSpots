@@ -1,5 +1,6 @@
 
 export const closeModal = (id)=>{
-
-    document.getElementById(id).style.display='none';
-  }
+  const element = document.getElementById(id);
+  element.style.display='none';
+  return element;
+}

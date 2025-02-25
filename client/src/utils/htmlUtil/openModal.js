@@ -1,5 +1,6 @@
 
 export const openModal = (id)=>{
-
-    document.getElementById(id).style.display='block';
-  }
+  const element = document.getElementById(id);
+  element.style.display='block';
+  return element;
+}
