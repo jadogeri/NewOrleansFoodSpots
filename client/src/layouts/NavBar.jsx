@@ -9,6 +9,8 @@ const NavBar = () => {
   const [auth, setAuth] = useState(null);
   const {state, signIn} = useContext(AuthContext)
   console.log("state==== ",state)
+  let key = localStorage.getItem('AUTHKEY');
+
   useEffect(() => {
     // Update localStorage whenever the 'name' state changes
     let key = localStorage.getItem('AUTHKEY');
@@ -59,8 +61,10 @@ const NavBar = () => {
          
           {/* <a href="/" 
           className="w3-padding-large w3-hover-red w3-hide-small w3-right"><i className="fa fa-search"></i></a> */}
+          {!key ? <></> :
             <button onClick={()=>{openModal("logoutModal")}}
           className="w3-padding-large w3-hover-red w3-right"><i className="fa fa-sign-out"></i></button>
+          } 
         </div>
       </div>
     </nav>
