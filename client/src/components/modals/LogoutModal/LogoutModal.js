@@ -48,6 +48,19 @@ const LogoutModal = (props) => {
 
           console.log(response)
           alert(JSON.stringify(response))
+          response.then(()=>{
+                     closeModal("logoutModal");
+            localStorage.removeItem("AUTHKEY");
+            navigate("/login")
+          })
+          .catch((e)=>{
+            console.log(e)
+            alert(e)
+
+          })
+               //   closeModal("logoutModal");
+          //   localStorage.removeItem("AUTHKEY");
+          //   navigate("/login")
           // .then(()=>{
           //   closeModal("logoutModal");
           //   localStorage.removeItem("AUTHKEY");
