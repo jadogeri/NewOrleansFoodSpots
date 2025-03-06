@@ -10,7 +10,17 @@ import { useNavigate } from "react-router-dom";
 const LogoutModal = (props) => {
   const [ logout ] = useLogoutMutation();
   const navigate = useNavigate();
-  let auth = localStorage.getItem("AUTHKEY");
+  let authString = localStorage.getItem("AUTHKEY");
+  console.log(authString)
+  console.log("parsing string ............................")
+  let auth = JSON.parse(authString);
+  console.log("auth ............................")
+  let {accessToken : token} = auth
+  console.log("token ............................")
+  console.log(token)
+
+
+
 
 
 
@@ -33,18 +43,20 @@ const LogoutModal = (props) => {
           if(!auth){
             navigate("/login")
           }else{
-          let token = auth.accessToken
           try{
-          logout(token)
-          .then(()=>{
-            closeModal("logoutModal");
-            localStorage.removeItem("AUTHKEY");
-            navigate("/login")
-          })
-          .catch((e)=>{
-            console.log("printint error .........................................................")
-            console.log(e)
-          })
+          let response = logout(token)
+
+          console.log(response)
+          alert(JSON.stringify(response))
+          // .then(()=>{
+          //   closeModal("logoutModal");
+          //   localStorage.removeItem("AUTHKEY");
+          //   navigate("/login")
+          // })
+          // .catch((e)=>{
+          //   console.log("printint error .........................................................")
+          //   console.log(e)
+          // })
         }catch(e){
           console.log(e)
         }}}} className="deletebtn">Logout</button>
