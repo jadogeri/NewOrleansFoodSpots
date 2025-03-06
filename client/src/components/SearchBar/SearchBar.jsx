@@ -7,8 +7,8 @@ const SearchBar = () => {
 
     <>
 
-<div class="search">
-				<form class="search-form">
+<div className="search">
+				<form className="search-form">
 					<input type="text" placeholder="Search for books, authors, categories and more.."/>
 					<input type="submit" value="Submit" onClick={()=>{alert("pressed")}}/>
 				</form>
