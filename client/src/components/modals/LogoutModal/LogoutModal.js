@@ -11,15 +11,19 @@ const LogoutModal = (props) => {
   const [ logout ] = useLogoutMutation();
   const navigate = useNavigate();
   let authString = localStorage.getItem("AUTHKEY");
+  let token = ""
   console.log(authString)
+
   console.log("parsing string ............................")
   let auth = JSON.parse(authString);
   console.log("auth ............................")
-  let {accessToken : token} = auth
+  if(auth){
+  let {accessToken } = auth
   console.log("token ............................")
-  console.log(token)
+  console.log(accessToken)
+  token = accessToken
 
-
+  }
 
 
 
