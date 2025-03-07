@@ -27,6 +27,10 @@ declare global {
         COMPANY : string;
         DEV_ORIGIN : string;
         PROD_ORIGIN : string;
+        GOOGLE_MAPS_API_KEY : string;
+        YELP_API_KEY : string;
+        YELP_BASE_URL :string;
+
       }
     }
   }

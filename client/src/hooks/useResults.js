@@ -9,7 +9,7 @@ export default () => {
     const searchApi = async (searchTerm) => {
         try {
            console.log("yelpApi instance ====================",yelpApi)
-            const response = yelpApi.get(`/search?location=New+Orleans,+LA&term=`+`${searchTerm}`);
+            const response = await yelpApi.get(`/search?location=New+Orleans,+LA&term=`+`${searchTerm}`);
             let data = await response.json();
 
             setResults(data.businesses)

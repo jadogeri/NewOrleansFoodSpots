@@ -8,6 +8,8 @@ import bodyParser from 'body-parser';
 const errorHandler = require("./src/middlewares/errorHandler");
 import {corsOptions} from "./src/configs/cors"
 import cors from "cors";
+import yelpApi from './src/configs/yelpApi';
+
 
 
 const app = express();
@@ -28,6 +30,22 @@ app.get('/', (req: Request, res : Response) => {
   res.send({message:"home"});
 });
 
+app.get('/fetchdata', async (req: Request, res : Response) => {
+  try{
+  console.log("calling fetch.........................")
+
+  console.log("yelp api ===",yelpApi)
+  const response =  await yelpApi.get(`/search?term=chicken&location=New+Orleans, La`);
+  console.log(JSON.stringify(response.data))
+  res.status(200).send(response.data)  
+  }catch(e){
+    console.log(JSON.stringify(e))
+    res.status(400).send(e)  
+
+  }
+
+});
+
 MongoDatabase.getInstance()
 
 
@@ -37,4 +55,6 @@ if (process.env.NODE_ENV !== 'test') {
     console.log(`Backend is running on http://localhost:${port}`)
   })
 }
+
+
 
