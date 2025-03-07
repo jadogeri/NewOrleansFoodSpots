@@ -1,12 +1,29 @@
-import React from 'react'
+import React, { useState } from 'react'
 import SideBarMenu from './SideBarMenu';
 import AppHeader from './AppHeader';
 import AppBarMenu from './AppBarMenu';
 import Spacer from '../../components/Spacer';
 import SearchBar from '../../components/SearchBar/SearchBar';
+import useResults from '../../hooks/useResults';
 
 
 const DashBoard = () => {
+
+     const [searchTerm, setSearchTerm] = useState("");
+      const [searchApi, results, errorMessage] = useResults();
+  
+      const filterResultsByPrice = (price) => {
+  
+          let myfilteredarray = results.filter((result) => {
+              return result.price === price;
+          })
+  
+          return myfilteredarray;
+  
+      }
+  
+      console.log(JSON.stringify(results));    
+      
 
   return (
     <>
@@ -41,6 +58,7 @@ const DashBoard = () => {
   {/* Overlay effect when opening sidebar on small screens */}
   <AppBarMenu/>
 
+
   {/* !PAGE CONTENT! */}
   <div className="w3-main" style={{ marginLeft: 250 }}>
   <Spacer  paddingTop={100}/>
@@ -56,26 +74,7 @@ const DashBoard = () => {
         <i className="fa fa-search" />
       </div>
     </header>
-    {/* Image header */}
-    <div className="w3-display-container w3-container">
-      <img src="https://www.w3schools.com/w3images/jeans.jpg" alt="Jeans" style={{ width: "100%" }} />
-      <div
-        className="w3-display-topleft w3-text-white"
-        style={{ padding: "24px 48px" }}
-      >
-        <h1 className="w3-jumbo w3-hide-small">New arrivals</h1>
-        <h1 className="w3-hide-large w3-hide-medium">New arrivals</h1>
-        <h1 className="w3-hide-small">COLLECTION 2016</h1>
-        <p>
-          <a
-            href="#jeans"
-            className="w3-button w3-black w3-padding-large w3-large"
-          >
-            SHOP NOW
-          </a>
-        </p>
-      </div>
-    </div>
+
     <div className="w3-container w3-text-grey" id="jeans">
       <p>8 items</p>
     </div>

@@ -25,6 +25,44 @@ const LogoutModal = (props) => {
 
   }
 
+  const handleLogout = () =>{
+    
+    if(!auth){
+      navigate("/login")
+    }else{
+    try{
+    let response = logout(token)
+
+    console.log(response)
+    alert(JSON.stringify(response))
+    response.then(()=>{
+               closeModal("logoutModal");
+      localStorage.removeItem("AUTHKEY");
+      navigate("/login")
+    })
+    .catch((e)=>{
+      console.log(e)
+      alert(e)
+
+    })
+         //   closeModal("logoutModal");
+    //   localStorage.removeItem("AUTHKEY");
+    //   navigate("/login")
+    // .then(()=>{
+    //   closeModal("logoutModal");
+    //   localStorage.removeItem("AUTHKEY");
+    //   navigate("/login")
+    // })
+    // .catch((e)=>{
+    //   console.log("printint error .........................................................")
+    //   console.log(e)
+    // })
+  }catch(e){
+    console.log(e)
+  }}
+
+  }
+
 
 
 
@@ -43,40 +81,7 @@ const LogoutModal = (props) => {
       <div style={{width:600, textAlign :"center", marginLeft:"25%"}}>
   
         <button type="button" onClick={()=>{closeModal("logoutModal")}} className="cancelbtn">Cancel</button>
-        <button type="button" onClick={()=>{
-          if(!auth){
-            navigate("/login")
-          }else{
-          try{
-          let response = logout(token)
-
-          console.log(response)
-          alert(JSON.stringify(response))
-          response.then(()=>{
-                     closeModal("logoutModal");
-            localStorage.removeItem("AUTHKEY");
-            navigate("/login")
-          })
-          .catch((e)=>{
-            console.log(e)
-            alert(e)
-
-          })
-               //   closeModal("logoutModal");
-          //   localStorage.removeItem("AUTHKEY");
-          //   navigate("/login")
-          // .then(()=>{
-          //   closeModal("logoutModal");
-          //   localStorage.removeItem("AUTHKEY");
-          //   navigate("/login")
-          // })
-          // .catch((e)=>{
-          //   console.log("printint error .........................................................")
-          //   console.log(e)
-          // })
-        }catch(e){
-          console.log(e)
-        }}}} className="deletebtn">Logout</button>
+        <button type="button" onClick={()=>{handleLogout()}} className="deletebtn">Logout</button>
         {/* <button style={{width:150,textAlign:"center"}} type="button" onClick={()=>{closeModal("logoutModal")}} 
                 title="Cancel" className="cancelbtn"></button> */}
         <button style={{width:150}} type="button" onClick={props.logoutHandler} 
