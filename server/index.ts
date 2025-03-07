@@ -10,6 +10,10 @@ import {corsOptions} from "./src/configs/cors"
 import cors from "cors";
 import yelpApi from './src/configs/yelpApi';
 
+type SearchTerm = { 
+  searchTerm : string
+};
+
 
 
 const app = express();
@@ -33,9 +37,10 @@ app.get('/', (req: Request, res : Response) => {
 app.get('/fetchdata', async (req: Request, res : Response) => {
   try{
   console.log("calling fetch.........................")
+  const {searchTerm } : SearchTerm = req.body
 
   console.log("yelp api ===",yelpApi)
-  const response =  await yelpApi.get(`/search?term=chicken&location=New+Orleans, La`);
+  const response =  await yelpApi.get(`/search?location=New+Orleans, La&term=${searchTerm}`);
   console.log(JSON.stringify(response.data))
   res.status(200).send(response.data)  
   }catch(e){
