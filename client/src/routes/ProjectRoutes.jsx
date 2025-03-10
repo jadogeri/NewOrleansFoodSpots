@@ -17,6 +17,8 @@ import Review from "../pages/Review/Review.jsx";
 import NavBar from "../layouts/NavBar.jsx";
 import AppBar from "../layouts/AppBar.jsx";
 import Footer from "../layouts/Footer.jsx";
+import BusinessDetail from "../pages/BusinessDetail.jsx";
+import MapView from "../pages/MapView/MapView.jsx";
 // import TestStore from "../components/testcomponent/TestStore.jsx"
 
 
@@ -43,12 +45,17 @@ const ProjectRoutes = () => {
 			<Route path="/about" element={<About />  } />
 			<Route path="/contact" element={<Contact />  } />
 
-			{/* <Route path="/test" element={<TestStore />} />  */}
+
+			<Route path="/test" element={<TestPage />} /> 
 			 
 
     		<Route element={<PrivateRoutes />}>
 			
             <Route path="/dashboard" element={<DashBoard />  } />
+			<Route path="/dashboard/business" element={<BusinessDetail />  } />
+			<Route path="/dashboard/business/mapview" element={<MapView />  } />
+
+
 			<Route path="/profile" element={<Profile />  } />
 			<Route path="/review" element={<Review />  } />
 

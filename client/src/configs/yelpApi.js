@@ -5,7 +5,7 @@ console.log("baseURL === " , baseURL)
 ;const headers ={
     'Content-Type': 'application/json',
     "Accept":'application/json',
-    "Access-Control-Allow-Origin": "*"  ,
+    "Access-Control-Allow-Origin": "*"  
     //"Authorization": `Bearer ${process.env.REACT_APP_YELP_API_KEY}`     
 }
 

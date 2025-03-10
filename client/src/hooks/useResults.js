@@ -8,18 +8,22 @@ export default () => {
 
     const searchApi = async (searchTerm) => {
         try {
-           console.log("yelpApi instance ====================",yelpApi)
+           console.log("calling yelpApi instance ====================",yelpApi)
             const response = await yelpApi.get("/fetchdata",{
                 params: {
                     searchTerm: searchTerm,
                   },
             });
-            let data = await response.json();
+            let data = await response.data;
+            //console.log("results===================== ", JSON.stringify(data.businesses, null, 2))
 
+
+            
             setResults(data.businesses)
             setErrorMessage('')
         } catch (e) {
             console.log('something went wrong terminal')
+            console.log(e)
 
             setErrorMessage('something went wrong\nerror message : ' + e.message)
         }

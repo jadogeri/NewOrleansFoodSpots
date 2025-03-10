@@ -9,6 +9,7 @@ const errorHandler = require("./src/middlewares/errorHandler");
 import {corsOptions} from "./src/configs/cors"
 import cors from "cors";
 import yelpApi from './src/configs/yelpApi';
+import getData from "./getData"
 
 type SearchTerm = { 
   searchTerm : string
@@ -40,11 +41,66 @@ app.get('/fetchdata', async (req: Request, res : Response) => {
   const {searchTerm } : SearchTerm = req.body
 
   console.log("yelp api ===",yelpApi)
-  const response =  await yelpApi.get(`/search?location=New+Orleans, La&term=${searchTerm}`);
-  console.log(JSON.stringify(response.data))
+  const response =  await yelpApi.get('/search',{
+   params:{
+      limit :50,
+      term : searchTerm,
+      location: 'new orleans'
+    }
+  });
+  console.log("response data ",JSON.stringify(response.data))
   res.status(200).send(response.data)  
   }catch(e){
-    console.log(JSON.stringify(e))
+    console.log("error ===================== ",JSON.stringify(e))
+    res.status(400).send(e)  
+
+  }
+
+});
+
+app.get('/fetchdata/:id', async (req: Request, res : Response) => {
+  try{
+  console.log("calling fetch by id .........................")
+  const id = req.params.id;
+  console.log("id .........................", id)
+
+  
+
+
+// 
+// 
+// 
+
+app.get('/dummy', async (req: Request, res : Response) => {
+  try{
+  console.log("calling fetch.........................")
+  const {searchTerm } : SearchTerm = req.body
+
+  console.log("yelp api ===",yelpApi)
+  
+  res.status(200).send(getData())  
+  }catch(e){
+    console.log("error ===================== ",JSON.stringify(e))
+    res.status(400).send(e)  
+
+  }
+
+});
+
+
+
+
+
+  const response =  await yelpApi.get(`/${id}`,{
+   params:{
+      limit :50,
+      location: 'new orleans'
+    }
+  });
+  console.log("response data ",JSON.stringify(response.data))
+  res.status(200).send(response.data)  
+  }catch(e){
+    console.log("error ===================== ",JSON.stringify(e))
     res.status(400).send(e)  
 
   }
@@ -60,6 +116,8 @@ if (process.env.NODE_ENV !== 'test') {
     console.log(`Backend is running on http://localhost:${port}`)
   })
 }
+
+
 
 
 

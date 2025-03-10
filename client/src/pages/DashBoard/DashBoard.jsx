@@ -1,16 +1,30 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import SideBarMenu from './SideBarMenu';
 import AppHeader from './AppHeader';
 import AppBarMenu from './AppBarMenu';
 import Spacer from '../../components/Spacer';
 import SearchBar from '../../components/SearchBar/SearchBar';
 import useResults from '../../hooks/useResults';
+import BusinessCard from '../../components/BusinessCard';
 
 
 const DashBoard = () => {
 
-     const [searchTerm, setSearchTerm] = useState("");
       const [searchApi, results, errorMessage] = useResults();
+      const [inputValue, setInputValue] = useState('');
+      
+      console.log("results==================================================  ",results.length, JSON.stringify(results,null,2))
+
+      const handleInputChange = (event) => {
+        const { value } = event.target;
+        //const lettersOnly = value.replace(/[^a-zA-Z]/g, '');
+        setInputValue(value);
+      };
+
+      const handleSubmit = () => {
+        searchApi(inputValue);
+      };
+    
   
       const filterResultsByPrice = (price) => {
   
@@ -21,8 +35,7 @@ const DashBoard = () => {
           return myfilteredarray;
   
       }
-  
-      console.log(JSON.stringify(results));    
+
       
 
   return (
@@ -58,7 +71,6 @@ const DashBoard = () => {
   {/* Overlay effect when opening sidebar on small screens */}
   <AppBarMenu/>
 
-
   {/* !PAGE CONTENT! */}
   <div className="w3-main" style={{ marginLeft: 250 }}>
   <Spacer  paddingTop={100}/>
@@ -69,106 +81,35 @@ const DashBoard = () => {
     <header className="w3-container w3-xlarge">
       <p className="w3-left">Jeans</p>
       <div className="w3-right">
-        <SearchBar />
+        <SearchBar  value={inputValue}
+                 onChange={handleInputChange}
+                 onClick={()=>{handleSubmit()}}/>
         <i className="fa fa-shopping-cart w3-margin-right" />
         <i className="fa fa-search" />
       </div>
     </header>
 
     <div className="w3-container w3-text-grey" id="jeans">
-      <p>8 items</p>
+      <p>{results.length} results</p>
     </div>
-    {/* Product grid */}
-    <div className="w3-row w3-grayscale">
-      <div className="w3-col l3 s6">
-        <div className="w3-container">
-          <img src="https://www.w3schools.com/w3images/jeans1.jpg" style={{ width: "100%" }} />
-          <p>
-            Ripped Skinny Jeans
-            <br />
-            <b>$24.99</b>
-          </p>
-        </div>
-        <div className="w3-container">
-          <img src="https://www.w3schools.com/w3images/jeans2.jpg" style={{ width: "100%" }} />
-          <p>
-            Mega Ripped Jeans
-            <br />
-            <b>$19.99</b>
-          </p>
-        </div>
-      </div>
-      <div className="w3-col l3 s6">
-        <div className="w3-container">
-          <div className="w3-display-container">
-            <img src="https://www.w3schools.com/w3images/jeans2.jpg" style={{ width: "100%" }} />
-            <span className="w3-tag w3-display-topleft">New</span>
-            <div className="w3-display-middle w3-display-hover">
-              <button className="w3-button w3-black">
-                Buy now <i className="fa fa-shopping-cart" />
-              </button>
-            </div>
-          </div>
-          <p>
-            Mega Ripped Jeans
-            <br />
-            <b>$19.99</b>
-          </p>
-        </div>
-        <div className="w3-container">
-          <img src="https://www.w3schools.com/w3images/jeans3.jpg" style={{ width: "100%" }} />
-          <p>
-            Washed Skinny Jeans
-            <br />
-            <b>$20.50</b>
-          </p>
-        </div>
-      </div>
-      <div className="w3-col l3 s6">
-        <div className="w3-container">
-          <img src="https://www.w3schools.com/w3images/jeans3.jpg" style={{ width: "100%" }} />
-          <p>
-            Washed Skinny Jeans
-            <br />
-            <b>$20.50</b>
-          </p>
-        </div>
-        <div className="w3-container">
-          <div className="w3-display-container">
-            <img src="https://www.w3schools.com/w3images/jeans4.jpg" style={{ width: "100%" }} />
-            <span className="w3-tag w3-display-topleft">Sale</span>
-            <div className="w3-display-middle w3-display-hover">
-              <button className="w3-button w3-black">
-                Buy now <i className="fa fa-shopping-cart" />
-              </button>
-            </div>
-          </div>
-          <p>
-            Vintage Skinny Jeans
-            <br />
-            <b className="w3-text-red">$14.99</b>
-          </p>
-        </div>
-      </div>
-      <div className="w3-col l3 s6">
-        <div className="w3-container">
-          <img src="https://www.w3schools.com/w3images/jeans4.jpg" style={{ width: "100%" }} />
-          <p>
-            Vintage Skinny Jeans
-            <br />
-            <b>$14.99</b>
-          </p>
-        </div>
-        <div className="w3-container">
-          <img src="https://www.w3schools.com/w3images/jeans1.jpg" style={{ width: "100%" }} />
-          <p>
-            Ripped Skinny Jeans
-            <br />
-            <b>$24.99</b>
-          </p>
-        </div>
-      </div>
+    {/* BusinessesGrid grid */}
+    <div className="w3-row w3-grayscale">      
+      {
+        
+        results.map((record)=>{
+          return <BusinessCard name={record.name} image_url={record.image_url} price={record.price}
+                   rating={record.rating} location={record.location} record={record}
+                   display_phone={record.display_phone} transactions={record.transactions} id={record.id}
+                   is_closed={record.is_closed} reviews={record.review_count}
+
+                   key={record.id}
+            />
+        })
+      }
+
+
     </div>
+    
 
     <Spacer  paddingTop={150}/>
   

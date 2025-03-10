@@ -3,12 +3,13 @@ import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
 // Define the base configuration
 const config: AxiosRequestConfig = {
   baseURL: process.env.YELP_BASE_URL,
-  //timeout: 5000,
+  timeout: 5000,
   headers: {
     'Content-Type': 'application/json',
     "Accept":'application/json',
     "Access-Control-Allow-Origin": "*",
-    'Authorization': `Bearer ${process.env.YELP_API_KEY}`,
+    "Access-Control-Allow-Method": ["GET"],
+     "Authorization": `Bearer ${process.env.YELP_API_KEY}`,
   }
 //   ,
 //   data:{
