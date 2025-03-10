@@ -2,6 +2,10 @@ declare global {
   var localStorage: LocalStorage;
     namespace Express {
       interface Request {
+        params:{
+          searchTerm : string;
+
+        },
         user: {
             username:string;
             email:string

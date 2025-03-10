@@ -3,6 +3,7 @@ const dotenv = require("dotenv")
 dotenv.config();
 
 import express,{ Request, Response } from 'express';
+import { ParamsDictionary } from 'express-serve-static-core';
 import MongoDatabase from './src/entities/MongoDatabase';
 import bodyParser from 'body-parser';
 const errorHandler = require("./src/middlewares/errorHandler");
@@ -11,9 +12,19 @@ import cors from "cors";
 import yelpApi from './src/configs/yelpApi';
 import getData from "./getData"
 
-type SearchTerm = { 
-  searchTerm : string
-};
+
+interface SearchParams extends ParamsDictionary {
+  searchTerm: string;
+}
+
+
+// app.get('/items/:id', (req: Request<MyParams>, res: Response) => {
+//   const itemId = req.params.id;
+//   res.send(`Item ID: ${itemId}`);
+// });
+// type SearchTerm = { 
+//   searchTerm : string
+// };
 
 
 
@@ -31,6 +42,7 @@ app.use(errorHandler);
 app.use("/api/users", require("./src/routes/userRoutes"));
 
 
+
 app.get('/', (req: Request, res : Response) => {
   res.send({message:"home"});
 });
@@ -38,9 +50,10 @@ app.get('/', (req: Request, res : Response) => {
 app.get('/fetchdata', async (req: Request, res : Response) => {
   try{
   console.log("calling fetch.........................")
-  const {searchTerm } : SearchTerm = req.body
+  const searchTerm    = req.query.searchTerm
+  console.log("searchTerm ======", searchTerm)
 
-  console.log("yelp api ===",yelpApi)
+  //console.log("yelp api ===",yelpApi)
   const response =  await yelpApi.get('/search',{
    params:{
       limit :50,
@@ -48,7 +61,7 @@ app.get('/fetchdata', async (req: Request, res : Response) => {
       location: 'new orleans'
     }
   });
-  console.log("response data ",JSON.stringify(response.data))
+  //console.log("response data ",JSON.stringify(response.data))
   res.status(200).send(response.data)  
   }catch(e){
     console.log("error ===================== ",JSON.stringify(e))
@@ -71,21 +84,21 @@ app.get('/fetchdata/:id', async (req: Request, res : Response) => {
 // 
 // 
 
-app.get('/dummy', async (req: Request, res : Response) => {
-  try{
-  console.log("calling fetch.........................")
-  const {searchTerm } : SearchTerm = req.body
+// app.get('/dummy', async (req: Request, res : Response) => {
+//   try{
+//   console.log("calling fetch.........................")
+//   const {searchTerm } : SearchTerm = req.body
 
-  console.log("yelp api ===",yelpApi)
+//   console.log("yelp api ===",yelpApi)
   
-  res.status(200).send(getData())  
-  }catch(e){
-    console.log("error ===================== ",JSON.stringify(e))
-    res.status(400).send(e)  
+//   res.status(200).send(getData())  
+//   }catch(e){
+//     console.log("error ===================== ",JSON.stringify(e))
+//     res.status(400).send(e)  
 
-  }
+//   }
 
-});
+// });
 
 
 
@@ -98,7 +111,7 @@ app.get('/dummy', async (req: Request, res : Response) => {
     }
   });
   console.log("response data ",JSON.stringify(response.data))
-  res.status(200).send(response.data)  
+  //res.status(200).send(response.data)  
   }catch(e){
     console.log("error ===================== ",JSON.stringify(e))
     res.status(400).send(e)  

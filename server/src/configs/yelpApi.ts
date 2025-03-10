@@ -23,7 +23,7 @@ const api: AxiosInstance = axios.create(config);
 // Example of using the instance
 
 
-console.log(api);
+//console.log(api);
 
 export default api
 

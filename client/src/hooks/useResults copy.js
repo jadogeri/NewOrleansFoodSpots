@@ -8,34 +8,33 @@ export default () => {
 
     const searchApi = async (searchTerm) => {        
         try {
-            const storage = JSON.parse(sessionStorage.getItem(searchTerm))
-            if(storage){
-             console.log("storage =====================",storage)
-             alert("inside if key is present")
-               setResults(storage)
-            }
-            else{
-                alert("inside else there is no key ")
-
             console.log("searchTerm === ", searchTerm)
-            const params = {
-                searchTerm : searchTerm
-            }
+            alert("searchTerm === ", searchTerm)
+
+            const storage = JSON.parse(localStorage.getItem(searchTerm));
+            if(storage){
+                console.log("inside if , we have data in sorage")
+                alert("inside if , we have data in sorage")
+
+                setResults(storage)
+            }else{
+                alert("inside else , no data in sorage")
+                console.log("inside else ,no data in sorage")
 
            console.log("calling yelpApi instance ====================",yelpApi)
             const response = await yelpApi.get("/fetchdata",{
-        
-                params : params
+               
+                    searchTerm: searchTerm,
+               
             });
             let data = await response.data;
-            console.log("results===================== ", JSON.stringify(data, null, 2))
+            //console.log("results===================== ", JSON.stringify(data.businesses, null, 2))
 
 
-            sessionStorage.setItem(searchTerm,JSON.stringify(data.businesses))
+            localStorage.setItem(searchTerm,JSON.stringify(data.businesses))
             setResults(data.businesses)
             setErrorMessage('')
-        }
-     
+            }
         } catch (e) {
             console.log('something went wrong terminal')
             console.log(e)
@@ -47,7 +46,7 @@ export default () => {
     }
 
     useEffect(() => {
-        searchApi('beans')
+        //searchApi('chicken')
     }, [])
 
 

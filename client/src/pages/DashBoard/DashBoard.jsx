@@ -13,15 +13,19 @@ const DashBoard = () => {
       const [searchApi, results, errorMessage] = useResults();
       const [inputValue, setInputValue] = useState('');
       
-      console.log("results==================================================  ",results.length, JSON.stringify(results,null,2))
+      // console.log("results==================================================  ",results.length, JSON.stringify(results,null,2))
 
       const handleInputChange = (event) => {
         const { value } = event.target;
+        console.log("value ====",value)
         //const lettersOnly = value.replace(/[^a-zA-Z]/g, '');
         setInputValue(value);
       };
 
       const handleSubmit = () => {
+        console.log("pressing hanlde submit")
+        alert("pressing hanlde submit")
+        console.log("input value to search api =====",inputValue)
         searchApi(inputValue);
       };
     
