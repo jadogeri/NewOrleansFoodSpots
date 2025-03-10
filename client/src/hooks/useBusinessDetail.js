@@ -9,16 +9,20 @@ export default () => {
 
     const searchBusiness = async (id) => {
         try {
-           console.log("calling yelpApi instance ====================",yelpApi)
-            const response = await yelpApi.get(`/fetchdata/${id}`);
-            console.log("response in search business ====", response)
-            let data = await response.data;
-            //console.log("results===================== ", JSON.stringify(data.businesses, null, 2))
-
-
-            
-            setBusiness(data)
-            setErrorMessage('')
+            const business = JSON.parse(sessionStorage.getItem(id))
+            if(business){
+                console.log("storage =====================",business)
+                alert("inside if business id  is present")
+                  setBusiness(business)
+            }else{
+                console.log("calling yelpApi instance ====================",yelpApi)
+                const response = await yelpApi.get(`/fetchdata/${id}`);
+                console.log("response in search business ====", response)
+                let data = await response.data;  
+                sessionStorage.setItem(id,JSON.stringify(data))                
+                setBusiness(data)
+                setErrorMessage('')
+            }
         } catch (e) {
             console.log('something went wrong terminal')
             console.log(e)

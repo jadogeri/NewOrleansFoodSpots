@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import "./BusinessCard.css"
 import { useNavigate } from 'react-router-dom'
 import getRating from '../utils/getRating';
@@ -16,13 +16,21 @@ const BusinessCard = ({
     transactions
 }) => {
   const navigate = useNavigate();
+  const [like, setLike] = useState(false)
 
   return (
 
-    <>
-
-    <div className="w3-col l3 s6">
-    <div className="w3-container">                 
+   <div className="w3-col l3 s6">
+    <div className="w3-container">    
+      <i className='fa fa-heart' onClick={()=>{setLike(prev => !prev)}}
+        style={{
+          position: "absolute",
+          zIndex: "2",
+          color: !like? "gray" : "red"  ,
+          fontSize:"200%"  ,
+   
+         }}></i>    
+        
       <img src={image_url} style={{ width: "100%",height:200,cursor:"pointer" }} 
       onClick={()=>{     
         navigate("/dashboard/business", {
@@ -37,7 +45,9 @@ const BusinessCard = ({
         <b>{name}</b>
         <br />
         <b>{location.address1}</b>
+        <br />
         <b>{location.city} {location.state}, {location.zip_code}</b>
+        <br />
         <b>price: {price}</b>
         <br />
         <b>rating: {getRating(rating)}</b>
@@ -56,7 +66,7 @@ const BusinessCard = ({
     </div>
     
   </div>
-  </>
+ 
   )
 }
 
