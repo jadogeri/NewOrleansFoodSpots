@@ -14,6 +14,7 @@ const BusinessDetail = () => {
   const navigate = useNavigate();  
   const id = location.state.id
   console.log("id''''''''''''''''''''''",id)
+  const [data, setData] = useState(null)
 
 
   const [ searchBusiness, business, errorMessage] = useBusinessDetail()
@@ -22,7 +23,9 @@ const BusinessDetail = () => {
 
 
   useEffect(() => {
-    searchBusiness(id)
+    searchBusiness(id);
+    setData(business)
+    
 
 
 }, [])
@@ -112,14 +115,17 @@ const photosList = getPhotos(business.photos)
           ${businessData.price}{" "}
         </p>
 
+ {/* {data?
         <p className="pt-5 text-sm leading-5 text-gray-500">
-        {businessData.address} 
+        {data.location.address1} 
         <br/>
-        {businessData.city}, {businessData.state} {businessData.zip}
+        {data.location.city}, {data.location.state} {data.location.zip_code}
         <br/>
         </p>
+        :
+        <p>loading..........................</p>
 
-
+ } */}
 
 
 
