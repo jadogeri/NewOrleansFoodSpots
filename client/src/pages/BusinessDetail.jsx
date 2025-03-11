@@ -7,7 +7,7 @@ import useBusinessDetail from "../hooks/useBusinessDetail";
 // import getRating from "../utils/getRating";
 import { getPhotos } from "../utils/getPhotos";
 // import Address from "../components/Address";
-// import Rating from "../components/Rating";
+import Rating from "../components/Rating";
 
 const BusinessDetail = () => {
     const location = useLocation();  
@@ -55,7 +55,7 @@ const photosList = getPhotos(business.photos)
  
 
 
-  const {address, city, state, zip_code} =business.location
+  
 
   const businessData = {
     images: photosList,
@@ -101,10 +101,10 @@ const photosList = getPhotos(business.photos)
         <div className="mt-1">
           <div className="flex items-center">
  
-            {/* <Rating rating={businessData.rating} /> */}
+            <Rating rating={businessData.rating} />
 
             <p className="ml-3 text-sm text-gray-400">
-              {/* ({businessData.reviews}) */}
+              ({businessData.reviews})
             </p>
           </div>
         </div>
