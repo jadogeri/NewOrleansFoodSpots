@@ -1,0 +1,11 @@
+const Input = ({ handleChange, value, title, name, color,type, checked }) => {
+  return (
+    <label className="sidebar-label-container">
+      <input onChange={handleChange} type={type} value={value} name={name} checked={checked} />
+      <span className="checkmark" style={{ backgroundColor: color }}></span>
+      {title}
+    </label>
+  );
+};
+
+export default Input;

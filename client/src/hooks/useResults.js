@@ -11,11 +11,11 @@ export default () => {
             const storage = JSON.parse(sessionStorage.getItem(searchTerm))
             if(storage){
              console.log("storage =====================",storage)
-             alert("inside if key is present")
+             //alert("inside if key is present")
                setResults(storage)
             }
             else{
-                alert("inside else there is no key ")
+               // alert("inside else there is no key ")
 
             console.log("searchTerm === ", searchTerm)
             const params = {

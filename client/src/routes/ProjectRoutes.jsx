@@ -19,7 +19,6 @@ import AppBar from "../layouts/AppBar.jsx";
 import Footer from "../layouts/Footer.jsx";
 import BusinessDetail from "../pages/BusinessDetail.jsx";
 import MapView from "../pages/MapView/MapView.jsx";
-// import TestStore from "../components/testcomponent/TestStore.jsx"
 
 
 const ProjectRoutes = () => {
@@ -46,7 +45,7 @@ const ProjectRoutes = () => {
 			<Route path="/contact" element={<Contact />  } />
 
 
-			<Route path="/test" element={<TestPage />} /> 
+			{/* <Route path="/test" element={<TestStore />} />  */}
 			 
 
     		<Route element={<PrivateRoutes />}>

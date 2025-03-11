@@ -2,8 +2,17 @@ import React from 'react'
 import Spacer from "../../components/Spacer"
 import {closeNavBar} from "../../utils/htmlUtil/closeNavBar";
 import { w3_close } from '../../utils/htmlUtil/w3_close';
+import Price from "./Price/Price"
+import Input from '../../components/Input';
 
-const SideBarMenu = () => {
+const SideBarMenu = ({ 
+  handlePriceChange,
+  handleRatingChange,
+handleDeliveryChange,
+handlePickupChange,
+delivery,
+pickup}) => {
+
   return (
   <nav
   
@@ -12,7 +21,7 @@ const SideBarMenu = () => {
   style={{ zIndex: 3, width: 250,height:"90%",position:"absolute",top:85 }}
   id="mySidebar"
 >
-  <Spacer paddingTop={100}/>
+  <Spacer paddingTop={80}/>
   <div className="w3-container w3-display-container w3-padding-16">
     <i
       onClick={()=>{w3_close()}}
@@ -26,12 +35,130 @@ const SideBarMenu = () => {
     className="w3-padding-64 w3-large w3-text-grey"
     style={{ fontWeight: "bold" }}
   >
-    <a href="#" className="w3-bar-item w3-button">
-      Shirts
-    </a>
-    <a href="#" className="w3-bar-item w3-button">
-      Dresses
-    </a>
+    {/* <Price /> */}
+    <>
+    <label className='w3-bar-item'>
+      Price
+    </label>
+    <label className="sidebar-label-container">
+          <input onChange={handlePriceChange} type="radio" value="" name="price" />
+          <span className="checkmark"></span>All
+        </label>
+
+        <Input
+          handleChange={handlePriceChange}
+          value="$"
+          title="$"
+          name="price"
+          type="radio"
+        />
+
+        <Input
+          handleChange={handlePriceChange}
+          value="$$"
+          title="$$"
+          name="price"
+          type="radio"
+
+        />
+
+        <Input
+          handleChange={handlePriceChange}
+          value="$$$"
+          title="$$$"
+          name="price"
+          type="radio"
+
+        />
+
+        <Input
+          handleChange={handlePriceChange}
+          value="$$$$"
+          title="$$$$"
+          name="price"
+          type="radio"
+
+        />
+        <Input
+          handleChange={handlePriceChange}
+          value="$$$$$"
+          title="$$$$$"
+          name="price"
+          type="radio"
+
+        />
+    </>
+    <label  className="w3-bar-item ">
+      Rating
+    </label>
+    <label className="sidebar-label-container">
+          <input onChange={handleRatingChange} type="radio" value="" name="rating" />
+          <span className="checkmark"></span>All
+        </label>
+
+        <Input
+          handleChange={handleRatingChange}
+          value="1"
+          title="⭐"
+          name="rating"
+          type="radio"
+
+        />
+
+        <Input
+          handleChange={handleRatingChange}
+          value="2"
+          title="⭐⭐"
+          name="rating"
+          type="radio"
+
+        />
+
+        <Input
+          handleChange={handleRatingChange}
+          value="3"
+          title="⭐⭐⭐"
+          name="rating"
+          type="radio"
+
+        />
+
+        <Input
+          handleChange={handleRatingChange}
+          value="4"
+          title="⭐⭐⭐⭐"
+          name="rating"
+          type="radio"
+
+        />
+        <Input
+          handleChange={handleRatingChange}
+          value="5"
+          title="⭐⭐⭐⭐⭐"
+          name="rating"
+          type="radio"
+
+        />
+    
+    <label  className="w3-bar-item ">
+      Transaction
+    </label>
+    <Input
+          handleChange={handleDeliveryChange}
+          checked={delivery}
+          title="Delivery"
+          name="delivery"
+          type="checkbox"
+
+        />
+    <Input
+    handleChange={handlePickupChange}
+    checked={pickup}
+    title="Pickup"
+    name="Pickup"
+    type="checkbox"
+
+  />
     <button
       onClick={()=>{closeNavBar("demoAcc")}}
       className="w3-button w3-block w3-white w3-left-align"
@@ -60,15 +187,7 @@ const SideBarMenu = () => {
     <a href="#" className="w3-bar-item w3-button">
       Jackets
     </a>
-    <a href="#" className="w3-bar-item w3-button">
-      Gymwear
-    </a>
-    <a href="#" className="w3-bar-item w3-button">
-      Blazers
-    </a>
-    <a href="#" className="w3-bar-item w3-button">
-      Shoes
-    </a>
+
   </div>
   <a href="#footer" className="w3-bar-item w3-button w3-padding">
     Contact
@@ -89,3 +208,4 @@ const SideBarMenu = () => {
 }
 
 export default SideBarMenu
+

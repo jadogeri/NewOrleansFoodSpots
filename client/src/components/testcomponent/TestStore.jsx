@@ -7,7 +7,6 @@ import Recommended from "./Recommended/Recommended.js";
 import Sidebar from "./SideBar/Sidebar.js";
 import Card from "./components/Card.js";
 import "./index.css";
-import Sidebar2 from "./SideBar/Sidebar2.jsx";
 
 function App() {
   const [selectedCategory, setSelectedCategory] = useState(null);
@@ -118,42 +117,10 @@ function App() {
   //////////////////////////////////////////////////
   //////////////////////////////////////////////////
 
-  function filteredData(products, selected, query) {
-    let filteredProducts = products;
-
-    // Filtering Input Items
-    if (query) {
-      filteredProducts = filteredItems;
-    }
-
-    // Applying selected filter
-    if (selected) {
-      filteredProducts = filteredProducts.filter(
-        ({ category, color, company, newPrice, title }) =>
-          category === selected ||
-          color === selected ||
-          company === selected ||
-          newPrice === selected //||  //title === selected
-      );
-    }
-
-    return filteredProducts.map(
-      ({ img, title, star, reviews, prevPrice, newPrice }) => (
-        <Card
-          key={Math.random()}
-          img={img}
-          title={title}
-          star={star}
-          reviews={reviews}
-          prevPrice={prevPrice}
-          newPrice={newPrice}
-        />
-      )
-    );
-  }
+ 
   let funcs = {selectedCategory,selectedColor,selectedPrice,selectedRecommended}
 
-  const result = filteredData(products, selectedCategory, query);
+  //const result = filteredData(products, selectedCategory, query);
   const testresult = filteredDataTest(products, funcs, query);
 
   //const testResult = filteredDataTest()
@@ -161,7 +128,6 @@ function App() {
 
   return (
     <>
-    <Sidebar2/>
       <Sidebar handleChange={handleChange} 
                handleCategoryChange={handleCategoryChange} 
                handleColorChange={handleColorChange}

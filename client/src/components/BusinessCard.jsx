@@ -28,6 +28,7 @@ const BusinessCard = ({
           zIndex: "2",
           color: !like? "gray" : "red"  ,
           fontSize:"200%"  ,
+          cursor:"pointer"
    
          }}></i>    
         
@@ -54,7 +55,7 @@ const BusinessCard = ({
         <br />
         <b>phone: {display_phone}</b>
         <br/>
-        <b>delivery {transactions.includes("delivery")} , pickup {transactions.includes("pickup")}</b>
+        <b>delivery {transactions.includes("delivery")?"✔️":"❌"} , pickup {transactions.includes("pickup")?"✔️":"❌"}</b>
         <br />
         <b>open : {!is_closed?"yes":"no"}</b>
         <br />

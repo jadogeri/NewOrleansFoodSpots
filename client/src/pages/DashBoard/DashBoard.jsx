@@ -6,13 +6,138 @@ import Spacer from '../../components/Spacer';
 import SearchBar from '../../components/SearchBar/SearchBar';
 import useResults from '../../hooks/useResults';
 import BusinessCard from '../../components/BusinessCard';
+import noFilter from '../../utils/noFilter';
 
 
 const DashBoard = () => {
 
       const [searchApi, results, errorMessage] = useResults();
       const [inputValue, setInputValue] = useState('');
+      const [selectedPrice, setSelectedPrice] = useState(null);
+      const [selectedRating, setSelectedRating] = useState(null);
+      const [selectedDelivery ,setSelectedDelivery] = useState(false);
+      const [selectedPickup ,setSelectedPickup] = useState(false);
+
+    
+      // ----------- Input Filter -----------
+      const [query, setQuery] = useState("");
+    
+    
+      // const filteredItems = products.filter(
+      //   (product) => product.title.toLowerCase().indexOf(query.toLowerCase()) !== -1
+      // );
+    
       
+    
+      // ----------- Radio Filtering -----------
+
+      const handleRatingChange = (event) => {
+        const rating = event.target.value;
+        setSelectedRating(rating);
+      };
+    
+      const handlePriceChange = (event) => {
+        const price = event.target.value;
+        setSelectedPrice(price);
+      };
+
+      const handleDeliveryChange = (event) => {
+        const delivery = event.target.checked;
+        console.log("deliver========",delivery)
+        setSelectedDelivery(delivery)
+      };
+
+      const handlePickupChange = (event) => {
+        const pickup = event.target.checked;
+        console.log("pickup========",pickup)
+
+        setSelectedPickup(pickup)
+      };
+
+
+
+      // ------------ Button Filtering -----------
+        
+
+      //////////////////////////////////////////////////
+      //////////////////////////////////////////////////
+      function filteredData(businesses, selected, query) {
+        const {selectedRating, selectedPrice, selectedDelivery, selectedPickup} = selected
+        console.log(selectedPrice, selectedRating, selectedDelivery, selectedPickup)
+        console.log(businesses.length)
+        let filteredBusinesses = businesses;
+    
+        // Filtering Input Items using results
+        // if (query) {
+        //   filteredBusinesses = results;
+        // }
+    
+        // Applying selected category filter
+        //  if (selectedCategory ) {
+        //   filteredProducts = filteredProducts.filter(
+        //     ({ category }) =>
+        //       category === selectedCategory 
+             
+        //   );
+        // }
+    
+          // Applying selected rating filter
+          if (selectedRating ) {
+            filteredBusinesses = filteredBusinesses.filter(business => selectedRating == Math.floor(business.rating) );
+          }
+
+          if (selectedPrice ) {
+            filteredBusinesses = filteredBusinesses.filter(business => selectedPrice == business.price );
+          }
+
+          if (selectedDelivery ) {
+            filteredBusinesses = filteredBusinesses.filter(business => business.transactions.includes("delivery") );
+          }
+
+          if (selectedPickup ) {
+            filteredBusinesses = filteredBusinesses.filter(business => business.transactions.includes("pickup") );
+          }
+          console.log("selected after rating filter length ===", filteredBusinesses.length)
+    
+         // Applying selected price filter
+        //  if (selectedPrice && !noFilter(selectedPrice)) {
+        //   filteredBusinesses = filteredBusinesses.filter(
+        //     ({  newPrice }) =>
+        //       newPrice === selectedPrice 
+        //   );
+        // }
+    
+        return filteredBusinesses
+  
+        //   ({ img, title, star, reviews, prevPrice, newPrice }) => (
+        //     <Card
+        //       key={Math.random()}
+        //       img={img}
+        //       title={title}
+        //       star={star}
+        //       reviews={reviews}
+        //       prevPrice={prevPrice}
+        //       newPrice={newPrice}
+        //     />
+        //   )
+        // );
+      }
+    
+    
+      //////////////////////////////////////////////////
+      //////////////////////////////////////////////////
+    
+     
+       let allSelected = {selectedRating, selectedPrice, selectedDelivery, selectedPickup}
+    
+      // //const result = filteredData(products, selectedCategory, query);
+      const filteredBusinesses = filteredData(results, allSelected, inputValue);
+    
+      //const testResult = filteredDataTest()
+    
+    
+   
+            
       // console.log("results==================================================  ",results.length, JSON.stringify(results,null,2))
 
       const handleInputChange = (event) => {
@@ -24,23 +149,41 @@ const DashBoard = () => {
 
       const handleSubmit = () => {
         console.log("pressing hanlde submit")
-        alert("pressing hanlde submit")
+        //alert("pressing hanlde submit")
         console.log("input value to search api =====",inputValue)
         searchApi(inputValue);
       };
     
   
-      const filterResultsByPrice = (price) => {
+      // const filterResultsByPrice = (price) => {
+      //   console.log("price===", price)
+      //   if(noFilter(price) || !price){
+      //     return results
+      //   }
+      //     let myfilteredarray = results.filter((result) => {
+      //         return result.price === price;
+      //     })
   
-          let myfilteredarray = results.filter((result) => {
-              return result.price === price;
-          })
+      //     return myfilteredarray;
   
-          return myfilteredarray;
+      // }
+      // const filterResultsByRating = (rating) => {
+      //   if(noFilter(rating) ||!rating){
+      //     return results
+      //   }
+      //     let myfilteredarray = results.filter((result) => {
+      //         return Math.floor(result.rating) == rating;
+      //     })
   
-      }
+      //     return myfilteredarray;
+  
+      // }
 
-      
+      // let newResults = filterResultsByPrice(selectedPrice)
+      // console.log(newResults.length)
+      // newResults = filterResultsByRating(selectedRating);
+      // console.log(newResults.length)
+
 
   return (
     <>
@@ -68,7 +211,10 @@ const DashBoard = () => {
     }}
   />
   {/* Sidebar/menu */}
-  <SideBarMenu />
+  <SideBarMenu handlePriceChange={handlePriceChange} handleRatingChange={handleRatingChange}
+    handleDeliveryChange={handleDeliveryChange} handlePickupChange={handlePickupChange}
+    delivery={selectedDelivery} pickup={selectedPickup}
+  />
   {/* Top menu on small screens */}
   <AppHeader />
 
@@ -94,13 +240,15 @@ const DashBoard = () => {
     </header>
 
     <div className="w3-container w3-text-grey" id="jeans">
-      <p>{results.length} results</p>
+      {/* <p>{results.length} results</p> */}
+      <p>{filteredBusinesses.length} results</p>
+
     </div>
     {/* BusinessesGrid grid */}
     <div className="w3-row w3-grayscale">      
       {
         
-        results.map((record)=>{
+        filteredBusinesses.map((record)=>{
           return <BusinessCard name={record.name} image_url={record.image_url} price={record.price}
                    rating={record.rating} location={record.location} record={record}
                    display_phone={record.display_phone} transactions={record.transactions} id={record.id}
@@ -110,6 +258,20 @@ const DashBoard = () => {
             />
         })
       }
+         {/* {
+        
+        results.map((record)=>{
+          if(newResults.includes(record)){
+          return <BusinessCard name={record.name} image_url={record.image_url} price={record.price}
+                   rating={record.rating} location={record.location} record={record}
+                   display_phone={record.display_phone} transactions={record.transactions} id={record.id}
+                   is_closed={record.is_closed} reviews={record.review_count}
+
+                   key={record.id}
+            />
+          }
+        })
+      } */}
 
 
     </div>
@@ -128,3 +290,23 @@ const DashBoard = () => {
 
 
 export default DashBoard
+
+
+
+/**
+ * 
+    return (
+        <>
+          <Sidebar handleChange={handleChange} 
+                   handleCategoryChange={handleCategoryChange} 
+                   handleColorChange={handleColorChange}
+                   handlePriceChange={handlePriceChange} 
+          />
+          <Navigation query={query} handleInputChange={handleInputChange} />
+          <Recommended handleClick={handleClick} handleRecommendedClick={handleRecommendedClick}/>
+          <Products result={testresult} />
+        </>
+      );
+    }
+
+ */
