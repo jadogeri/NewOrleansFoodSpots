@@ -9,10 +9,10 @@ export default () => {
 
     const searchBusiness = async (id) => {
         try {
+            console.log("id from business detail screen ===============", id)
             const business = JSON.parse(sessionStorage.getItem(id))
             if(business){
                 console.log("storage =====================",business)
-                alert("inside if business id  is present")
                   setBusiness(business)
             }else{
                 console.log("calling yelpApi instance ====================",yelpApi)

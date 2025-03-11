@@ -4,69 +4,43 @@ import ReactImageGallery from "react-image-gallery";
 import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import useBusinessDetail from "../hooks/useBusinessDetail";
-// import getRating from "../utils/getRating";
-import { getPhotos } from "../utils/getPhotos";
-// import Address from "../components/Address";
-// import Rating from "../components/Rating";
+import getRating from "../utils/getRating";
 
-const BusinessDetail = () => {
+const BusinessDetail = (props) => {
     const location = useLocation();  
   const navigate = useNavigate();  
   const id = location.state.id
-  console.log("id''''''''''''''''''''''",id)
-
 
   const [ searchBusiness, business, errorMessage] = useBusinessDetail()
   const [postition,setPostition] = useState({lat: 0,lng : 0})
+  const [data,setData] = useState({})
 
 
 
-  useEffect(() => {
-    searchBusiness(id)
+    useEffect(() => {
+        console.log("id ================", id)
+        searchBusiness(id)
+        .then((record)=>{
+     setData(record)
+        })
 
+    }, [])
 
-}, [])
-console.log("business after useeffect ===========================",JSON.stringify(business, null, 2))
-// get photos array from business
-const photosList = getPhotos(business.photos)
+    console.log("business after useeffect ===========================",JSON.stringify(business, null, 2))
+  const { photos } = business
+  console.log(photos)
+  const photosList = []
+  photos?.forEach((photo)=>{
+    photosList.push({
+      original : photo,
+      thumbnail : photo
+    })
+  })
 
-
-// const b = {
-//   images: photosList,
-//   title: business.name,
-//   //address : business.location.address1,
-//   //city: business.location.city,
-//   // state: business.location.state,
-//   // zip_code: business.location.zip_code,
-//   display_phone : business.display_phone,
-
-
-//   reviews: business.review_count,
-//   availability: true,
-//   brand: "apex",
-//   category: "Sofa",
-//   sku: "BE45VGTRK",
-//   price: business.price,
-//   description:
-//     "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quidem exercitationem voluptate sint eius ea assumenda provident eos repellendus qui neque! Velit ratione illo maiores voluptates commodi eaque illum, laudantium non!",
-//   size: ["XS", "S", "M", "L", "XL"],
-//   color: ["gray", "violet", "red"],
-// };
- 
-
-
-  const {address, city, state, zip_code} =business.location
-
-  const businessData = {
+  const productDetailItem = {
     images: photosList,
     title: business.name,
     reviews: business.review_count,
-    rating : business.rating,
-    // address : business.location.address1,
-    // city: business.location.city,
-    //  state: business.location.state,
-    // zip_code: business.location.zip_code,
-    display_phone : business.display_phone,
     availability: true,
     brand: "apex",
     category: "Sofa",
@@ -87,7 +61,7 @@ const photosList = getPhotos(business.photos)
           showBullets={false}
           showFullscreenButton={false}
           showPlayButton={false}
-          items={businessData.images}
+          items={productDetailItem.images}
         />
 
         {/* /image gallery  */}
@@ -96,37 +70,49 @@ const photosList = getPhotos(business.photos)
 
       <div className="mx-auto px-5 lg:px-5">
         <h2 className="pt-3 text-2xl font-bold lg:pt-0">
-          {businessData.title}
+          {productDetailItem.title}
         </h2>
         <div className="mt-1">
           <div className="flex items-center">
  
-            {/* <Rating rating={businessData.rating} /> */}
+            {
+              getRating(business.rating)
+            }
 
             <p className="ml-3 text-sm text-gray-400">
-              {/* ({businessData.reviews}) */}
+              ({productDetailItem.reviews})
             </p>
           </div>
         </div>
         <p className="mt-4 text-4xl font-bold text-violet-900">
-          ${businessData.price}{" "}
+          ${productDetailItem.price}{" "}
         </p>
+
 
         <p className="pt-5 text-sm leading-5 text-gray-500">
-        {businessData.address} 
-        <br/>
-        {businessData.city}, {businessData.state} {businessData.zip}
-        <br/>
+          {business.location.address1} 
+          <br/>
+          {business.location.city}, {business.location.state} {business.location.zip_code}
+          <br/>
+          {business.display_phone}
         </p>
 
 
+        <p className="mt-5 font-bold">
+          Hours of Operation:{" "}
+          <p className="pt-1 text-sm leading-5 text-gray-500">
+          {/* {business.location.address1}  */}
+          <br/>
+          {/* {business.location.city}, {business.location.state} {business.location.zip_code} */}
+          <br/>
+          {/* {business.display_phone} */}
+        </p>
 
-
-
+        </p>
 
         {/* <p className="mt-5 font-bold">
           Availability:{" "}
-          {businessData.availability ? (
+          {productDetailItem.availability ? (
             <span className="text-green-600">In Stock </span>
           ) : (
             <span className="text-red-600">Expired</span>
@@ -134,23 +120,23 @@ const photosList = getPhotos(business.photos)
         </p> */}
  
         <p className="font-bold">
-          Brand: <span className="font-normal">{businessData.brand}</span>
+          Brand: <span className="font-normal">{productDetailItem.brand}</span>
         </p>
         <p className="font-bold">
           Cathegory:{" "}
-          <span className="font-normal">{businessData.category}</span>
+          <span className="font-normal">{productDetailItem.category}</span>
         </p>
         <p className="font-bold">
-          SKU: <span className="font-normal">{businessData.sku}</span>
+          SKU: <span className="font-normal">{productDetailItem.sku}</span>
         </p>
   
         <p className="pt-5 text-sm leading-5 text-gray-500">
-          {businessData.description}
+          {productDetailItem.description}
         </p>
         <div className="mt-6">
           <p className="pb-2 text-xs text-gray-500">Size</p>
           <div className="flex gap-1">
-            {businessData.size.map((x, index) => {
+            {productDetailItem.size.map((x, index) => {
               return (
                 <div
                   key={index}
@@ -165,7 +151,7 @@ const photosList = getPhotos(business.photos)
         <div className="mt-6">
           <p className="pb-2 text-xs text-gray-500">Color</p>
           <div className="flex gap-1">
-            {businessData.color.map((x, index) => {
+            {productDetailItem.color.map((x, index) => {
               return (
                 <div
                   key={index}
