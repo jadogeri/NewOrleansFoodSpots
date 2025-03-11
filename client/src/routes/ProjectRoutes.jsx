@@ -19,6 +19,7 @@ import AppBar from "../layouts/AppBar.jsx";
 import Footer from "../layouts/Footer.jsx";
 import BusinessDetail from "../pages/BusinessDetail.jsx";
 import MapView from "../pages/MapView/MapView.jsx";
+import ProductDetail from "../pages/ProductDetail.jsx";
 
 
 const ProjectRoutes = () => {
@@ -43,6 +44,8 @@ const ProjectRoutes = () => {
 			<Route path="/credits" element={<Credits />  } />
 			<Route path="/about" element={<About />  } />
 			<Route path="/contact" element={<Contact />  } />
+			<Route path="/product" element={<ProductDetail />  } />
+
 
 
 			{/* <Route path="/test" element={<TestStore />} />  */}

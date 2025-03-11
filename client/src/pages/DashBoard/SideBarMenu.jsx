@@ -37,10 +37,10 @@ pickup}) => {
   >
     {/* <Price /> */}
     <>
-    <label className='w3-bar-item'>
+    <label className='w3-button w3-block w3-white w3-left-align '>
       Price
     </label>
-    <label className="sidebar-label-container">
+    <label  className="w3-bar-item">
           <input onChange={handlePriceChange} type="radio" value="" name="price" />
           <span className="checkmark"></span>All
         </label>
@@ -51,6 +51,7 @@ pickup}) => {
           title="$"
           name="price"
           type="radio"
+          className="w3-bar-item"
         />
 
         <Input
@@ -59,6 +60,8 @@ pickup}) => {
           title="$$"
           name="price"
           type="radio"
+          className="w3-bar-item"
+
 
         />
 
@@ -68,6 +71,8 @@ pickup}) => {
           title="$$$"
           name="price"
           type="radio"
+          className="w3-bar-item"
+
 
         />
 
@@ -77,6 +82,8 @@ pickup}) => {
           title="$$$$"
           name="price"
           type="radio"
+          className="w3-bar-item"
+
 
         />
         <Input
@@ -85,6 +92,8 @@ pickup}) => {
           title="$$$$$"
           name="price"
           type="radio"
+          className="w3-bar-item"
+
 
         />
     </>
@@ -102,6 +111,8 @@ pickup}) => {
           title="⭐"
           name="rating"
           type="radio"
+          className="w3-bar-item"
+
 
         />
 
@@ -111,6 +122,8 @@ pickup}) => {
           title="⭐⭐"
           name="rating"
           type="radio"
+          className="w3-bar-item"
+
 
         />
 
@@ -120,6 +133,8 @@ pickup}) => {
           title="⭐⭐⭐"
           name="rating"
           type="radio"
+          className="w3-bar-item"
+
 
         />
 
@@ -129,6 +144,8 @@ pickup}) => {
           title="⭐⭐⭐⭐"
           name="rating"
           type="radio"
+          className="w3-bar-item"
+
 
         />
         <Input
@@ -137,6 +154,8 @@ pickup}) => {
           title="⭐⭐⭐⭐⭐"
           name="rating"
           type="radio"
+          className="w3-bar-item"
+
 
         />
     
@@ -159,50 +178,16 @@ pickup}) => {
     type="checkbox"
 
   />
-    <button
-      onClick={()=>{closeNavBar("demoAcc")}}
-      className="w3-button w3-block w3-white w3-left-align"
-      id="myBtn"
-    >
-      Jeans <i className="fa fa-caret-down" />
-    </button>
-    <div
-      id="demoAcc"
-      className="w3-bar-block w3-hide w3-padding-large w3-medium"
-    >
-      <a href="#" className="w3-bar-item w3-button w3-light-grey">
-        <i className="fa fa-caret-right w3-margin-right" />
-        Skinny
-      </a>
-      <a href="#" className="w3-bar-item w3-button">
-        Relaxed
-      </a>
-      <a href="#" className="w3-bar-item w3-button">
-        Bootcut
-      </a>
-      <a href="#" className="w3-bar-item w3-button">
-        Straight
-      </a>
-    </div>
-    <a href="#" className="w3-bar-item w3-button">
-      Jackets
-    </a>
+  <label className="  w3-padding">
+    Subscribe
+  </label>
 
   </div>
-  <a href="#footer" className="w3-bar-item w3-button w3-padding">
-    Contact
-  </a>
-  <a
-    //href="javascript:void(0)"
-    className="w3-bar-item w3-button w3-padding"
-    //onClick="document.getElementById('newsletter').style.display='block'"
-  >
-    Newsletter
-  </a>
-  <a href="#footer" className="w3-bar-item w3-button w3-padding">
+  <label className="  w3-padding">
     Subscribe
-  </a>
-  <Spacer paddingBottom={250}/>
+  </label>
+
+  <Spacer paddingBottom={20}/>
 </nav>
   )
 }
