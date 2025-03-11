@@ -340,3 +340,47 @@ const WebResultsShowScreen = (props)=>{
 
 export default WebResultsShowScreen;
  */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/**
+ * 
+   function MyComponent() {
+    const [data, setData] = React.useState(null);
+
+    React.useEffect(() => {
+      async function fetchData() {
+        const response = await fetch('your-api-endpoint');
+        const result = await response.json();
+        setData(result);
+      }
+      fetchData();
+    }, []);
+
+    return (
+      
+        {data ? (
+          // Render your data here
+          {data.name}
+        ) : (
+          
+            Loading...
+          
+        )}
+      
+    );
+  }
+ */
