@@ -2,10 +2,11 @@ import { GoogleMap, useLoadScript, Marker } from "@react-google-maps/api";
 import styles from "./MapStyles";
 
 let center = {}
+
+console.log("google maps key =============",process.env.REACT_APP_GOOGLE_MAPS_API_KEY)
 export default function Map(props) {
   const { isLoaded } = useLoadScript({
-    googleMapsApiKey:""
-    //process.env.REACT_APP_GOOGLE_MAPS_API_KEY
+    googleMapsApiKey:""//process.env.REACT_APP_GOOGLE_MAPS_API_KEY
   });
 
   center={lat:props.lat,lng:props.lng}

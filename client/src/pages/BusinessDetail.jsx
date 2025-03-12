@@ -1,13 +1,17 @@
 import { AiOutlineHeart } from "react-icons/ai";
 import { BiShoppingBag } from "react-icons/bi";
+import { BiWorld } from "react-icons/bi";
 import ReactImageGallery from "react-image-gallery";
 import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import useBusinessDetail from "../hooks/useBusinessDetail";
-// import getRating from "../utils/getRating";
+import getRating from "../utils/getRating";
 import { getPhotos } from "../utils/getPhotos";
+import { getCategories } from "../utils/getCategories";
+import InfoButton from "../components/button/InfoButton";
+import { BiSolidDirectionRight } from "react-icons/bi";
+
 // import Address from "../components/Address";
-import Rating from "../components/Rating";
 
 const BusinessDetail = () => {
     const location = useLocation();  
@@ -65,14 +69,17 @@ const photosList = getPhotos(business.photos)
     title: business.name,
     reviews: business.review_count,
     rating : business.rating,
-    // address : business.location.address1,
-    // city: business.location.city,
-    //  state: business.location.state,
-    // zip_code: business.location.zip_code,
+    address : business?.location?.address1,
+    city: business?.location?.city,
+    state: business?.location?.state,
+    zip_code: business?.location?.zip_code,
     display_phone : business.display_phone,
+    url:business.url,
+    lat: business?.coordinates?.latitude,
+    lng: business?.coordinates?.longitude,
     availability: true,
     brand: "apex",
-    category: "Sofa",
+    category:getCategories(business.categories),
     sku: "BE45VGTRK",
     price: business.price,
     description:
@@ -104,7 +111,9 @@ const photosList = getPhotos(business.photos)
         <div className="mt-1">
           <div className="flex items-center">
  
-            <Rating rating={businessData.rating} />
+            {
+              getRating(businessData.rating)
+            }
 
             <p className="ml-3 text-sm text-gray-400">
               ({businessData.reviews})
@@ -115,18 +124,13 @@ const photosList = getPhotos(business.photos)
           ${businessData.price}{" "}
         </p>
 
- {/* {data?
-        <p className="pt-5 text-sm leading-5 text-gray-500">
-        {data.location.address1} 
+         <p className="pt-5 text-sm leading-5 text-gray-500">
+        {businessData.address} 
         <br/>
-        {data.location.city}, {data.location.state} {data.location.zip_code}
+        {businessData.city}, {businessData.state} {businessData.zip_code}
         <br/>
+        {businessData.display_phone}
         </p>
-        :
-        <p>loading..........................</p>
-
- } */}
-
 
 
 
@@ -170,15 +174,41 @@ const photosList = getPhotos(business.photos)
         </div>
         <div className="mt-6">
           <p className="pb-2 text-xs text-gray-500">Color</p>
-          <div className="flex gap-1">
-            {businessData.color.map((x, index) => {
+          <div className="gap-1">
+          <div className="mt-3 flex flex-row items-center gap-6">
+   
+          <button className="flex h-12 w-1/3 items-center justify-center bg-white-900 text-white duration-100" 
+                  style={{color: "blue"}} 
+                  onClick={()=>{window.open(businessData.url,"_blank")}} 
+                  >
+            <BiWorld className="mx-2" />
+            Website
+          </button>
+          <button className="flex h-12 w-1/3 items-center justify-center bg-white-900 text-white duration-100" 
+                  style={{color: "blue"}} 
+                  onClick={()=>{     console.log("business coordinates", businessData.lat,businessData.lng);
+                          navigate("/dashboard/business/mapview", {
+                             state:{
+                               lat : businessData.lat,
+                               lng: businessData.lng
+                             }
+                           })
+                         }}
+                  >
+            <BiSolidDirectionRight className="mx-2" />
+            Directions
+          </button>
+          
+
+        </div>
+            {/* {businessData.color.map((x, index) => {
               return (
                 <div
                   key={index}
                   className={`h-8 w-8 cursor-pointer border border-white bg-${x}-600 focus:ring-2 focus:ring-${x}-500 active:ring-2 active:ring-${x}-500`}
                 />
               );
-            })}
+            })} */}
           </div>
         </div>
         <div className="mt-6">
