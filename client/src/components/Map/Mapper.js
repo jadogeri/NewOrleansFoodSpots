@@ -1,22 +1,30 @@
 import React from 'react'
-import {  TileLayer, Marker, Popup , Map } from 'react-leaflet'
+import {  TileLayer, Marker, Popup , Map, LayersControl, } from 'react-leaflet'
 import "./Map.css"
 
 
-const Mapper = ({ lat,  lng}) => {
+const Mapper = ({ lat,  lng, name}) => {
   return (
-    <Map center={[lat, lng]} zoom={15} className='map-container'  //style={{heigh:30}}
+    <Map center={[lat, lng]} zoom={11} className='map-container'  //style={{heigh:30}}
     >
   
+
   <TileLayer
     attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
    />
+   
  <Marker position={[lat, lng]}>
       <Popup>
-        I am a pop-up!
+        first
       </Popup>
   </Marker>
+  <Marker position={[29.9790058839138, -90.0963385851989]} >
+      <Popup>
+        second
+      </Popup>
+  </Marker>
+
 </Map>
   )
 }
