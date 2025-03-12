@@ -1,5 +1,5 @@
 import React from 'react'
-import {  TileLayer, Marker, Popup , Map, LayersControl, } from 'react-leaflet'
+import {  TileLayer, Marker, Popup , Map, LayersControl,  } from 'react-leaflet'
 import "./Map.css"
 
 
@@ -24,6 +24,9 @@ const Mapper = ({ lat,  lng, name}) => {
         second
       </Popup>
   </Marker>
+  <LayersControl >
+
+  </LayersControl>
 
 </Map>
   )
