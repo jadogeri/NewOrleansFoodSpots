@@ -1,14 +1,15 @@
 import React from 'react'
-import {  TileLayer, Marker, Popup , Map, LayersControl,  } from 'react-leaflet'
+import  {  TileLayer, Marker, Popup , MapContainer } from 'react-leaflet'
 import "./Map.css"
+
 
 
 const Mapper = ({ lat,  lng, name}) => {
   return (
-    <Map center={[lat, lng]} zoom={11} className='map-container'  //style={{heigh:30}}
+    <MapContainer center={[lat, lng]} zoom={11} className='map-container'  //style={{heigh:30}}
+    
     >
   
-
   <TileLayer
     attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -24,11 +25,9 @@ const Mapper = ({ lat,  lng, name}) => {
         second
       </Popup>
   </Marker>
-  <LayersControl >
 
-  </LayersControl>
 
-</Map>
+</MapContainer>
   )
 }
 

@@ -55,7 +55,7 @@ const ProjectRoutes = () => {
 			
             <Route path="/dashboard" element={<DashBoard />  } />
 			<Route path="/dashboard/business" element={<BusinessDetail />  } />
-			<Route path="/dashboard/business/mapview" element={<MapView />  } />
+			<Route path="/dashboard/business/mapview" element={<MapView /> } />
 
 
 			<Route path="/profile" element={<Profile />  } />
