@@ -4,6 +4,11 @@ import { IUser } from "../interfaces/IUser";
 
 
 
+
+async function getByID(id : mongoose.Types.ObjectId) {
+  return User.findOne({ _id : id });
+}
+
 /**
  * Retrieves a user from the database by their email address.
  * @param email - The email address of the user to find.
@@ -56,4 +61,4 @@ async function update(_id :  mongoose.Types.ObjectId, user : IUser) {
   return User.findOneAndUpdate({ _id: _id }, {$set: user},{upsert: true});
 }
 
-export { getByEmail, getByUsername, create, remove ,update};
+export { getByEmail, getByUsername, create, remove ,update, getByID};

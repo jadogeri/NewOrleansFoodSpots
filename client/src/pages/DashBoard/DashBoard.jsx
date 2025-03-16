@@ -6,7 +6,6 @@ import Spacer from '../../components/Spacer';
 import SearchBar from '../../components/SearchBar/SearchBar';
 import useResults from '../../hooks/useResults';
 import BusinessCard from '../../components/BusinessCard';
-import noFilter from '../../utils/noFilter';
 
 
 const DashBoard = () => {
@@ -19,16 +18,7 @@ const DashBoard = () => {
       const [selectedPickup ,setSelectedPickup] = useState(false);
 
     
-      // ----------- Input Filter -----------
-      const [query, setQuery] = useState("");
-    
-    
-      // const filteredItems = products.filter(
-      //   (product) => product.title.toLowerCase().indexOf(query.toLowerCase()) !== -1
-      // );
-    
-      
-    
+ 
       // ----------- Radio Filtering -----------
 
       const handleRatingChange = (event) => {
@@ -153,63 +143,10 @@ const DashBoard = () => {
         console.log("input value to search api =====",inputValue)
         searchApi(inputValue);
       };
-    
-  
-      // const filterResultsByPrice = (price) => {
-      //   console.log("price===", price)
-      //   if(noFilter(price) || !price){
-      //     return results
-      //   }
-      //     let myfilteredarray = results.filter((result) => {
-      //         return result.price === price;
-      //     })
-  
-      //     return myfilteredarray;
-  
-      // }
-      // const filterResultsByRating = (rating) => {
-      //   if(noFilter(rating) ||!rating){
-      //     return results
-      //   }
-      //     let myfilteredarray = results.filter((result) => {
-      //         return Math.floor(result.rating) == rating;
-      //     })
-  
-      //     return myfilteredarray;
-  
-      // }
-
-      // let newResults = filterResultsByPrice(selectedPrice)
-      // console.log(newResults.length)
-      // newResults = filterResultsByRating(selectedRating);
-      // console.log(newResults.length)
-
-
+   
   return (
     <>
-    
-  <title>W3.CSS Template</title>
-  <meta charSet="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
-  <link
-    rel="stylesheet"
-    href="https://fonts.googleapis.com/css?family=Roboto"
-  />
-  <link
-    rel="stylesheet"
-    href="https://fonts.googleapis.com/css?family=Montserrat"
-  />
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
-  />
-  <style
-    dangerouslySetInnerHTML={{
-      __html:
-        '\n.w3-sidebar a {font-family: "Roboto", sans-serif}\nbody,h1,h2,h3,h4,h5,h6,.w3-wide {font-family: "Montserrat", sans-serif;}\n'
-    }}
-  />
+
   {/* Sidebar/menu */}
   <SideBarMenu handlePriceChange={handlePriceChange} handleRatingChange={handleRatingChange}
     handleDeliveryChange={handleDeliveryChange} handlePickupChange={handlePickupChange}
@@ -239,13 +176,13 @@ const DashBoard = () => {
       </div>
     </header>
 
-    <div className="w3-container w3-text-grey" id="jeans">
+    <div className="w3-container" id="jeans">
       {/* <p>{results.length} results</p> */}
       <p>{filteredBusinesses.length} results</p>
 
     </div>
     {/* BusinessesGrid grid */}
-    <div className="w3-row w3-grayscale">      
+    <div className="w3-row">      
       {
         
         filteredBusinesses.map((record)=>{

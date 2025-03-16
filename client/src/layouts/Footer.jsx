@@ -4,7 +4,20 @@ const Footer = () => {
   return (
     <>
     {/* <!-- Footer --> */}
-      <footer className="w3-container  w3-center w3-opacity w3-light-grey w3-xlarge" style={{  position: "relative", bottom: 0}}>
+      <footer className="w3-container  w3-center  w3-light-grey w3-xlarge"
+       //style={{  position: "relative", height:"10vh"}}
+       style={{
+        position: "fixed",
+        left: 0,
+        bottom: 0,
+        height: "70px",
+        width: "100%",
+        marginTop:200,
+        zIndex:0
+       }}
+       
+       
+       >
         <i className="fa fa-facebook-official w3-hover-opacity"></i>
         <i className="fa fa-instagram w3-hover-opacity"></i>
         <i className="fa fa-snapchat w3-hover-opacity"></i>

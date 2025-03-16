@@ -1,4 +1,3 @@
-
 const dotenv = require("dotenv")
 dotenv.config();
 
@@ -9,19 +8,6 @@ const errorHandler = require("./src/middlewares/errorHandler");
 import {corsOptions} from "./src/configs/cors"
 import cors from "cors";
 import yelpApi from './src/configs/yelpApi';
-import getData from "./getData"
-
-
-
-// app.get('/items/:id', (req: Request<MyParams>, res: Response) => {
-//   const itemId = req.params.id;
-//   res.send(`Item ID: ${itemId}`);
-// });
-// type SearchTerm = { 
-//   searchTerm : string
-// };
-
-
 
 const app = express();
 
@@ -32,11 +18,9 @@ app.use(cors(corsOptions)) // Use this after the variable declaration
 app.use(bodyParser.json())
 app.use(errorHandler);
 
-//app.use("/api/contacts", require("./src/routes/contactRoutes"))
+app.use("/api/businesses", require("./src/routes/businessRoutes"))
 
 app.use("/api/users", require("./src/routes/userRoutes"));
-
-
 
 app.get('/', (req: Request, res : Response) => {
   res.send({message:"home"});

@@ -1,19 +1,23 @@
+
+import { MdLocationOn } from "react-icons/md";
 import React from 'react';
+import "./Address.css"
 
 const Address = ({
-    address,
-    city,
-    state,
-    zip
+    location,
+    name,
+    key,
+    onClick
+
 }) => {
   return (
- <p className="pt-5 text-sm leading-5 text-gray-500">
-        {address} 
-        <br/>
-        {city}, {state} {zip}
-        <br/>
-  </p>
+    <div className="location-result" key={key} onClick={onClick} >
+      <div className="location-name">{name}</div>
+      <div className="location-address row"><MdLocationOn style={{fontSize:20}}/>  { location}</div>
+  </div>
   );
 }
 
 export default Address;
+
+

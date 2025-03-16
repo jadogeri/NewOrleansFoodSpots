@@ -48,7 +48,7 @@ const ProjectRoutes = () => {
 
 
 
-			{/* <Route path="/test" element={<TestStore />} />  */}
+			<Route path="/test" element={<TestPage />} /> 
 			 
 
     		<Route element={<PrivateRoutes />}>

@@ -6,7 +6,6 @@ import "./Map.css"
 
 const maps = {
   base: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-  //satellite :"http://{s}.mqcdn.com/tiles/1.0.0/sat/{z}/{x}/{y}.png",
   satelite:'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
   hot:"https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png",
   topography:'https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png'
@@ -14,7 +13,9 @@ const maps = {
 
 function MapComponent({
   coordinates,
-  destination
+  destination,
+  origin,
+  center
 }) {
   console.log("coordinates origin ============== ", coordinates)
   console.log("coordinates destination ============== ", destination)
@@ -28,50 +29,38 @@ function MapComponent({
   };
 
   return (
-    <div>
-      <button onClick={() => updateRoute([40.7128, -74.0060], [34.0522, -118.2437])}>
-        Update Route (New York to LA)
-      </button>
-      <MapContainer center={[destination.lat,destination.lon]}
-                    zoom={3}
-                    zoomControl={true}
-                    style={{zIndex:0,position:"relative"}}
-                    //style={{ height: "100vh", width: "60%", padding: 0 }}
-                    className="map-container"
-                    keyboard={true}
-                    
-                    >
-  <Routing from={[coordinates.lat, coordinates.lon]} to={[destination.lat, destination.lon]}              color={'#757de8'} 
-       position={'topright'} 
- />
+    <MapContainer 
+      center={[center.lat,center.lng]} className="map-container"
+      keyboard={true} zoom={6} style={{ height: "400px", width: "4" }}
+    >
       <LayersControl position="topright">
-          <LayersControl.BaseLayer checked name="Map">
-            <TileLayer
-              attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-              url={maps.base}
-            />
-          </LayersControl.BaseLayer>
-          <LayersControl.BaseLayer  name="Satelite">
+        <LayersControl.BaseLayer checked name="Map">
+          <TileLayer
+            attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+            url={maps.base}
+          />
+        </LayersControl.BaseLayer>
+        <LayersControl.BaseLayer  name="Satelite">
             <TileLayer
               attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
               url={maps.satelite}
             />
-          </LayersControl.BaseLayer>
-          <LayersControl.BaseLayer  name="Hot">
-            <TileLayer
-              attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-              url={maps.hot}
-            />
-          </LayersControl.BaseLayer>
-           <LayersControl.BaseLayer  name="Topography">
-            <TileLayer
-              attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-              url={maps.topography}
-            />
-          </LayersControl.BaseLayer>
-        </LayersControl>        
-      </MapContainer>
-    </div>
+        </LayersControl.BaseLayer>
+        <LayersControl.BaseLayer  name="Hot">
+          <TileLayer
+            attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+            url={maps.hot}
+          />
+        </LayersControl.BaseLayer>
+          <LayersControl.BaseLayer  name="Topography">
+          <TileLayer
+            attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+            url={maps.topography}
+          />
+        </LayersControl.BaseLayer>
+      </LayersControl>        
+      <Routing from={[origin.lat,origin.lng]} to={[destination.lat, destination.lng]} />
+    </MapContainer>
   );
 }
 

@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import "./BusinessCard.css"
 import { useNavigate } from 'react-router-dom'
 import getRating from '../utils/getRating';
+import { FaLocationDot } from "react-icons/fa6";
 
 const BusinessCard = ({
     image_url,
@@ -17,6 +18,8 @@ const BusinessCard = ({
 }) => {
   const navigate = useNavigate();
   const [like, setLike] = useState(false)
+  const [visited, setVisited] = useState(false)
+
 
   return (
 
@@ -25,12 +28,26 @@ const BusinessCard = ({
       <i className='fa fa-heart' onClick={()=>{setLike(prev => !prev)}}
         style={{
           position: "absolute",
-          zIndex: "2",
           color: !like? "gray" : "red"  ,
           fontSize:"200%"  ,
           cursor:"pointer"
    
          }}></i>    
+          <div  onClick={()=>{setVisited(prev => !prev)}}
+        style={{
+          position: "absolute",
+          fontSize:"200%"  ,
+          cursor:"pointer",
+          marginLeft:30
+
+   
+         }}> 
+         {
+          !visited?<FaLocationDot style={{color:"grey"}} />
+          : <FaLocationDot style={{color:"green"}}/>
+         }
+         
+         </div>    
         
       <img src={image_url} style={{ width: "100%",height:200,cursor:"pointer" }} 
       onClick={()=>{     

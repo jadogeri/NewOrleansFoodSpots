@@ -1,3 +1,6 @@
+import { IBusiness } from "./src/interfaces/IBusiness";
+import { IDetail } from "./src/interfaces/IDetail";
+
 declare global {
   var localStorage: LocalStorage;
     namespace Express {
@@ -11,7 +14,7 @@ declare global {
             email:string
             id:mongoose.Types.ObjectId
         },
-        body: IUser | IUserReset | IUserDeactivated | IUserForgot | IUserAuthorized
+        body: IUser | IUserReset | IUserDeactivated | IUserForgot | IUserAuthorized | IBusiness | IDetail
       }
     }
     namespace NodeJS {
