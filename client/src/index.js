@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import "../src/styles/global.css"
+import "./styles/global.css"
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import '../node_modules/font-awesome/css/font-awesome.min.css'; 
+import 'font-awesome/css/font-awesome.min.css'; 
 import {Provider as ReduxProvider} from "react-redux";
 import { store } from './redux/store';
 import { Provider as AuthProvider } from './contexts/AuthContext'
@@ -13,13 +13,13 @@ import { Provider as AuthProvider } from './contexts/AuthContext'
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  // <React.StrictMode>
+  <React.StrictMode>
     <AuthProvider>
       <ReduxProvider store={store} >
         <App />
       </ReduxProvider>
     </AuthProvider>
-  // </React.StrictMode>
+  </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function

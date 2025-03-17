@@ -2,7 +2,7 @@ import React, {useRef, useState} from 'react'
 import InputField from '../../input/FormFieldInput';
 import img from "../../../assets/villainImages/PredatorHome.jpg"
 import { handleNavClickDelay } from '../../../handleNavClickDelay';
-import UserData from '../../../components/UserData';
+import UserData from '../../UserData';
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { useForgotPasswordMutation } from '../../../redux/api/user';
 import {openModal} from "../../../utils/htmlUtil/openModal"

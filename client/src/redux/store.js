@@ -6,6 +6,9 @@ import sessionReducer from "./feature/session/sessionSlice"
 //import sessionReducer from "./features/session/sessionSlice"
 import { userApiSlice } from "./api/user";
 import { businessAoiSlice } from "./api/business";
+import { loadState, saveState } from '../configs/localStorage';
+const persistedState = loadState();
+console.log("persisted state ===== ", JSON.stringify(persistedState))
 
 
 
@@ -18,6 +21,7 @@ export const store = configureStore({
 
     session : sessionReducer,
   },
+  preloadedState: persistedState,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(apiSlice.middleware),
   devTools: true,
@@ -25,3 +29,8 @@ export const store = configureStore({
 
 setupListeners(store.dispatch);
 
+
+// Save state to LocalStorage on every state change
+store.subscribe(() => {
+  saveState(store.getState());
+});

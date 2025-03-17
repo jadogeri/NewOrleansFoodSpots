@@ -4,7 +4,7 @@ import React from 'react'
 import ForgotPassword from "../pages/ForgotPassword/ForgotPassword.jsx";
 import ResetPassword from "../pages/ResetPassword/ResetPassword.jsx"
 import NoPage from '../pages/NoPage/NoPage.jsx';
-import DashBoard from '../pages/DashBoard/DashBoard'
+import DashBoard from '../pages/DashBoard/DashBoard.jsx'
 import Home from '../pages/Home/Home.jsx'
 import TestPage from "../pages/TestPage/TestPage.jsx";
 import Register from "../pages/Register/Register.jsx";
