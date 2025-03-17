@@ -8,6 +8,7 @@ export const userApiSlice = apiSlice.injectEndpoints({
             url: "/users/forgot",
             method: "PUT",
             body: {email : email},
+            mode: "cors"
         })
     }),
     resetPassword: builder.mutation({

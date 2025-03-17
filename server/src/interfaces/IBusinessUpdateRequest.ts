@@ -1,10 +1,11 @@
 import { IJwtPayload } from "./IJWTPayload";
+import { IDetail } from "./IDetail";
+
 export interface IBusinessUpdateRequest extends IJwtPayload{
     
-  email?: string
-  name? : string
-  phone? : string
-  fax?:string
-  
+  business_id?: string;
+  detail?: IDetail;
+  liked?: boolean;
+  visited? :boolean;  
 
 }

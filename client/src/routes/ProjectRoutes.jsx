@@ -20,6 +20,7 @@ import Footer from "../layouts/Footer.jsx";
 import BusinessDetail from "../pages/BusinessDetail.jsx";
 import MapView from "../pages/MapView/MapView.jsx";
 import ProductDetail from "../pages/ProductDetail.jsx";
+import Spacer from "../components/Spacer.jsx";
 
 
 const ProjectRoutes = () => {
@@ -33,7 +34,8 @@ const ProjectRoutes = () => {
 	
 	<BrowserRouter >
 	<NavBar />	
-	<AppBar/>	
+	{/* <AppBar/>	 */}
+	<Spacer marginTop={30}/>
 
 		<Routes >				
 			<Route path="/" element={auth ? <Navigate to="/dashboard" /> : <Home />} index /> 

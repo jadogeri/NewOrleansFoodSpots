@@ -1,49 +1,42 @@
 const asyncHandler = require("express-async-handler");
-import {hash} from "bcrypt";
-const User = require("../../models/userModel");
 import { Response, Request } from 'express';
 import { IJwtPayload } from "../../interfaces/IJWTPayload";
-import * as contactService from "../../services/contactService"
-import mongoose from "mongoose";
+import * as businessService from "../../services/businessService"
+import { IBusiness } from "../../interfaces/IBusiness";
 
 /**
-*@desc Get  Contacts
-*@route GET /api/contacts/get
+*@desc Get a Business
+*@route GET /api/businesss/
 *@access public
 */
 
-export const getContact = asyncHandler(async (req : IJwtPayload, res: Response)  =>  {
-          /* #swagger.tags = ['Contact']
-             #swagger.summary = 'get a contact' 
-            #swagger.description = 'Endpoint to retrieve a contact' 
-            #swagger.security = [{
-              "apiKeyAuth": []
-    }] */
+export const getBusiness = asyncHandler(async (req : IJwtPayload, res: Response)  =>  {
 
-  const stringId =  req.params.id;
-  if(stringId.length !== 24){
+  const businessId =  req.params.id;
+    if(!businessId){
     res.status(400);
-    throw new Error("id must be 24 characters");
+    throw new Error("business id is mandatory");
   }
-  if(!mongoose.isValidObjectId(stringId)){
-    res.status(400);
-    throw new Error("id is not valid");
-  }
-  const objectId: mongoose.Types.ObjectId = new mongoose.Types.ObjectId(stringId);
 
-   await contactService.getById(objectId)
-  .then((contact)=>{
-    if(!contact){
-      res.status(200).json("contact does not exist");
-    }
-    res.status(200).json(contact);
+    //get all businesses in an array
+    const businesses : IBusiness[] = await businessService.getAll(req);
+      console.log("list of all businesses ===")
+      console.log(JSON.stringify(businesses));
+    
+      let foundBusiness: IBusiness | undefined;
+      // iterate and find business using business id
+    
+      for(let i = 0 ; i < businesses.length ; i++){
+        if(businesses[i].business_id === businessId){
+          foundBusiness = businesses[i]
+          break;
+        }
+      }
+      if(!foundBusiness){
+        res.status(200).json("business does not exist");
+      }
 
-  })
-  .catch((e)=>{
-    res.status(400);
-    throw new Error(e);
-
-  })
+    res.status(200).json(foundBusiness);
 
 
 });

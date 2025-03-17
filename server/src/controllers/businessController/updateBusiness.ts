@@ -1,89 +1,102 @@
 
 const asyncHandler = require("express-async-handler");
 import { Response } from 'express';
-import { IJwtPayload } from "../../interfaces/IJWTPayload";
-import * as contactService from "../../services/contactService"
+import * as businessService from "../../services/businessService"
 import mongoose from "mongoose";
-import { IContactUpdateRequest } from "../../interfaces/IContactUpdateRequest";
+import { IBusinessUpdateRequest } from "../../interfaces/IBusinessUpdateRequest";
 import { errorBroadcaster } from "../../utils/errorBroadcaster";
-import { IContact } from '../../interfaces/IContact';
-import { IContactCreateRequest } from '../../interfaces/IContactCreateRequest';
+import { IBusiness } from '../../interfaces/IBusiness';
 
 /**
-*@desc Update  Contact
-*@route PUT /api/contacts/:id
+*@desc Update  Business
+*@route PUT /api/businesss/:id
 *@access private
 */
 
-export const updateContact = asyncHandler(async (req: IContactUpdateRequest, res : Response) => {
-          /* #swagger.tags = ['Contact']
-             #swagger.summary = 'update a contact' 
-            #swagger.description = 'Endpoint to update a contact' 
-            #swagger.security = [{
-              "apiKeyAuth": []
-    }] */
-try{
-  const {email, name, phone, fax} = req.body
-  console.log(email,name, phone,fax)
+export const updateBusiness = asyncHandler(async (req: IBusinessUpdateRequest, res : Response) => {
+
+  const {  business_id,  detail ,liked , visited  } : IBusiness = req.body
+  console.log("data to change", business_id,  detail ,liked , visited )
   const user_id : mongoose.Types.ObjectId = new mongoose.Types.ObjectId(req.user.id)
-  const stringId =  req.params.id;
-  if(stringId.length !== 24){
+
+  if(!mongoose.isValidObjectId(user_id)){
     res.status(400);
-    throw new Error("id must be 24 characters");
+    throw new Error("id is not valid mongoose ObjectId");
   }
-  if(!mongoose.isValidObjectId(stringId)){
-    res.status(400);
-    throw new Error("id is not valid");
-  }
-  const objectId: mongoose.Types.ObjectId = new mongoose.Types.ObjectId(stringId);
+  //const objectId: mongoose.Types.ObjectId = new mongoose.Types.ObjectId(stringId);
 
-  if(!email && !name && !phone && !fax){
-    errorBroadcaster(res,400,"at least one field is mandatory!")    
+  if(!business_id){
+    errorBroadcaster(res,400,"business id is mandatory!")    
   }
 
-      await contactService.getById(objectId)
-      .then(async (contact)=>{
-        if(!contact){
-          res.status(400).json("contact does not exist");
-        }   
+  const businesses : IBusiness[] = await businessService.getAll(req);
+  console.log("list of all businesses ===")
+  console.log(JSON.stringify(businesses));
 
-        if(contact?.user_id?.toString()  != user_id.toString()){
-          res.status(400);
-          throw new Error(`user id: ${user_id} not authorized to update contact `);
-        }
-        else{
-          console.log("strings are the same")
-          if(email){
-          let contactFound = await contactService.getByEmail(email as string)
+  let updateBusiness: IBusiness | undefined;
+  // iterate and find business using business id
 
-            if( contactFound ){
-              res.status(400);
-              throw new Error(`Email ${email} already taken`);
-            }        
-          }
-          //create new Contact update those that changed         
-          
-          const newContact : IContact ={
-              email: email? email : contact.email ,
-              name : name?  name : contact.name ,
-              phone : phone?  phone : contact.phone ,
-              fax:fax?  fax : contact.fax
-          }
- 
-           await contactService.update(objectId,newContact)
-           const updatedContact = await contactService.getById(objectId);
-          res.status(200).json(updatedContact);
-
-          
-        }
-    
-      })
-
-
-    
-  
-
-    }catch(e){
-      console.log(e)
+  for(let i = 0 ; i < businesses.length ; i++){
+    if(businesses[i].business_id === business_id){
+      updateBusiness = businesses[i]
+      break;
     }
+  }
+  if(!updateBusiness){
+    res.status(400);
+    throw new Error( `did not find user ${user_id} with a business with id ${business_id}`)
+  }
+  console.log("before business to update found =========, ",JSON.stringify(updateBusiness));
+
+  const modifiedBusiness : IBusiness ={
+    business_id : business_id,
+    user_id : user_id
+
+  }
+  if(liked !== null || liked !== undefined){
+    modifiedBusiness.liked = liked;
+  }
+  if(visited !== null || visited !== undefined){
+    modifiedBusiness.visited = visited;
+  }
+  if(detail !== null || detail !== undefined){
+    modifiedBusiness.detail = detail
+  }
+
+  console.log("before modified business to update found =========, ",JSON.stringify(modifiedBusiness));
+
+           await businessService.update(modifiedBusiness)           
+           const updatedBusiness = await businessService.getByBusinessObject(modifiedBusiness);
+          res.status(200).json(updatedBusiness);
+
+    // .then(async (business)=>{
+    //     if(!business){
+    //       res.status(400).json("business does not exist");
+    //     }   
+
+    //     if(business?.user_id?.toString()  != user_id.toString()){
+    //       res.status(400);
+    //       throw new Error(`user id: ${user_id} not authorized to update business `);
+    //     }
+    //     else{
+    //       console.log("strings are the same")     
+          
+    //       const newBusiness : IBusiness ={
+    //         business_id : business_id,
+    //         detail : detail ,
+    //         liked : liked, 
+    //         visited : visited
+
+    //       }
+ 
+    //        await businessService.update(objectId,newBusiness)
+    //        const updatedBusiness = await businessService.getById(objectId);
+    //       res.status(200).json(updatedBusiness);
+
+          
+    //     }
+    
+    //   })
+    
+ 
 });

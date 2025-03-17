@@ -1,48 +1,42 @@
 const asyncHandler = require("express-async-handler");
 import { Response, Request } from 'express';
 import { IJwtPayload } from "../../interfaces/IJWTPayload";
-import * as contactService from "../../services/contactService"
-import mongoose from "mongoose";
+import * as businessService from "../../services/businessService"
+import { IBusiness } from '../../interfaces/IBusiness';
 
 /**
-*@desc Delete a contact
-*@route DELETE /api/contacts/:id
+*@desc Delete a business
+*@route DELETE /api/businesss/:id
 *@access public
 */
 
-export const deleteContact = asyncHandler(async (req : IJwtPayload, res: Response)  =>  {
-         /* #swagger.tags = ['Contact']
-            #swagger.summary = 'delete a contact' 
-            #swagger.description = 'Endpoint to delete a contact' 
-            #swagger.security = [{
-              "apiKeyAuth": []
-    }] */
+export const deleteBusiness = asyncHandler(async (req : IJwtPayload, res: Response)  =>  {
 
-  const stringId =  req.params.id;
-  if(stringId.length !== 24){
+  const businessId =  req.params.id;
+  if(!businessId){
     res.status(400);
-    throw new Error("id must be 24 characters");
+    throw new Error("business id is mandatory");
   }
-  if(!mongoose.isValidObjectId(stringId)){
-    res.status(400);
-    throw new Error("id is not valid");
+  //get all businesses in an array
+  const businesses : IBusiness[] = await businessService.getAll(req);
+  console.log("list of all businesses ===")
+  console.log(JSON.stringify(businesses));
+    
+  let foundBusiness: IBusiness | undefined;
+  // iterate and find business using business id
+    
+  for(let i = 0 ; i < businesses.length ; i++){
+    if(businesses[i].business_id === businessId){
+      foundBusiness = businesses[i]
+      break;
+    }
   }
-  const objectId: mongoose.Types.ObjectId = new mongoose.Types.ObjectId(stringId);
+  if(!foundBusiness){
+    res.status(200).json("business does not exist");
+  }
+  else{
+    await businessService.remove(req.user.id, businessId)
+    res.status(200).json(`deleted business with id: ${businessId}`);
+  }
 
-   await contactService.getById(objectId)
-  .then((contact)=>{
-    if(!contact){
-      res.status(200).json("contact does not exist");
-    }
-    else{
-    contactService.remove(contact._id)
-    res.status(200).json(`deleted contact with id: ${objectId}`);
-    }
-
-  })
-  .catch((e)=>{
-    res.status(400);
-    throw new Error(e);
-
-  })
 });

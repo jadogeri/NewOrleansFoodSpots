@@ -30,7 +30,9 @@ const BusinessCard = ({
           position: "absolute",
           color: !like? "gray" : "red"  ,
           fontSize:"200%"  ,
-          cursor:"pointer"
+          cursor:"pointer",
+          marginTop:2
+
    
          }}></i>    
           <div  onClick={()=>{setVisited(prev => !prev)}}
@@ -38,15 +40,12 @@ const BusinessCard = ({
           position: "absolute",
           fontSize:"200%"  ,
           cursor:"pointer",
-          marginLeft:30
+          marginLeft:30,
+          marginTop:2
 
    
-         }}> 
-         {
-          !visited?<FaLocationDot style={{color:"grey"}} />
-          : <FaLocationDot style={{color:"green"}}/>
-         }
-         
+         }}>  
+          <FaLocationDot style={{color: !visited?"grey" : "green"}} />         
          </div>    
         
       <img src={image_url} style={{ width: "100%",height:200,cursor:"pointer" }} 

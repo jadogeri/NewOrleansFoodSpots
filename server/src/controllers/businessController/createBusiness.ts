@@ -15,8 +15,10 @@ import { errorBroadcaster } from '../../utils/errorBroadcaster';
 
 export const createBusiness = asyncHandler(async (req: IBusinessCreateRequest, res : Response)  => {
 
-  const { user_id,business_id, detail,liked,visited} : IBusiness = req.body;
-if(req){
+  if(req){
+  const { business_id, detail,liked,visited} : IBusiness = req.body;
+  const user_id = req.user.id
+
   console.log("business data === ",user_id,business_id, detail,liked,visited)
 
  if (!user_id || !business_id || !detail) {
@@ -26,15 +28,32 @@ if(req){
   else{
 
     //check if user id exist
-
-    //create new business user
     const registeredUser = await userService.getByID(user_id)
     if(!registeredUser){
       res.status(400);
       throw new Error("Invalid User !");
 
     }
+    //get all businesses in an array by usr id
+    const businesses : IBusiness[] = await businessService.getAll(req);
+      console.log("list of all businesses ===")
+      console.log(JSON.stringify(businesses));
     
+      let foundBusiness: IBusiness | undefined;
+      // iterate and find business using business id
+    
+      for(let i = 0 ; i < businesses.length ; i++){
+        if(businesses[i].business_id === business_id){
+          foundBusiness = businesses[i]
+          break;
+        }
+      }
+      if(foundBusiness){
+        res.status(400);
+        throw new Error(`businees ${business_id} already exists   for user ${user_id} `);
+
+      }else{
+        
     const business : IBusiness = {
       user_id: user_id,
       business_id : business_id,
@@ -47,13 +66,6 @@ if(req){
       visited: visited? visited :false
 
     }
-
-    //check database if business already exist
-   const registeredBusiness = await businessService.getByBusinessID(business_id)
-   if(registeredBusiness){
-    res.status(400);
-    throw new Error("Business already exist!");
-   }else{
     await businessService.create(business)
     .then((newBusiness)=>{
       console.log("new business : ",newBusiness,typeof newBusiness)
@@ -65,9 +77,10 @@ if(req){
 
     }) 
    }
+   
   }
-
-}
-
+}else{
+    res.status(400).json({ message: "Invalid User" });
+    }
 
 });

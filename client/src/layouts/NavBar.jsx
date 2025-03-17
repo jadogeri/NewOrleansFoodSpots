@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom'
 import { Context as AuthContext } from '../contexts/AuthContext'
 import { openModal } from '../utils/htmlUtil/openModal'
 import LogoutModal from '../components/modals/LogoutModal/LogoutModal'
+import { FaLocationDot } from "react-icons/fa6";
+
 
 const NavBar = () => {
   const [auth, setAuth] = useState(null);
@@ -62,8 +64,40 @@ const NavBar = () => {
           {/* <a href="/" 
           className="w3-padding-large w3-hover-red w3-hide-small w3-right"><i className="fa fa-search"></i></a> */}
           {!key ? <></> :
-            <button onClick={()=>{openModal("logoutModal")}}
-          className="w3-padding-large w3-hover-red w3-right"><i className="fa fa-sign-out"></i></button>
+          <>
+          
+          <button onClick={()=>{openModal("logoutModal")}}
+          className="w3-hover-red w3-right">
+            <i className="fa fa-sign-out"></i></button>
+            <div className="w3-right flex" style={{display:'flex'}}>{2}
+            </div> 
+      <i className="fa fa-heart w3-right"onClick={()=>{alert("liked!!!")}}
+        style={{
+          color: "red"  ,
+          fontSize:"150%"  ,
+          cursor:"pointer",
+          marginTop:10
+
+   
+         }}></i>   
+        
+          <div className="w3-right flex" onClick={()=>{alert("visited")}}
+        style={{
+          fontSize:"150%"  ,
+          cursor:"pointer",
+          marginLeft:0,
+          marginTop:10
+
+   
+         }}>  
+          <FaLocationDot style={{color:"green"}} />    
+          {1}
+         </div>    
+
+
+
+
+            </>
           } 
         </div>
       </div>

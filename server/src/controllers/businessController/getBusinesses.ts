@@ -1,28 +1,23 @@
 const asyncHandler = require("express-async-handler");
 import { Response } from 'express';
-import * as contactService from"../../services/contactService"
+import * as businessService from"../../services/businessService"
 import { IJwtPayload } from '../../interfaces/IJWTPayload';
+import { IBusiness } from '../../interfaces/IBusiness';
 
 
 /**
-*@desc Get All Contacts
-*@route GET /api/contacts/get
+*@desc Get All Businesses
+*@route GET /api/businesses/
 *@access public
 */
 
-export const getContacts = asyncHandler(async (req : IJwtPayload, res: Response)  =>  {
-          /* #swagger.tags = ['Contact']
-             #swagger.summary = 'get all contacts' 
-             #swagger.description = 'Endpoint to get all contacts' 
-             #swagger.security = [{
-              "apiKeyAuth": []
-    }] */
+export const getBusinesses = asyncHandler(async (req : IJwtPayload, res: Response)  =>  {
 
   console.log("user extracted from jwt token === ",JSON.stringify(req.user,null,3))
   if(req.user){
-    const contacts = await contactService.getAll(req);
-    console.log(JSON.stringify(contacts,null,3))    
-    res.status(200).json(contacts);
+    const businesses : IBusiness[] = await businessService.getAll(req);
+    console.log(JSON.stringify(businesses,null,3))    
+    res.status(200).json(businesses);
   }
   else{
   res.status(400).json({ message: "Invalid User" });

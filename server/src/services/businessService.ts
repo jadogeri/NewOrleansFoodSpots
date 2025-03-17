@@ -21,19 +21,25 @@ async function create(business : IBusiness) {
   return  Business.create(business);
 }
 
-async function update(id : mongoose.Types.ObjectId,business : IBusiness) {
-    return Business.findOneAndUpdate({_id : id}, // Filter
+async function update(business : IBusiness) {
+    return Business.findOneAndUpdate({business_id : business.business_id,user_id : business.user_id}, // Filter
                           {$set: {...business}}, // Update
                           {upsert: true});
 }
 
 //{_id: "12"}, {$set: {protocol: "http"}}, {upsert: true}
-async function remove(id : mongoose.Types.ObjectId) {
-  return Business.findOneAndDelete({ _id : id });
+async function remove(user_id : mongoose.Types.ObjectId, businees_id : string) {
+  return Business.findOneAndDelete({ user_id : user_id, business_id : businees_id });
 }
 
 async function removeAll(req : IJwtPayload) {
   return Business.deleteMany({ user_id : req.user.id });
 }
 
-export { getById, getByToken, getByBusinessID, create, update, remove, removeAll, getAll };
+async function getByBusinessObject(business : IBusiness) {
+  return Business.findOne({business_id : business.business_id,user_id : business.user_id});
+}
+
+
+export { getById, getByToken, getByBusinessID, create,
+         update, remove, removeAll, getAll, getByBusinessObject };

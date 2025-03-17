@@ -1,22 +1,20 @@
 import * as express from "express";
 const router = express.Router();
-import { createBusiness,
-//     getBusinesss, getBusiness, updateBusiness, deleteBusiness, deleteBusinesss 
+import { createBusiness, getBusinesses, getBusiness,
+         deleteBusinesses, updateBusiness, deleteBusiness
     } from "../controllers/businessController/index";
 const validateToken = require("../middlewares/validateTokenHandler");
 
 router.post("/",validateToken, createBusiness);
 
-// router.get("/",validateToken, getBusinesss);
+router.get("/",validateToken, getBusinesses);
 
-// router.get("/:id",validateToken, getBusiness);
+router.get("/:id",validateToken, getBusiness);
 
-// router.post("/",validateToken, createBusiness);
+router.put("/",validateToken, updateBusiness);
 
-// router.put("/:id",validateToken, updateBusiness);
+router.delete("/:id",validateToken, deleteBusiness);
 
-// router.delete("/:id",validateToken, deleteBusiness);
-
-// router.delete("/",validateToken, deleteBusinesss);
+router.delete("/",validateToken, deleteBusinesses);
 
 module.exports = router;

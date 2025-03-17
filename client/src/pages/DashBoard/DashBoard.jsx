@@ -44,32 +44,13 @@ const DashBoard = () => {
         setSelectedPickup(pickup)
       };
 
-
-
       // ------------ Button Filtering -----------
         
-
-      //////////////////////////////////////////////////
-      //////////////////////////////////////////////////
       function filteredData(businesses, selected, query) {
         const {selectedRating, selectedPrice, selectedDelivery, selectedPickup} = selected
         console.log(selectedPrice, selectedRating, selectedDelivery, selectedPickup)
         console.log(businesses.length)
         let filteredBusinesses = businesses;
-    
-        // Filtering Input Items using results
-        // if (query) {
-        //   filteredBusinesses = results;
-        // }
-    
-        // Applying selected category filter
-        //  if (selectedCategory ) {
-        //   filteredProducts = filteredProducts.filter(
-        //     ({ category }) =>
-        //       category === selectedCategory 
-             
-        //   );
-        // }
     
           // Applying selected rating filter
           if (selectedRating ) {
@@ -89,47 +70,14 @@ const DashBoard = () => {
           }
           console.log("selected after rating filter length ===", filteredBusinesses.length)
     
-         // Applying selected price filter
-        //  if (selectedPrice && !noFilter(selectedPrice)) {
-        //   filteredBusinesses = filteredBusinesses.filter(
-        //     ({  newPrice }) =>
-        //       newPrice === selectedPrice 
-        //   );
-        // }
-    
         return filteredBusinesses
-  
-        //   ({ img, title, star, reviews, prevPrice, newPrice }) => (
-        //     <Card
-        //       key={Math.random()}
-        //       img={img}
-        //       title={title}
-        //       star={star}
-        //       reviews={reviews}
-        //       prevPrice={prevPrice}
-        //       newPrice={newPrice}
-        //     />
-        //   )
-        // );
-      }
-    
-    
-      //////////////////////////////////////////////////
-      //////////////////////////////////////////////////
-    
-     
+
+      }    
        let allSelected = {selectedRating, selectedPrice, selectedDelivery, selectedPickup}
     
       // //const result = filteredData(products, selectedCategory, query);
       const filteredBusinesses = filteredData(results, allSelected, inputValue);
-    
-      //const testResult = filteredDataTest()
-    
-    
-   
-            
-      // console.log("results==================================================  ",results.length, JSON.stringify(results,null,2))
-
+ 
       const handleInputChange = (event) => {
         const { value } = event.target;
         console.log("value ====",value)
@@ -166,13 +114,10 @@ const DashBoard = () => {
     <div className="w3-hide-large" style={{ marginTop: 83 }} />
     {/* Top header */}
     <header className="w3-container w3-xlarge">
-      <p className="w3-left">Jeans</p>
       <div className="w3-right">
         <SearchBar  value={inputValue}
                  onChange={handleInputChange}
                  onClick={()=>{handleSubmit()}}/>
-        <i className="fa fa-shopping-cart w3-margin-right" />
-        <i className="fa fa-search" />
       </div>
     </header>
 
@@ -195,20 +140,7 @@ const DashBoard = () => {
             />
         })
       }
-         {/* {
-        
-        results.map((record)=>{
-          if(newResults.includes(record)){
-          return <BusinessCard name={record.name} image_url={record.image_url} price={record.price}
-                   rating={record.rating} location={record.location} record={record}
-                   display_phone={record.display_phone} transactions={record.transactions} id={record.id}
-                   is_closed={record.is_closed} reviews={record.review_count}
 
-                   key={record.id}
-            />
-          }
-        })
-      } */}
 
 
     </div>
@@ -228,22 +160,3 @@ const DashBoard = () => {
 
 export default DashBoard
 
-
-
-/**
- * 
-    return (
-        <>
-          <Sidebar handleChange={handleChange} 
-                   handleCategoryChange={handleCategoryChange} 
-                   handleColorChange={handleColorChange}
-                   handlePriceChange={handlePriceChange} 
-          />
-          <Navigation query={query} handleInputChange={handleInputChange} />
-          <Recommended handleClick={handleClick} handleRecommendedClick={handleRecommendedClick}/>
-          <Products result={testresult} />
-        </>
-      );
-    }
-
- */

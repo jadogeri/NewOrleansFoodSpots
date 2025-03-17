@@ -8,7 +8,6 @@ import isJwtTokenExpired, { decode } from 'jwt-check-expiry';
 
 const validateToken = asyncHandler(async (req : IJwtPayload, res: Response, next: NextFunction) => {
 
-  try{
   let token;
   let authHeader = req.headers.authorization as string;
   console.log("authheader = ", authHeader)
@@ -49,9 +48,7 @@ const validateToken = asyncHandler(async (req : IJwtPayload, res: Response, next
     }
 
   }
-}catch(e){
-  console.log(e)
-}
+
 });
 
 module.exports = validateToken;
