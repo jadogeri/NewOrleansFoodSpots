@@ -5,7 +5,7 @@ import { apiSlice } from "./api/apiSlice";
 import sessionReducer from "./feature/session/sessionSlice"
 //import sessionReducer from "./features/session/sessionSlice"
 import { userApiSlice } from "./api/user";
-import { businessAoiSlice } from "./api/business";
+import { businessApiSlice } from "./api/business";
 import { loadState, saveState } from '../configs/localStorage';
 const persistedState = loadState();
 console.log("persisted state ===== ", JSON.stringify(persistedState))
@@ -17,7 +17,7 @@ export const store = configureStore({
    //[apiSlice.reducerPath]: apiSlice.reducer,
     //auth: authReducer,    
     [userApiSlice.reducerPath] : userApiSlice.reducer,
-    [businessAoiSlice.reducerPath] : businessAoiSlice.reducer,
+    [businessApiSlice.reducerPath] : businessApiSlice.reducer,
 
     session : sessionReducer,
   },

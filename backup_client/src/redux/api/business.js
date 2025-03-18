@@ -12,7 +12,7 @@ const headers ={
     "Authorization":`Bearer ${token}`
 }
 
-export const businessAoiSlice = apiSlice.injectEndpoints({
+export const businessApiSlice = apiSlice.injectEndpoints({
    endpoints: (builder) => ({
     getAllBusinesses: builder.query({
         query: () => ({
@@ -86,7 +86,7 @@ export const {
     useCreateBusinessMutation,
     useResetPasswordMutation,  
 
-} = businessAoiSlice;
+} = businessApiSlice;
 
 /*
 

@@ -5,7 +5,7 @@ import { apiSlice } from "./api/apiSlice";
 import sessionReducer from "./feature/session/sessionSlice"
 //import sessionReducer from "./features/session/sessionSlice"
 import { userApiSlice } from "./api/user";
-import { businessAoiSlice } from "./api/business";
+import { businessApiSlice } from "./api/business";
 
 
 
