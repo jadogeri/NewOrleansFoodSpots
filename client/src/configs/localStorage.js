@@ -21,6 +21,18 @@
 //     }
 //   };
 
+//   // Remove state from LocalStorage
+//   export const removeState = () => {
+//     try {
+//       const value = localStorage.removeItem('reduxState');
+//       console.log("loading state..............................")
+//       return value
+//     } catch (err) {
+//       console.error('Error loading state:', err);
+//       return undefined;
+//     }
+//   };
+
 import { encryptData } from "../utils/encryptData";
 import { decryptData } from "../utils/decryptData";
 
@@ -46,6 +58,8 @@ export const loadState = () => {
     return undefined;
   }
 };
+
+
 
 // export {loadState, saveState}
 //    // Saving encrypted data
