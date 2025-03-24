@@ -1,5 +1,5 @@
 const asyncHandler = require("express-async-handler");
-import { Response, Request } from 'express';
+import { Response } from 'express';
 import { IBusiness } from "../../interfaces/IBusiness";
 import * as businessService from"../../services/businessService"
 import * as userService from"../../services/userService"
@@ -35,7 +35,7 @@ export const createBusiness = asyncHandler(async (req: IBusinessCreateRequest, r
 
     }
     //get all businesses in an array by usr id
-    const businesses : IBusiness[] = await businessService.getAll(req);
+    const businesses : IBusiness[] = registeredUser.businesses as IBusiness[]
       console.log("list of all businesses ===")
       console.log(JSON.stringify(businesses));
     
@@ -55,7 +55,6 @@ export const createBusiness = asyncHandler(async (req: IBusinessCreateRequest, r
       }else{
         
     const business : IBusiness = {
-      user_id: user_id,
       business_id : business_id,
       detail: {
         name: detail.name,
@@ -66,16 +65,12 @@ export const createBusiness = asyncHandler(async (req: IBusinessCreateRequest, r
       visited: visited? visited :false
 
     }
-    await businessService.create(business)
-    .then((newBusiness)=>{
-      console.log("new business : ",newBusiness,typeof newBusiness)
 
-      res.status(201).json(newBusiness);
-    })   
-    .catch((e)=>{
-      errorBroadcaster(res,400,`Error:\n ${e}`)
+    registeredUser.businesses?.push(business);
+    registeredUser.save();
 
-    }) 
+      res.status(201).json(business);
+   
    }
    
   }

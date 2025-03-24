@@ -3,6 +3,7 @@ import { Response, Request } from 'express';
 import { IJwtPayload } from "../../interfaces/IJWTPayload";
 import * as businessService from "../../services/businessService"
 import { IBusiness } from "../../interfaces/IBusiness";
+import * as userService from  "../../services/userService";
 
 /**
 *@desc Get a Business
@@ -17,9 +18,19 @@ export const getBusiness = asyncHandler(async (req : IJwtPayload, res: Response)
     res.status(400);
     throw new Error("business id is mandatory");
   }
+  const user_id = req.user.id
 
+
+     //check if user id exist
+      const registeredUser = await userService.getByID(user_id)
+      if(!registeredUser){
+        res.status(400);
+        throw new Error("Invalid User !");
+  
+      }
     //get all businesses in an array
-    const businesses : IBusiness[] = await businessService.getAll(req);
+    const businesses : IBusiness[] = registeredUser.businesses as IBusiness[]
+
       console.log("list of all businesses ===")
       console.log(JSON.stringify(businesses));
     
