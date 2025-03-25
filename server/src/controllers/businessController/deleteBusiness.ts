@@ -1,9 +1,10 @@
 const asyncHandler = require("express-async-handler");
-import { Response, Request } from 'express';
+import { Response } from 'express';
 import { IJwtPayload } from "../../interfaces/IJWTPayload";
-import * as businessService from "../../services/businessService"
 import { IBusiness } from '../../interfaces/IBusiness';
 import * as userService from  "../../services/userService";
+import User from '../../models/userModel';
+import { ObjectId } from 'mongodb';
 
 /**
 *@desc Delete a business
@@ -14,6 +15,7 @@ import * as userService from  "../../services/userService";
 export const deleteBusiness = asyncHandler(async (req : IJwtPayload, res: Response)  =>  {
 
   const businessId =  req.params.id;
+  console.log("value of business id =================",businessId)
   const user_id = req.user.id
   if(!businessId){
     res.status(400);
@@ -46,10 +48,12 @@ export const deleteBusiness = asyncHandler(async (req : IJwtPayload, res: Respon
     res.status(200).json("business does not exist");
   }
   else{
-    registeredUser.businesses?.filter((business)=>{
-      return business.business_id !== businessId
-    })
-    registeredUser.save();
+
+    const result = await User.updateOne(
+      { _id: new ObjectId(user_id) },
+      { $pull: { businesses: { business_id: businessId } } }
+    );
+    console.log("result******************************8", result);
     res.status(200).json(`deleted business with id: ${businessId}`);
   }
 

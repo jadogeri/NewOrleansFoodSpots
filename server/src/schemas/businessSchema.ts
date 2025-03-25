@@ -7,7 +7,6 @@ export const businessSchema : Schema = new Schema<IBusiness>({
   business_id: {
     type: String,
     required: [true, "Please add the business id"],
-    unique: [true, "business id already taken"],
   },
   liked: {
     type : Boolean,

@@ -1,11 +1,14 @@
 
 const asyncHandler = require("express-async-handler");
 import { Response } from 'express';
-import * as businessService from "../../services/businessService"
 import mongoose from "mongoose";
 import { IBusinessUpdateRequest } from "../../interfaces/IBusinessUpdateRequest";
 import { errorBroadcaster } from "../../utils/errorBroadcaster";
 import { IBusiness } from '../../interfaces/IBusiness';
+import * as userService from  "../../services/userService";
+import User from '../../models/userModel';
+import { ObjectId } from 'mongodb';
+
 
 /**
 *@desc Update  Business
@@ -29,16 +32,26 @@ export const updateBusiness = asyncHandler(async (req: IBusinessUpdateRequest, r
     errorBroadcaster(res,400,"business id is mandatory!")    
   }
 
-  const businesses : IBusiness[] = await businessService.getAll(req);
+         //check if user id exist
+          const registeredUser = await userService.getByID(user_id)
+          if(!registeredUser){
+            res.status(400);
+            throw new Error("Invalid User !");
+      
+          }
+        //get all businesses in an array
+        const businesses : IBusiness[] = registeredUser.businesses as IBusiness[]
   console.log("list of all businesses ===")
   console.log(JSON.stringify(businesses));
 
   let updateBusiness: IBusiness | undefined;
+  let index: number | undefined;
   // iterate and find business using business id
 
   for(let i = 0 ; i < businesses.length ; i++){
     if(businesses[i].business_id === business_id){
       updateBusiness = businesses[i]
+      index = i
       break;
     }
   }
@@ -48,9 +61,8 @@ export const updateBusiness = asyncHandler(async (req: IBusinessUpdateRequest, r
   }
   console.log("before business to update found =========, ",JSON.stringify(updateBusiness));
 
-  const modifiedBusiness : IBusiness ={
+  const modifiedBusiness : IBusiness = {
     business_id : business_id,
-    user_id : user_id
 
   }
   if(liked !== null || liked !== undefined){
@@ -63,40 +75,18 @@ export const updateBusiness = asyncHandler(async (req: IBusinessUpdateRequest, r
     modifiedBusiness.detail = detail
   }
 
+  businesses[index as number] = { ...businesses[index as number], ...modifiedBusiness}
+
   console.log("before modified business to update found =========, ",JSON.stringify(modifiedBusiness));
-
-           await businessService.update(modifiedBusiness)           
-           const updatedBusiness = await businessService.getByBusinessObject(modifiedBusiness);
-          res.status(200).json(updatedBusiness);
-
-    // .then(async (business)=>{
-    //     if(!business){
-    //       res.status(400).json("business does not exist");
-    //     }   
-
-    //     if(business?.user_id?.toString()  != user_id.toString()){
-    //       res.status(400);
-    //       throw new Error(`user id: ${user_id} not authorized to update business `);
-    //     }
-    //     else{
-    //       console.log("strings are the same")     
-          
-    //       const newBusiness : IBusiness ={
-    //         business_id : business_id,
-    //         detail : detail ,
-    //         liked : liked, 
-    //         visited : visited
-
-    //       }
- 
-    //        await businessService.update(objectId,newBusiness)
-    //        const updatedBusiness = await businessService.getById(objectId);
-    //       res.status(200).json(updatedBusiness);
-
-          
-    //     }
+  const result = await User.updateOne(
+    { _id: new ObjectId(user_id) },
+    { $set: { businesses: businesses } },
     
-    //   })
-    
+  );
+  console.log("result******************************8", result);
+
+           //await businessService.update(modifiedBusiness)           
+           //const updatedBusiness = await businessService.getByBusinessObject(modifiedBusiness);
+          res.status(200).json(result);
  
 });

@@ -18,7 +18,7 @@ app.use(cors(corsOptions)) // Use this after the variable declaration
 app.use(bodyParser.json())
 app.use(errorHandler);
 
-//app.use("/api/businesses", require("./src/routes/businessRoutes"))
+app.use("/api/businesses", require("./src/routes/businessRoutes"))
 
 app.use("/api/users", require("./src/routes/userRoutes"));
 

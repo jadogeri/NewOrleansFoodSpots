@@ -1,7 +1,6 @@
 const asyncHandler = require("express-async-handler");
 import { Response } from 'express';
 import { IBusiness } from "../../interfaces/IBusiness";
-import * as businessService from"../../services/businessService"
 import * as userService from"../../services/userService"
 import { IBusinessCreateRequest } from "../../interfaces/IBusinessCreateRequest";
 import { errorBroadcaster } from '../../utils/errorBroadcaster';
@@ -50,7 +49,7 @@ export const createBusiness = asyncHandler(async (req: IBusinessCreateRequest, r
       }
       if(foundBusiness){
         res.status(400);
-        throw new Error(`businees ${business_id} already exists   for user ${user_id} `);
+        throw new Error(`businees ${business_id} already exists for user ${user_id} `);
 
       }else{
         
