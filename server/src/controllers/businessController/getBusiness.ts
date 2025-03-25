@@ -1,5 +1,5 @@
 const asyncHandler = require("express-async-handler");
-import { Response, Request } from 'express';
+import { Response } from 'express';
 import { IJwtPayload } from "../../interfaces/IJWTPayload";
 import * as businessService from "../../services/businessService"
 import { IBusiness } from "../../interfaces/IBusiness";
@@ -48,7 +48,6 @@ export const getBusiness = asyncHandler(async (req : IJwtPayload, res: Response)
       }
 
     res.status(200).json(foundBusiness);
-
 
 });
 
