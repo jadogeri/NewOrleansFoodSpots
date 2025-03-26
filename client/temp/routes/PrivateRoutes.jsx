@@ -6,10 +6,16 @@
  * @access puplic
  */
  
-import { Navigate,  Outlet } from "react-router-dom";
+import { Navigate,  Outlet, useNavigate } from "react-router-dom";
 import { isTokenExpired } from "../utils/isTokenExpired";
 
+
 const PrivateRoutes = () => {
+  const navigate = useNavigate();
+  const handleNav =()=>{
+    navigate("/login")
+  
+  }
 
   try{    
      let data = JSON.parse(localStorage.getItem("AUTHKEY"))
@@ -19,6 +25,7 @@ const PrivateRoutes = () => {
      console.log("auth========================================================================================",auth);
 if(isTokenExpired(auth)){
   console.log("token expired=====================================================================================")
+  handleNav();
 
 localStorage.removeItem("AUTHKEY");
 }else{
@@ -28,7 +35,7 @@ localStorage.removeItem("AUTHKEY");
 
 
   return(
-    isTokenExpired(auth)  ? <Navigate to= '/login'/> : <Outlet />      
+    (isTokenExpired(auth) || !auth) ? <Navigate to= '/login'/> : <Outlet />      
   )
       
   }catch(e){
