@@ -1,9 +1,9 @@
-import Routes from './routes/ProjectRoutes';
+import Routes from "./routes/ProjectRoutes"
 
 function App() {
   return (
-    <Routes />
-  );
+    <Routes /> 
+  )
 }
 
 export default App;

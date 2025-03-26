@@ -7,15 +7,29 @@
  */
  
 import { Navigate,  Outlet } from "react-router-dom";
+import { isTokenExpired } from "../utils/isTokenExpired";
 
 const PrivateRoutes = () => {
 
   try{    
-     let auth = localStorage.getItem("NOFSKEY")
+     let data = JSON.parse(localStorage.getItem("AUTHKEY"))
+     const { accessToken} = data
+     let auth = accessToken
+     console.log("data========================================================================================",data)
+     console.log("auth========================================================================================",auth);
+if(isTokenExpired(auth)){
+  console.log("token expired=====================================================================================")
 
-      return(
-        auth === null  ? <Navigate to= '/login'/> : <Outlet />      
-      )
+localStorage.removeItem("AUTHKEY");
+}else{
+  console.log("token is good=====================================================================================")
+
+}
+
+
+  return(
+    isTokenExpired(auth)  ? <Navigate to= '/login'/> : <Outlet />      
+  )
       
   }catch(e){
     console.log(e);
