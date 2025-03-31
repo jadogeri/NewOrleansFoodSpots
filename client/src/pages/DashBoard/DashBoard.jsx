@@ -6,20 +6,22 @@ import Spacer from '../../components/Spacer';
 import SearchBar from '../../components/SearchBar/SearchBar';
 import useResults from '../../hooks/useResults';
 import BusinessCard from '../../components/BusinessCard';
-
+import { useGetAllBusinessesQuery } from '../../redux/api/business/business';
 
 const DashBoard = () => {
-
+    
       const [searchApi, results, errorMessage] = useResults();
       const [inputValue, setInputValue] = useState('');
       const [selectedPrice, setSelectedPrice] = useState(null);
       const [selectedRating, setSelectedRating] = useState(null);
       const [selectedDelivery ,setSelectedDelivery] = useState(false);
       const [selectedPickup ,setSelectedPickup] = useState(false);
+      const { data: businesses, refetch, isLoading, error, isFetching } = useGetAllBusinessesQuery();
+      console.log("value of businesses ===",JSON.stringify(businesses,null,2))
 
-    
- 
+
       // ----------- Radio Filtering -----------
+
 
       const handleRatingChange = (event) => {
         const rating = event.target.value;
@@ -110,6 +112,10 @@ const DashBoard = () => {
   <div className="w3-main" style={{ marginLeft: 250 }}>
   <Spacer  paddingTop={100}/>
 
+<div>{JSON.stringify(businesses,null,2)}</div>
+
+
+  
     {/* Push down content on small screens */}
     <div className="w3-hide-large" style={{ marginTop: 83 }} />
     {/* Top header */}
@@ -136,7 +142,7 @@ const DashBoard = () => {
                    display_phone={record.display_phone} transactions={record.transactions} id={record.id}
                    is_closed={record.is_closed} reviews={record.review_count}
 
-                   key={record.id}
+                   key={record.id} businesses={businesses} refetch={refetch}
             />
         })
       }
@@ -145,7 +151,6 @@ const DashBoard = () => {
 
     </div>
     
-
     <Spacer  paddingTop={150}/>
   
     {/* End page content */}

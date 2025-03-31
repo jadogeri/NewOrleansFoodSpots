@@ -1,10 +1,15 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import "./BusinessCard.css"
 import { useNavigate } from 'react-router-dom'
 import getRating from '../utils/getRating';
 import { FaLocationDot } from "react-icons/fa6";
+import { useUpdateBusinessMutation } from '../redux/api/business/business';
+import { useCreateBusinessMutation } from '../redux/api/business/business';
+import { useGetAllBusinessesQuery } from '../redux/api/business/business';
 
 const BusinessCard = ({
+  businesses,
+  refetch,
     image_url,
     name,
     price,
@@ -19,13 +24,46 @@ const BusinessCard = ({
   const navigate = useNavigate();
   const [like, setLike] = useState(false)
   const [visited, setVisited] = useState(false)
+  const  [ createBusiness ] = useCreateBusinessMutation();
 
+  useEffect(()=>{
+    refetch()
 
+  },[])
+
+  const handleIconClick = ()=>{
+    console.log("clicking icon..................................")
+    const businessFound = businesses?.filter((business)=>{
+      return id === business.business_id
+    })
+    console.log("businessfound =============", businessFound)
+    //if no business found, create business
+    if(businessFound.length === 0){
+      alert("did not find biz")
+      createBusiness({
+        business_id: id,
+        liked: like,
+        visited: true,
+        detail: {
+           name: name,
+           phone: display_phone,
+           rating:rating,           
+        }
+      })
+        console.log("refetching..................................")
+
+    }
+    setLike(prev => !prev)
+
+  
+  }
+
+  
   return (
 
    <div className="w3-col l3 s6">
     <div className="w3-container">    
-      <i className='fa fa-heart' onClick={()=>{setLike(prev => !prev)}}
+      <i className='fa fa-heart' onClick={handleIconClick}
         style={{
           position: "absolute",
           color: !like? "gray" : "red"  ,
@@ -35,7 +73,7 @@ const BusinessCard = ({
 
    
          }}></i>    
-          <div  onClick={()=>{setVisited(prev => !prev)}}
+          <div  onClick={handleIconClick}
         style={{
           position: "absolute",
           fontSize:"200%"  ,

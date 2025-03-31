@@ -1,11 +1,12 @@
 import { apiSlice } from "../apiSlice";
 
 let token = ""
-let serializedState = localStorage.getItem(process.env.REACT_APP_AUTH_KEY);
-console.log("token from serielized ================", serializedState)
-if((serializedState)){
-  token = serializedState
+const serializedState =  localStorage.getItem(process.env.REACT_APP_AUTH_KEY);
+if(serializedState){
+  token = JSON.parse(serializedState)?.token
 }
+
+console.log("v*************************alue of token****************************", token)
 
 const headers ={
     'Content-Type': 'application/json',
@@ -18,24 +19,23 @@ export const businessApiSlice = apiSlice.injectEndpoints({
    endpoints: (builder) => ({
     getAllBusinesses: builder.query({
         query: () => ({
-            url : "/yelp/businesses",
+            url : "/businesses",
             method : "GET",
             headers: headers
         }),
-        providesTags: ['Business'],
+       // providesTags: ['Business'],
 
       }),
   
     getBusiness: builder.query({
         query: (id) => ({
-            url: `/yelp/businesses/${id}`,
+            url: `/businesses/${id}`,
             method : "GET",
             headers: headers
         }),
-        providesTags: ['Business'],
+      //  providesTags: ['Business'],
 
     }),
-
  
     createBusiness: builder.mutation({
         query: ({business_id, detail,liked,visited} ) => ({
@@ -49,96 +49,50 @@ export const businessApiSlice = apiSlice.injectEndpoints({
             },
             headers: headers
         }),
-        invalidatesTags: ['Business'],
+     //   invalidatesTags: ['Business'],
     }),
-    resetPassword: builder.mutation({
-        query: ({ username, old_password, new_password}) => ({
-            url: "/reset_password",
-            method: "POST",
-            body: {username : username ,old_password:old_password,new_password:new_password}
+    deleteBusiness: builder.mutation({
+        query: (id) => ({
+            url: `/businesses/${id}`,
+            method: "DELETE",
+            headers: headers
       }),
-      invalidatesTags: ['Business'],
+    //  invalidatesTags: ['Business'],
   }),
-    login: builder.mutation({
-        query: ({ username ,password, token}) => ({
-            url: "/login",
-            method: "POST",
-            body: {username : username,password : password, token : token},
+    deleteAllBusinesses: builder.mutation({
+        query: () => ({
+            url: `/businesses`,
+            method: "DELETE",
+            headers: headers
         }),
-        invalidatesTags: ['Business'],
+    //    invalidatesTags: ['Business'],
     }),
   
-    logout: builder.mutation({
-        query: ( {username , token }) => ({
-            url: "/logout",
-            method: "POST",
-            body: {username ,token},
+    updateBusiness: builder.mutation({
+        query: ( {business_id,liked,visited} ) => ({
+            url: "/businesses",
+            method: "PUT",
+            body: {
+              business_id :business_id ,
+              liked :liked,
+              visited,visited,
+          },
+          headers: headers
         }),
-        invalidatesTags: ['Business'],
+      //  invalidatesTags: ['Business'],
     }),  
   }),
 });
 
 export const {
   
-    useLoginMutation,
-    useLogoutMutation,
+
     useGetAllBusinessesQuery,
     useGetBusinessQuery,
     useCreateBusinessMutation,
-    useResetPasswordMutation,  
+    useDeleteAllBusinessesMutation,
+    useDeleteBusinessMutation,
+    useUpdateBusinessMutation,
+    
 
 } = businessApiSlice;
-
-/*
-
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-
-export const productsApi = createApi({
-  reducerPath: "products",
-  baseQuery: fetchBaseQuery({ baseUrl: "https://dummyjson.com" }),
-  endpoints: (builder) => ({
-    getAllProduct: builder.query({
-      query: () => "/products",
-    }),
-
-    getProductById: builder.query({
-      query: (id) => `/products/${id}`,
-    }),
-
-    addNewProduct: builder.mutation({
-      query: (newProduct) => ({
-        url: `/products/add`,
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: newProduct,
-      }),
-    }),
-
-    updateProduct: builder.mutation({
-      query: ({ id, updatedProduct }) => ({
-        url: `/products/${id}`,
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: updatedProduct,
-      }),
-    }),
-
-    deleteProduct: builder.mutation({
-      query: (id) => ({
-        url: `/products/${id}`,
-        method: "DELETE",
-      }),
-    }),
-  }),
-});
-
-export const {
-  useGetAllProductQuery,
-  useGetProductByIdQuery,
-  useAddNewProductMutation,
-  useUpdateProductMutation,
-  useDeleteProductMutation,
-} = productsApi;
-
-*/
