@@ -26,7 +26,7 @@ app.get('/', (req: Request, res : Response) => {
   res.send({message:"home"});
 });
 
-app.get('/fetchdata', async (req: Request, res : Response) => {
+app.get('/api/yelp/businesses', async (req: Request, res : Response) => {
   try{
   console.log("calling fetch.........................")
   const searchTerm    = req.query.searchTerm
@@ -40,6 +40,7 @@ app.get('/fetchdata', async (req: Request, res : Response) => {
       location: 'new orleans'
     }
   });
+  console.log(response.data)
   //console.log("response data ",JSON.stringify(response.data))
   res.status(200).send(response.data)  
   }catch(e){
@@ -50,7 +51,7 @@ app.get('/fetchdata', async (req: Request, res : Response) => {
 
 });
 
-app.get('/fetchdata/:id', async (req: Request, res : Response) => {
+app.get('/api/yelp/businesses/:id', async (req: Request, res : Response) => {
   try{
   console.log("calling fetch by id .........................")
   const id = req.params.id;

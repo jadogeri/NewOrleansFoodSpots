@@ -1,5 +1,5 @@
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
-import React from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 /**  ROUTES -- AUTHFLOW **/
 import PrivateRoutes from "./PrivateRoutes.jsx";
 import ForgotPassword from "../pages/ForgotPassword/ForgotPassword.jsx";
@@ -13,19 +13,28 @@ import Login from "../pages/Login/Login.jsx";
 import NavBar from "../layouts/NavBar.jsx";
 import AppBar from "../layouts/AppBar.jsx";
 import Footer from "../layouts/Footer.jsx";
+import BusinessDetail from "../pages/BusinessDetail.jsx";
+import Credits from "../pages/Credits/Credits.jsx";
+import About from "../pages/About/About.jsx";
+import Contact from "../pages/Contact/Contact.jsx";
+import Profile from "../pages/Profile/Profile.jsx";
+import Review from "../pages/Review/Review.jsx";
+import MapView from "../pages/MapView/MapView.jsx";
+import ProductDetail from "../pages/ProductDetail.jsx";
 
-const ProjectRoutes = () => {
 
-	let auth = null;
-	let authState = JSON.parse(localStorage.getItem(process.env.REACT_APP_AUTH_KEY));
-	if(authState){
-		const { accessToken } = authState;
-		auth = accessToken.token
-	console.log("auth state===========================", authState)
-	}
-	console.log("auth ===========================", auth)
+
+
+const ProjectRoutes = ({
+	state
+}) => {
+	console.log("state from app =================*******", JSON.stringify(state,null,3))
+
+	console.log("auth ===========================", state.token)
+	const {token : auth} = state	
 
   return (
+
 
 	<>
 	
@@ -38,10 +47,27 @@ const ProjectRoutes = () => {
 			<Route path="/forgotpassword" element={auth ? <Navigate to="/dashboard" /> :<ForgotPassword />} /> 
 			<Route path="/login" element={auth ? <Navigate to="/dashboard" /> :<Login />} /> 
 			<Route path="/register" element={auth ? <Navigate to="/dashboard" /> :<Register />} /> 
-			<Route path="/test" element={<TestPage />} /> 			 
+			<Route path="/test" element={<TestPage />} /> 		
+			<Route path="/credits" element={<Credits />  } />
+			<Route path="/about" element={<About />  } />
+			<Route path="/contact" element={<Contact />  } />
+			<Route path="/product" element={<ProductDetail />  } />
+
+
+
+			<Route path="/test" element={<TestPage />} /> 
+				 
 
     		<Route element={<PrivateRoutes />}>			
-            	<Route path="/dashboard" element={<DashBoard />  } />
+			<Route path="/dashboard" element={<DashBoard />  } />
+			<Route path="/dashboard/business" element={<BusinessDetail />  } />
+			<Route path="/dashboard/business/mapview" element={<MapView /> } />
+
+
+			<Route path="/profile" element={<Profile />  } />
+			<Route path="/review" element={<Review />  } />
+
+
     		</Route>
 			<Route path="*" element={<NoPage />} />
 		</Routes>
@@ -56,4 +82,7 @@ const ProjectRoutes = () => {
 
 
 export default ProjectRoutes
+
+
+
 

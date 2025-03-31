@@ -1,5 +1,6 @@
 import { apiSlice } from "../apiSlice";
 
+
 export const userApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
  
@@ -42,10 +43,16 @@ export const userApiSlice = apiSlice.injectEndpoints({
   }),
   
     logout: builder.mutation({
-        query: async ( token ) => ({
+        query: ( token ) => ({
             url: "/users/logout",
             method: "POST",
             body: {token : token},
+            headers :{
+                'Content-Type': 'application/json',
+                "Accept":'application/json',
+                "Access-Control-Allow-Origin": "*"  ,
+                "Authorization":`Bearer ${token}`
+            }
         })
     }),  
     deactivate: builder.mutation({

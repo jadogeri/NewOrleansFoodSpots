@@ -2,8 +2,9 @@ import { apiSlice } from "../apiSlice";
 
 let token = ""
 let serializedState = localStorage.getItem(process.env.REACT_APP_AUTH_KEY);
+console.log("token from serielized ================", serializedState)
 if((serializedState)){
-  token = JSON.parse(serializedState).accessToken
+  token = serializedState
 }
 
 const headers ={
