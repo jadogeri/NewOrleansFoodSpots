@@ -5,7 +5,6 @@ import getRating from '../utils/getRating';
 import { FaLocationDot } from "react-icons/fa6";
 import { useUpdateBusinessMutation } from '../redux/api/business/business';
 import { useCreateBusinessMutation } from '../redux/api/business/business';
-import { useGetAllBusinessesQuery } from '../redux/api/business/business';
 
 const BusinessCard = ({
   businesses,
@@ -25,6 +24,7 @@ const BusinessCard = ({
   const [like, setLike] = useState(false)
   const [visited, setVisited] = useState(false)
   const  [ createBusiness ] = useCreateBusinessMutation();
+  const [updateBusiness] = useUpdateBusinessMutation();
 
   useEffect(()=>{
     refetch()
@@ -52,12 +52,22 @@ const BusinessCard = ({
       })
         console.log("refetching..................................")
 
+    }else{
+      alert("business already exists in database")
+      updateBusiness({
+        business_id :id,
+        liked :icon==="heart"? !businessFound[0].liked :businessFound[0].liked,
+        visited :icon==="pin"? !businessFound[0].visited :businessFound[0].visited
+
+      })
     }
     switch(icon){
       case "heart":
+        console.log("i clicked heart button")
         setLike(prev => !prev)
         break;
       case "pin":
+        console.log("i clicked pin button")
         setVisited(prev => !prev)
         break;
       default:
