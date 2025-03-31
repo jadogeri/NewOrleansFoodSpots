@@ -31,7 +31,7 @@ const BusinessCard = ({
 
   },[])
 
-  const handleIconClick = ()=>{
+  const handleIconClick = ({icon})=>{
     console.log("clicking icon..................................")
     const businessFound = businesses?.filter((business)=>{
       return id === business.business_id
@@ -42,8 +42,8 @@ const BusinessCard = ({
       alert("did not find biz")
       createBusiness({
         business_id: id,
-        liked: like,
-        visited: true,
+        liked: icon==="heart"? true : false,
+        visited: icon==="pin"? true : false,
         detail: {
            name: name,
            phone: display_phone,
@@ -53,8 +53,16 @@ const BusinessCard = ({
         console.log("refetching..................................")
 
     }
-    setLike(prev => !prev)
-
+    switch(icon){
+      case "heart":
+        setLike(prev => !prev)
+        break;
+      case "pin":
+        setVisited(prev => !prev)
+        break;
+      default:
+        break;
+    }
   
   }
 
@@ -63,7 +71,7 @@ const BusinessCard = ({
 
    <div className="w3-col l3 s6">
     <div className="w3-container">    
-      <i className='fa fa-heart' onClick={handleIconClick}
+      <i className='fa fa-heart' onClick={()=>{handleIconClick({icon : "heart"})}}
         style={{
           position: "absolute",
           color: !like? "gray" : "red"  ,
@@ -73,7 +81,7 @@ const BusinessCard = ({
 
    
          }}></i>    
-          <div  onClick={handleIconClick}
+          <div  onClick={()=>{handleIconClick({icon : "pin"})}}
         style={{
           position: "absolute",
           fontSize:"200%"  ,

@@ -10,12 +10,9 @@ import { loadState,saveState } from "../configs/localStorage";
 
 const persistedState = loadState();
 console.log("api ===== ", persistedState.api  )
-// remove api from 
-// prevent side effects while fetching data
-delete persistedState.api
-console.log("astate ===== ", persistedState )
-
 console.log("persisted state ===== ", JSON.stringify(persistedState))
+delete persistedState.api
+
 
 
 export const store = configureStore({
@@ -28,6 +25,7 @@ export const store = configureStore({
     session : sessionReducer,
   },
   preloadedState: persistedState,
+
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(apiSlice.middleware),
   devTools: true,
