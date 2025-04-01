@@ -16,7 +16,6 @@ const BusinessCard = ({
   price,
   rating,
   reviews,
-  is_closed,
   id,
   display_phone,
   location,
