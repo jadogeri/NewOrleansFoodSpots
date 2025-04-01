@@ -5,6 +5,7 @@ import getRating from '../utils/getRating';
 import { FaLocationDot } from "react-icons/fa6";
 import { useUpdateBusinessMutation } from '../redux/api/business/business';
 import { useCreateBusinessMutation } from '../redux/api/business/business';
+import { useDeleteBusinessMutation } from '../redux/api/business/business';
 
 
 const BusinessCard = ({
@@ -23,18 +24,21 @@ const BusinessCard = ({
 }) => {
   const navigate = useNavigate();
   const  [ business, setBusiness ] = useState();
-  const [like, setLike] = useState(false)
-  const [visited, setVisited] = useState(false)
   const  [ createBusiness ] = useCreateBusinessMutation();
   const [updateBusiness] = useUpdateBusinessMutation();
-  const [test, setTest] = useState(0);
+  const [deleteBusiness] = useDeleteBusinessMutation();
+  const [heartSelected, setHeartSelected] = useState(false);
+  const [pinSelected, setPinSelected] = useState(false);
+
   useEffect(()=>{
     refetch()
-    setTest(1)
     const b = findBusiness(businesses);
     console.log("b====================================================", b)
     if(b?.length ===1){
       setBusiness(b[0])
+      setHeartSelected(b[0].liked);
+      setPinSelected(b[0].visited)
+
     }
 
 
@@ -71,27 +75,24 @@ const BusinessCard = ({
         console.log("refetching..................................")
 
     }else{
-      updateBusiness({
-        business_id :id,
-        liked :icon==="heart"? !businessFound[0].liked :businessFound[0].liked,
-        visited :icon==="pin"? !businessFound[0].visited :businessFound[0].visited
+      if(((icon==="heart" && businessFound[0].liked === true && businessFound[0].visited === false ) || 
+         (icon==="pin"  && businessFound[0].liked === false && businessFound[0].visited === true)) ){
+          deleteBusiness(businessFound[0]?.business_id)
+          .then(()=>{
+            setHeartSelected(false);
+            setPinSelected(false);
+          });
+          
+      }else{
+        updateBusiness({
+          business_id :id,
+          liked :icon==="heart"? !businessFound[0].liked :businessFound[0].liked,
+          visited :icon==="pin"? !businessFound[0].visited :businessFound[0].visited
 
-      })
+        })
+      }
     }
-    switch(icon){
-      case "heart":
-        console.log("i clicked heart button")
-        setLike(prev => !prev)
-        break;
-      case "pin":
-        console.log("i clicked pin button")
-        setVisited(prev => !prev)
-        break;
-      default:
-        break;
-    }
-    setTest(0)
-  
+ 
   }
 
   
@@ -99,12 +100,12 @@ const BusinessCard = ({
 
    <div className="w3-col l3 s6">
     <div className="w3-container">   
-      <h1>{test}</h1> 
       <i className='fa fa-heart' onClick={()=>{handleIconClick({icon : "heart"})}}
           
         style={{
           position: "absolute",
-          color: !business? "gray" : business.liked === true? "red": "gray" ,
+         // color: !business? "gray" : business.liked === true? "red": "gray" ,
+         color: !business? "gray" : heartSelected === true? "red": "gray" ,
           fontSize:"200%"  ,
           cursor:"pointer",
           marginTop:2
@@ -121,7 +122,9 @@ const BusinessCard = ({
 
    
          }}>  
-          <FaLocationDot style={{color: !business? "gray" : business.visited === true? "green": "gray" }} />         
+          {/* <FaLocationDot style={{color: !business? "gray" : business.visited === true? "green": "gray" }} />          */}
+          <FaLocationDot style={{color: !business? "gray" : pinSelected === true? "green": "gray" }} />         
+
          </div>    
         
       <img src={image_url} style={{ width: "100%",height:200,cursor:"pointer" }}  alt='image'
