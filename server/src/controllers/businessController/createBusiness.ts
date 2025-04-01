@@ -16,6 +16,9 @@ export const createBusiness = asyncHandler(async (req: IBusinessCreateRequest, r
 
   if(req){
   const { business_id, detail,liked,visited} : IBusiness = req.body;
+  console.log("data from client ============================",
+    JSON.stringify(req.body,null,2)
+  )
   const user_id = req.user.id
 
   console.log("business data === ",user_id,business_id, detail,liked,visited)

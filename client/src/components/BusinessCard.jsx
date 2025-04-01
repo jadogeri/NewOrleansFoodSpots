@@ -6,6 +6,7 @@ import { FaLocationDot } from "react-icons/fa6";
 import { useUpdateBusinessMutation } from '../redux/api/business/business';
 import { useCreateBusinessMutation } from '../redux/api/business/business';
 
+
 const BusinessCard = ({
   businesses,
   refetch,
@@ -21,25 +22,42 @@ const BusinessCard = ({
     transactions
 }) => {
   const navigate = useNavigate();
+  const  [ business, setBusiness ] = useState();
   const [like, setLike] = useState(false)
   const [visited, setVisited] = useState(false)
   const  [ createBusiness ] = useCreateBusinessMutation();
   const [updateBusiness] = useUpdateBusinessMutation();
-
+  const [test, setTest] = useState(0);
   useEffect(()=>{
     refetch()
+    setTest(1)
+    const b = findBusiness(businesses);
+    console.log("b====================================================", b)
+    if(b?.length ===1){
+      setBusiness(b[0])
+    }
 
-  },[])
+
+  },[businesses])
+
+  const findBusiness = (businesses)=>{
+    const business = businesses?.filter((business)=>{
+      return id === business.business_id
+  
+    })
+    return business;
+  
+  }
 
   const handleIconClick = ({icon})=>{
     console.log("clicking icon..................................")
-    const businessFound = businesses?.filter((business)=>{
-      return id === business.business_id
-    })
+    // const businessFound = businesses?.filter((business)=>{
+    //   return id === business.business_id
+    // })
+    const businessFound = findBusiness(businesses);
     console.log("businessfound =============", businessFound)
     //if no business found, create business
     if(businessFound.length === 0){
-      alert("did not find biz")
       createBusiness({
         business_id: id,
         liked: icon==="heart"? true : false,
@@ -53,13 +71,12 @@ const BusinessCard = ({
         console.log("refetching..................................")
 
     }else{
-      alert("business already exists in database")
-      updateBusiness({
-        business_id :id,
-        liked :icon==="heart"? !businessFound[0].liked :businessFound[0].liked,
-        visited :icon==="pin"? !businessFound[0].visited :businessFound[0].visited
+      // updateBusiness({
+      //   business_id :id,
+      //   liked :icon==="heart"? !businessFound[0].liked :businessFound[0].liked,
+      //   visited :icon==="pin"? !businessFound[0].visited :businessFound[0].visited
 
-      })
+      // })
     }
     switch(icon){
       case "heart":
@@ -73,6 +90,7 @@ const BusinessCard = ({
       default:
         break;
     }
+    setTest(0)
   
   }
 
@@ -80,11 +98,13 @@ const BusinessCard = ({
   return (
 
    <div className="w3-col l3 s6">
-    <div className="w3-container">    
+    <div className="w3-container">   
+      <h1>{test}</h1> 
       <i className='fa fa-heart' onClick={()=>{handleIconClick({icon : "heart"})}}
+          
         style={{
           position: "absolute",
-          color: !like? "gray" : "red"  ,
+          color: !business? "gray" : business.liked === true? "red": "gray" ,
           fontSize:"200%"  ,
           cursor:"pointer",
           marginTop:2
@@ -101,10 +121,10 @@ const BusinessCard = ({
 
    
          }}>  
-          <FaLocationDot style={{color: !visited?"grey" : "green"}} />         
+          <FaLocationDot style={{color: !business? "gray" : business.visited === true? "green": "gray" }} />         
          </div>    
         
-      <img src={image_url} style={{ width: "100%",height:200,cursor:"pointer" }} 
+      <img src={image_url} style={{ width: "100%",height:200,cursor:"pointer" }}  alt='image'
       onClick={()=>{     
         navigate("/dashboard/business", {
           state:{

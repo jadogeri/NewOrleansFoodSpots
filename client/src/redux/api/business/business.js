@@ -2,8 +2,11 @@ import { apiSlice } from "../apiSlice";
 
 let token = ""
 const serializedState =  localStorage.getItem(process.env.REACT_APP_AUTH_KEY);
+console.log("sereilized ", serializedState)
+
 if(serializedState){
-  token = JSON.parse(serializedState)?.token
+  const state = JSON.parse(serializedState)
+  token = state.token
 }
 
 console.log("v*************************alue of token****************************", token)
@@ -23,7 +26,7 @@ export const businessApiSlice = apiSlice.injectEndpoints({
             method : "GET",
             headers: headers
         }),
-       // providesTags: ['Business'],
+       providesTags: ['Business'],
 
       }),
   
@@ -33,7 +36,7 @@ export const businessApiSlice = apiSlice.injectEndpoints({
             method : "GET",
             headers: headers
         }),
-      //  providesTags: ['Business'],
+      providesTags: ['Business'],
 
     }),
  
@@ -49,7 +52,7 @@ export const businessApiSlice = apiSlice.injectEndpoints({
             },
             headers: headers
         }),
-     //   invalidatesTags: ['Business'],
+     invalidatesTags: ['Business'],
     }),
     deleteBusiness: builder.mutation({
         query: (id) => ({
@@ -57,7 +60,7 @@ export const businessApiSlice = apiSlice.injectEndpoints({
             method: "DELETE",
             headers: headers
       }),
-    //  invalidatesTags: ['Business'],
+    invalidatesTags: ['Business'],
   }),
     deleteAllBusinesses: builder.mutation({
         query: () => ({
@@ -65,7 +68,7 @@ export const businessApiSlice = apiSlice.injectEndpoints({
             method: "DELETE",
             headers: headers
         }),
-    //    invalidatesTags: ['Business'],
+    invalidatesTags: ['Business'],
     }),
   
     updateBusiness: builder.mutation({
@@ -79,7 +82,7 @@ export const businessApiSlice = apiSlice.injectEndpoints({
           },
           headers: headers
         }),
-      //  invalidatesTags: ['Business'],
+      invalidatesTags: ['Business'],
     }),  
   }),
 });

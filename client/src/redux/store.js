@@ -12,6 +12,7 @@ const persistedState = loadState();
 console.log("api ===== ", persistedState.api  )
 console.log("persisted state ===== ", JSON.stringify(persistedState))
 delete persistedState.api
+console.log("persisted state after api delete ===== ", JSON.stringify(persistedState))
 
 
 

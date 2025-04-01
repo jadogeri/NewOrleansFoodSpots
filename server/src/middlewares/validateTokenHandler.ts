@@ -18,8 +18,6 @@ const validateToken = asyncHandler(async (req : IJwtPayload, res: Response, next
     res.status(401).json("User not authorized or token missing");
   }
   else{
-    console.log("authheader = else  ")
-
 
     token = authHeader.split(" ")[1];  
     console.log('isExpired is:', isJwtTokenExpired(token));
