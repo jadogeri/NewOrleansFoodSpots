@@ -21,9 +21,7 @@ import Profile from "../pages/Profile/Profile.jsx";
 import Review from "../pages/Review/Review.jsx";
 import MapView from "../pages/MapView/MapView.jsx";
 import ProductDetail from "../pages/ProductDetail.jsx";
-
-
-
+import History from "../pages/History/History.jsx";
 
 const ProjectRoutes = ({
 	state
@@ -39,7 +37,7 @@ const ProjectRoutes = ({
 	<>
 	
 	<BrowserRouter >
-	<NavBar />	
+	<NavBar state={state}/>	
 	<AppBar/>	
 		<Routes >				
 			<Route path="/" element={auth ? <Navigate to="/dashboard" /> : <Home />} index /> 
@@ -62,8 +60,7 @@ const ProjectRoutes = ({
 			<Route path="/dashboard" element={<DashBoard />  } />
 			<Route path="/dashboard/business" element={<BusinessDetail />  } />
 			<Route path="/dashboard/business/mapview" element={<MapView /> } />
-
-
+			<Route path="/history" element={<History />  } />
 			<Route path="/profile" element={<Profile />  } />
 			<Route path="/review" element={<Review />  } />
 

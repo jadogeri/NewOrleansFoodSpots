@@ -18,8 +18,8 @@ import { ObjectId } from 'mongodb';
 
 export const updateBusiness = asyncHandler(async (req: IBusinessUpdateRequest, res : Response) => {
 
-  const {  business_id,  detail ,liked , visited  } : IBusiness = req.body
-  console.log("data to change", business_id,  detail ,liked , visited )
+  const {  business_id, liked , visited  } : IBusiness = req.body
+  console.log("data to change", business_id,  liked , visited )
   const user_id : mongoose.Types.ObjectId = new mongoose.Types.ObjectId(req.user.id)
 
   if(!mongoose.isValidObjectId(user_id)){
@@ -63,6 +63,7 @@ export const updateBusiness = asyncHandler(async (req: IBusinessUpdateRequest, r
 
   const modifiedBusiness : IBusiness = {
     business_id : business_id,
+    detail: updateBusiness.detail
 
   }
   if(liked !== null || liked !== undefined){
@@ -70,9 +71,6 @@ export const updateBusiness = asyncHandler(async (req: IBusinessUpdateRequest, r
   }
   if(visited !== null || visited !== undefined){
     modifiedBusiness.visited = visited;
-  }
-  if(detail !== null || detail !== undefined){
-    modifiedBusiness.detail = detail
   }
 
   businesses[index as number] = { ...businesses[index as number], ...modifiedBusiness}

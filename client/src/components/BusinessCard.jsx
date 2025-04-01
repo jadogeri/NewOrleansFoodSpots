@@ -71,12 +71,12 @@ const BusinessCard = ({
         console.log("refetching..................................")
 
     }else{
-      // updateBusiness({
-      //   business_id :id,
-      //   liked :icon==="heart"? !businessFound[0].liked :businessFound[0].liked,
-      //   visited :icon==="pin"? !businessFound[0].visited :businessFound[0].visited
+      updateBusiness({
+        business_id :id,
+        liked :icon==="heart"? !businessFound[0].liked :businessFound[0].liked,
+        visited :icon==="pin"? !businessFound[0].visited :businessFound[0].visited
 
-      // })
+      })
     }
     switch(icon){
       case "heart":

@@ -5,24 +5,54 @@ import { Context as AuthContext } from '../contexts/AuthContext'
 import { openModal } from '../utils/html/openModal'
 import LogoutModal from '../components/modals/LogoutModal/LogoutModal'
 import { FaLocationDot } from "react-icons/fa6";
+import { useGetAllBusinessesQuery } from '../redux/api/business/business';
 
 
-const NavBar = () => {
+const getLikedCount = (businesses)=>{
+  let count = 0
+  for(let i = 0; i < businesses?.length ;i++) {
+    if(businesses[i].liked){
+      count = count + 1;
+      
+    }
+  }
+  return count;
+
+}
+
+const getVisitedCount = (businesses)=>{
+  let count = 0
+  for(let i = 0; i < businesses?.length ;i++) {
+    if(businesses[i].visited){
+      count = count + 1;      
+    }
+  }
+  return count;
+
+}
+const NavBar = ({
+}) => {
   //const [auth, setAuth] = useState(null);
   const {state, signOut} = useContext(AuthContext)
   const { token : auth} = state
   console.log("state==== ",state)
- // let key = localStorage.getItem(process.env.REACT_APP_AUTH_KEY);
-  
+  const { data: businesses, refetch, isLoading, error, isFetching } = useGetAllBusinessesQuery();
+  const [ likedCount, setLikedCount] = useState(0);
+  const [ visitedCount, setVisitdCount] = useState(0)
 
-  // useEffect(() => {
-  //   // Update localStorage whenever the 'name' state changes
-  //   if(key){
-  //   console.log("calling use effect in NavBar key ==== ",key)
-  //   signIn(key)
-  //   setAuth(key)
-  //   }
-  // }, []);
+//console.log("businesses in navbar",JSON.stringify(businesses))
+  useEffect(() => {
+    for(let i = 0; i < businesses?.length ;i++) {
+      if(businesses[i].liked){
+        setLikedCount(likedCount+1)
+      }
+      if(businesses[i].visited){
+        setVisitdCount(visitedCount + 1)
+      }
+    }
+    refetch()
+    
+  }, []);
 
 
   return (
@@ -47,6 +77,8 @@ const NavBar = () => {
           {!auth ? null : 
           <><Link to="/profile" className="w3-bar-item w3-button w3-padding-large w3-hide-small">PROFILE</Link> 
           <Link to="/review" className="w3-bar-item w3-button w3-padding-large w3-hide-small">REVIEW</Link> 
+          <Link to="/history" className="w3-bar-item w3-button w3-padding-large w3-hide-small">HISTORY</Link> 
+
           </>
           }
 
@@ -70,7 +102,7 @@ const NavBar = () => {
           <button onClick={()=>{openModal("logoutModal")}}
           className="w3-hover-red w3-right">
             <i className="fa fa-sign-out"></i></button>
-            <div className="w3-right flex" style={{display:'flex'}}>{2}
+            <div className="w3-right flex" style={{display:'flex'}}>{getLikedCount(businesses)}
             </div> 
       <i className="fa fa-heart w3-right"onClick={()=>{alert("liked!!!")}}
         style={{
@@ -91,8 +123,9 @@ const NavBar = () => {
 
    
          }}>  
+         <h1>{businesses?.length}</h1>
           <FaLocationDot style={{color:"green"}} />    
-          {1}
+          {getVisitedCount(businesses)}
          </div>    
 
 
