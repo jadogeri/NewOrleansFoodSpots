@@ -11,16 +11,16 @@ import { useDeleteBusinessMutation } from '../redux/api/business/business';
 const BusinessCard = ({
   businesses,
   refetch,
-    image_url,
-    name,
-    price,
-    rating,
-    reviews,
-    is_closed,
-    id,
-    display_phone,
-    location,
-    transactions
+  image_url,
+  name,
+  price,
+  rating,
+  reviews,
+  is_closed,
+  id,
+  display_phone,
+  location,
+  transactions
 }) => {
   const navigate = useNavigate();
   const  [ business, setBusiness ] = useState();
@@ -122,7 +122,6 @@ const BusinessCard = ({
 
    
          }}>  
-          {/* <FaLocationDot style={{color: !business? "gray" : business.visited === true? "green": "gray" }} />          */}
           <FaLocationDot style={{color: !business? "gray" : pinSelected === true? "green": "gray" }} />         
 
          </div>    
