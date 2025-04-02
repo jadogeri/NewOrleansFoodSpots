@@ -1,21 +1,13 @@
 
 export interface IDetail  {
     name : string;
-    phone: string;
-    rating:number;
+    phone?: string;
+    rating?:number;
+    image_url? : string,
+    price? : string,
+    reviews? : number,
+    location? : string,
+    transactions? : string[]
     
 }
 
-/**
- * #TODO 
- * implement these fields below
- * image_url,
-  name,
-  price,
-  rating,
-  reviews,
-  id,
-  display_phone,
-  location,
-  transactions
- */
