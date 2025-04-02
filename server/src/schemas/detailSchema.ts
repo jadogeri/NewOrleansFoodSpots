@@ -1,6 +1,7 @@
 
-import { Schema } from 'mongoose';
+import mongoose, { Schema } from 'mongoose';
 import { IDetail } from '../interfaces/IDetail';
+import { any } from 'bluebird';
 
 export const detailSchema : Schema = new Schema<IDetail>({
 
@@ -10,6 +11,12 @@ export const detailSchema : Schema = new Schema<IDetail>({
     trim: true,
   },
   phone: {
+    type: String,
+    required: [false, "Please add the user email address"],
+    //lowercase: true,
+    trim: true,
+  },
+  image_url: {
     type: String,
     required: [false, "Please add the user email address"],
     //lowercase: true,
@@ -35,7 +42,7 @@ export const detailSchema : Schema = new Schema<IDetail>({
     trim: true,
   },
   location :{
-    type: String,
+    type: mongoose.Schema.Types.Mixed,
     required : false,
 
   },

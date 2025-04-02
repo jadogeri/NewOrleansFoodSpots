@@ -67,9 +67,14 @@ const BusinessCard = ({
         liked: icon==="heart"? true : false,
         visited: icon==="pin"? true : false,
         detail: {
-           name: name,
-           phone: display_phone,
-           rating:rating,           
+          name: name,
+          phone: display_phone,
+          rating:rating,    
+          image_url : image_url,
+          price : price,
+          reviews : reviews,
+          location : location,
+          transactions : transactions     
         }
       })
         console.log("refetching..................................")

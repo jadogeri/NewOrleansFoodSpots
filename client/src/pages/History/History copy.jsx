@@ -69,7 +69,12 @@ const History = () => {
 
       // </div>
       
-      return <HistoryCard im/>
+      return <div className="w3-card">
+      <img src="https://www.w3schools.com/w3images/car.jpg" alt="Car" style={{width:"100%"}}/>
+      <div className="w3-container">
+      <p>w3-card</p>
+      </div>
+    </div>
     })
   }
     

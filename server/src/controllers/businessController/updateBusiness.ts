@@ -74,16 +74,11 @@ export const updateBusiness = asyncHandler(async (req: IBusinessUpdateRequest, r
 
   businesses[index as number] = { ...businesses[index as number], ...modifiedBusiness}
 
-  console.log("before modified business to update found =========, ",JSON.stringify(modifiedBusiness));
   const result = await User.updateOne(
     { _id: new ObjectId(user_id) },
     { $set: { businesses: businesses } },
     
   );
-  console.log("result******************************8", result);
-
-           //await businessService.update(modifiedBusiness)           
-           //const updatedBusiness = await businessService.getByBusinessObject(modifiedBusiness);
-          res.status(200).json(result);
+  res.status(200).json(result);
  
 });

@@ -1,6 +1,9 @@
 import { BsFillBagFill } from "react-icons/bs";
 
-const HistoryCard = ({ img, title, star, reviews, prevPrice, newPrice }) => {
+const HistoryCard = ({ img, title, star, reviews, prevPrice, newPrice,  business_id,
+  liked,
+  visited,
+  detail}) => {
   return (
     <>
       <section className="card">

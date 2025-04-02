@@ -6,7 +6,7 @@ export interface IDetail  {
     image_url? : string,
     price? : string,
     reviews? : number,
-    location? : string,
+    location? : any,
     transactions? : string[]
     
 }

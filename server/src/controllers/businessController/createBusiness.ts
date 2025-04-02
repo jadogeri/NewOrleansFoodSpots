@@ -60,11 +60,18 @@ export const createBusiness = asyncHandler(async (req: IBusinessCreateRequest, r
       business_id : business_id,
       detail: {
         name: detail.name,
-        phone : detail.phone,
-        rating : detail.rating
+        phone : detail.phone ?? "",
+        rating : detail.rating ?? 0,
+        image_url : detail.image_url ?? "",
+        price : detail.price ?? "",
+        reviews : detail.reviews ?? 0,
+        location : detail.location ?? {
+          
+        },
+        transactions : detail.transactions || []
       },
-      liked: liked? liked : false,
-      visited: visited? visited :false
+      liked: liked || false,
+      visited: visited || false
 
     }
 
