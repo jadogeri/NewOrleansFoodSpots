@@ -12,6 +12,7 @@ const BusinessCard = ({
   businesses,
   refetch,
   image_url,
+  is_closed,
   name,
   price,
   rating,

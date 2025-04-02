@@ -59,7 +59,6 @@ export const updateBusiness = asyncHandler(async (req: IBusinessUpdateRequest, r
     res.status(400);
     throw new Error( `did not find user ${user_id} with a business with id ${business_id}`)
   }
-  console.log("before business to update found =========, ",JSON.stringify(updateBusiness));
 
   const modifiedBusiness : IBusiness = {
     business_id : business_id,

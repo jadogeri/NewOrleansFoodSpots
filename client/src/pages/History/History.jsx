@@ -2,6 +2,10 @@ import React from 'react'
 import { toggleHistoryTab } from '../../utils/toggleHistoryTab'
 import { useGetAllBusinessesQuery } from '../../redux/api/business/business';
 import "./History.css"
+import "./Product.css"
+import "./Products.css"
+
+import HistoryCard from '../../components/HistortCard';
 
 const History = () => {
   const { data: businesses, refetch, isLoading, error, isFetching } = useGetAllBusinessesQuery();
@@ -17,7 +21,7 @@ const History = () => {
 </div>
 
 <div className="w3-row-padding">
-<div id="Liked" className="w3-container history w3-animate-opacity w3-half"
+<div id="Liked" className="w3-container history w3-animate-opacity"
       style={{height :"100vh"}} >
   <h2>Liked</h2>
   <p>London is the capital city of England.</p>
@@ -26,36 +30,71 @@ const History = () => {
   {
     businesses.map((business, index)=>{
       if(business.liked)
-       return <div className='item'
-       key={index} style={{width:400,height:300, backgroundColor : "goldenrod"}}>
-                <h1>{index}</h1>
+      //  return <div className='item'
+      //  key={index} style={{width:400,height:300, backgroundColor : "goldenrod"}}>
+      //           <h1>{index}</h1>
 
 
-      </div>
+      // </div>
+      return <HistoryCard  key={index}/>
     })
   }
     
   </div>
 </div>
 
-<div id="Visited" className="w3-container history w3-animate-opacity w3-half" style={{display :"none",height:"100vh"}}>
+<div id="Visited" className="w3-container history w3-animate-opacity" style={{display :"none",height:"100vh"}}>
   <h2>Visited</h2>
   <p>Paris is the capital of France.</p> 
   <p>The Paris area is one of the largest population centers in Europe, with more than 12 million inhabitants.</p>
 
-  <div className='container'>
+
+
+
+
+
+  <div className="w3-row-padding"> 
+
+{/* <div className="w3-card"> */}
+  <div className='container '>
   {
     businesses.map((business, index)=>{
       if(business.visited)
-       return <div key={index} className='item'
-       style={{width:400,height:300, display: "flex", backgroundColor : "green"}}>
-        <h1>{index}</h1>
+      //  return <div key={index} className='item w3-quarter'
+      //  style={{width:400,height:300, display: "flex", backgroundColor : "green"}}>
+      //   <h1>{index}</h1>
 
+      // </div>
+      
+      return <div className="w3-card">
+      <img src="https://www.w3schools.com/w3images/car.jpg" alt="Car" style={{width:"100%"}}/>
+      <div className="w3-container">
+      <p>w3-card</p>
       </div>
+    </div>
     })
   }
     
   </div>
+  {/* </div>   */}
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </div>
 </div>
 </div>
