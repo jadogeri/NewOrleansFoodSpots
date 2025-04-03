@@ -24,12 +24,15 @@ import ProductDetail from "../pages/ProductDetail.jsx";
 import History from "../pages/History/History.jsx";
 
 const ProjectRoutes = ({
-	state
+	state,
 }) => {
 	console.log("state from app =================*******", JSON.stringify(state,null,3))
 
 	console.log("auth ===========================", state.token)
 	const {token : auth} = state	
+
+
+
 
   return (
 
@@ -37,7 +40,8 @@ const ProjectRoutes = ({
 	<>
 	
 	<BrowserRouter >
-	<NavBar state={state}/>	
+	{/* <NavBar state={state}/>	 */}
+
 	<AppBar/>	
 		<Routes >				
 			<Route path="/" element={auth ? <Navigate to="/dashboard" /> : <Home />} index /> 
@@ -50,21 +54,16 @@ const ProjectRoutes = ({
 			<Route path="/about" element={<About />  } />
 			<Route path="/contact" element={<Contact />  } />
 			<Route path="/product" element={<ProductDetail />  } />
-
-
-
 			<Route path="/test" element={<TestPage />} /> 
 				 
 
     		<Route element={<PrivateRoutes />}>			
-			<Route path="/dashboard" element={<DashBoard />  } />
+			<Route path="/dashboard" element={<DashBoard  state={state}/>  } />
 			<Route path="/dashboard/business" element={<BusinessDetail />  } />
 			<Route path="/dashboard/business/mapview" element={<MapView /> } />
 			<Route path="/history" element={<History />  } />
 			<Route path="/profile" element={<Profile />  } />
 			<Route path="/review" element={<Review />  } />
-
-
     		</Route>
 			<Route path="*" element={<NoPage />} />
 		</Routes>

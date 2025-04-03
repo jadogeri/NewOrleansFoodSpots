@@ -13,5 +13,6 @@ export const apiSlice = createApi({
   invalidationBehavior:"immediately",
   refetchOnMountOrArgChange:true,
   endpoints: () => ({}),
-  tagTypes: ['User','Test', 'Business']
+  tagTypes: ['User','Test', 'Business'],
+  refetchOnReconnect:true
 });

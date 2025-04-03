@@ -2,10 +2,11 @@ import ProjectRoutes from './routes/ProjectRoutes';
 import { useContext, useEffect } from 'react';
 import { Context as AuthContext } from './contexts/AuthContext';
 import { isTokenExpired } from './utils/isTokenExpired';
+import AppLogout from './AppLogOut';
+
 
 function App() {
-  const {signIn, signOut, state} = useContext(AuthContext)
-
+  const {signIn, signOut, state} = useContext(AuthContext);
 
 
   const addAuthState = (token) =>{
@@ -25,6 +26,10 @@ function App() {
       const data = JSON.parse(serializedState);
       
       if(data?.token !== null){
+        const { token } = data;
+        if(isTokenExpired(token)){
+          localStorage.removeItem(process.env.REACT_APP_AUTH_KEY);
+        }
         addAuthState(data.token)
       }else{
         removeAuthState();  
@@ -35,7 +40,9 @@ function App() {
   },[])
 
   return (
+   
     <ProjectRoutes state={state}/>
+    
   );
 }
 

@@ -1,0 +1,8 @@
+.close {
+    position: relative;
+    right: 35px;
+    top: 5px;
+    font-size: 40px;
+    font-weight: bold;
+    color: #f1f1f1;
+  }

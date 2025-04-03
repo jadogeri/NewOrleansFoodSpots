@@ -1,14 +1,23 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { toggleHistoryTab } from '../../utils/toggleHistoryTab'
 import { useGetAllBusinessesQuery } from '../../redux/api/business/business';
-import "./History.css"
 import "./Product.css"
 import "./Products.css"
+import "./History.css"
+import  '../../components/HistoryCard.css';
 
 import HistoryCard from '../../components/HistoryCard';
 
 const History = () => {
-  const { data: businesses, refetch, isLoading, error, isFetching } = useGetAllBusinessesQuery();
+  const { data, refetch} = useGetAllBusinessesQuery();
+  const [businesses, setBusinesses] = useState([])
+
+
+  useEffect(()=>{
+    if(data){
+      setBusinesses(data)
+    }
+  },[data])
   
   return (
     <div style={{minHeight:"100vh"}}>
@@ -36,7 +45,7 @@ const History = () => {
 
 
       // </div>
-      return <HistoryCard  key={index} 
+      return <HistoryCard  key={index} business={business} index={index}
                 business_id={business.business_id} liked={business.liked}
                 visited={business.visited} detail={business.detail}      
             />
@@ -69,7 +78,10 @@ const History = () => {
 
       // </div>
       
-      return <HistoryCard im/>
+      return <HistoryCard  key={index} business={business} index={index}
+      business_id={business.business_id} liked={business.liked}
+      visited={business.visited} detail={business.detail}      
+  />
     })
   }
     

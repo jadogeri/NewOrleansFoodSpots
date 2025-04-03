@@ -7,8 +7,11 @@ import SearchBar from '../../components/SearchBar/SearchBar';
 import useResults from '../../hooks/useResults';
 import BusinessCard from '../../components/BusinessCard';
 import { useGetAllBusinessesQuery } from '../../redux/api/business/business';
+import NavBar from '../../layouts/NavBar';
 
-const DashBoard = () => {
+const DashBoard = ({
+  state
+}) => {
     
       const [searchApi, results, errorMessage] = useResults();
       const [inputValue, setInputValue] = useState('');
@@ -16,9 +19,15 @@ const DashBoard = () => {
       const [selectedRating, setSelectedRating] = useState(null);
       const [selectedDelivery ,setSelectedDelivery] = useState(false);
       const [selectedPickup ,setSelectedPickup] = useState(false);
-      const { data: businesses, refetch, isLoading, error, isFetching } = useGetAllBusinessesQuery();
-      console.log("value of businesses ===",JSON.stringify(businesses,null,2))
-
+      const { data, refetch, isLoading, error, isFetching } = useGetAllBusinessesQuery();
+        const [businesses, setBusinesses] = useState([])
+      
+      
+        useEffect(()=>{
+          if(data){
+            setBusinesses(data)
+          }
+        },[data])
 
       // ----------- Radio Filtering -----------
 
@@ -96,6 +105,7 @@ const DashBoard = () => {
    
   return (
     <>
+    <NavBar state={state}/>
 
   {/* Sidebar/menu */}
   <SideBarMenu handlePriceChange={handlePriceChange} handleRatingChange={handleRatingChange}

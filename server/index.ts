@@ -12,7 +12,6 @@ import yelpApi from './src/configs/yelpApi';
 const app = express();
 
 
-
 const port = process.env.PORT || 5000;
 // Middleware
 app.use(express.json());
@@ -78,7 +77,6 @@ app.get('/api/yelp/businesses/:id', async (req: Request, res : Response) => {
 });
 
 MongoDatabase.getInstance()
-
 
 
 if (process.env.NODE_ENV !== 'test') {

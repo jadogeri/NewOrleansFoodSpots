@@ -1,8 +1,35 @@
 import { apiSlice } from "../apiSlice";
 
+let token = ""
+const serializedState =  localStorage.getItem(process.env.REACT_APP_AUTH_KEY);
+console.log("sereilized ", serializedState)
+
+if(serializedState){
+  const state = JSON.parse(serializedState)
+  token = state.token
+}
+
+console.log("calling api current with user ****************************", token)
+
+const headers ={
+    'Content-Type': 'application/json',
+    "Accept":'application/json',
+    "Access-Control-Allow-Origin": "*"  ,
+    "Authorization":`Bearer ${token}`
+}
+
 
 export const userApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
+    current: builder.query({
+        query: () => ({
+            url : "/users/current",
+            method : "GET",
+            headers: headers
+        }),
+       providesTags: ['User'],
+
+      }),
  
     forgotPassword: builder.mutation({
         query: ({ email} ) => ({
@@ -76,5 +103,6 @@ export const {
     useContactMutation,
     useForgotPasswordMutation,
     useResetPasswordMutation,  
+    useCurrentQuery
 
 } = userApiSlice;
