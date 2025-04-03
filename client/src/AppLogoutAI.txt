@@ -1,0 +1,73 @@
+// TimerContext.js
+import React, { createContext, useState, useEffect } from 'react';
+
+const TimerContext = createContext();
+
+const TimerProvider = ({ children }) => {
+  const [seconds, setSeconds] = useState(0);
+  const [isActive, setIsActive] = useState(false);
+
+  useEffect(() => {
+    let intervalId;
+
+    if (isActive) {
+      intervalId = setInterval(() => {
+        setSeconds((prevSeconds) => prevSeconds + 1);
+      }, 1000);
+    }
+
+    return () => clearInterval(intervalId);
+  }, [isActive]);
+
+  const startTimer = () => {
+    setIsActive(true);
+  };
+
+  const stopTimer = () => {
+    setIsActive(false);
+    setSeconds(0);
+  };
+
+    const contextValue = {
+        seconds,
+        isActive,
+        startTimer,
+        stopTimer,
+    };
+
+  return (
+    <TimerContext.Provider value={contextValue}>
+      {children}
+    </TimerContext.Provider>
+  );
+};
+
+export { TimerContext, TimerProvider };
+
+// Usage Example in a Component
+import React, { useContext } from 'react';
+import { TimerContext } from './TimerContext';
+
+const MyComponent = () => {
+  const { seconds, isActive, startTimer, stopTimer } = useContext(TimerContext);
+
+  return (
+    <div>
+      <p>Seconds: {seconds}</p>
+      <button onClick={isActive ? stopTimer : startTimer}>
+        {isActive ? 'Stop' : 'Start'}
+      </button>
+    </div>
+  );
+};
+
+// Wrap the App with TimerProvider
+function App() {
+    return (
+        <TimerProvider>
+            <MyComponent />
+        </TimerProvider>
+    );
+}
+
+export default App;
