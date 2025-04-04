@@ -27,6 +27,7 @@ export const businessApiSlice = apiSlice.injectEndpoints({
             headers: headers
         }),
        providesTags: ['Business'],
+       
 
       }),
   
