@@ -3,6 +3,35 @@ import { useContext, useEffect } from 'react';
 import { Context as AuthContext } from './contexts/AuthContext';
 import { isTokenExpired } from './utils/isTokenExpired';
 import AppLogout from './AppLogOut';
+import { useNavigate } from 'react-router-dom';
+
+import axios from 'axios';
+import { QueryClient, QueryClientProvider } from 'react-query';
+
+const api = axios.create({
+  baseURL: process.env.REACT_APP_NOFS_SERVER_URL,
+});
+
+api.interceptors.response.use(
+  response => response,
+  error => {
+    if (error.response.status === 401) {
+      // handle 401 error here
+    }
+    return Promise.reject(error);
+  },
+);
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      queryFn: async ({ queryKey }) => {
+        const response = await api.get(queryKey[0]);
+        return response.data;
+      },
+    },
+  },
+});
 
 
 function App() {
@@ -40,10 +69,13 @@ function App() {
   },[])
 
   return (
-   
+    <QueryClientProvider client={queryClient}>
+
     <ProjectRoutes state={state}/>
-    
+    </QueryClientProvider>
+
   );
 }
 
 export default App;
+

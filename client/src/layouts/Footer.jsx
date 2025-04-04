@@ -4,7 +4,7 @@ const Footer = () => {
   return (
     <>
     {/* <!-- Footer --> */}
-      <footer className="w3-container  w3-center  w3-light-grey w3-xlarge"
+      <footer className="  w3-center  w3-light-grey "
        //style={{  position: "relative", height:"10vh"}}
        style={{
         position: "fixed",
@@ -12,8 +12,6 @@ const Footer = () => {
         bottom: 0,
         height: "70px",
         width: "100%",
-        marginTop:200,
-        zIndex:0
        }}
        
        

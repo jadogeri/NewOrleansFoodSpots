@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react'
+import { Context as AuthContext } from '../../contexts/AuthContext';
+import { useContext } from 'react';
 import SideBarMenu from './SideBarMenu';
 import AppHeader from './AppHeader';
 import AppBarMenu from './AppBarMenu';
@@ -8,6 +10,7 @@ import useResults from '../../hooks/useResults';
 import BusinessCard from '../../components/BusinessCard';
 import { useGetAllBusinessesQuery } from '../../redux/api/business/business';
 import NavBar from '../../layouts/NavBar';
+import { useNavigate } from 'react-router-dom';
 
 const DashBoard = ({
   state
@@ -19,15 +22,22 @@ const DashBoard = ({
       const [selectedRating, setSelectedRating] = useState(null);
       const [selectedDelivery ,setSelectedDelivery] = useState(false);
       const [selectedPickup ,setSelectedPickup] = useState(false);
-      const { data, refetch, isLoading, error, isFetching } = useGetAllBusinessesQuery();
-        const [businesses, setBusinesses] = useState([])
-      
+      const { data, refetch, error, isError } = useGetAllBusinessesQuery()
+      const { signOut } = useContext(AuthContext);
+      const navigate = useNavigate();
+ 
+        const [businesses, setBusinesses] = useState([])  
       
         useEffect(()=>{
           if(data){
             setBusinesses(data)
+          if(error){
+            signOut().then(()=>{
+              navigate("/login")
+            })
           }
-        },[data])
+          }
+        },[data, error])
 
       // ----------- Radio Filtering -----------
 

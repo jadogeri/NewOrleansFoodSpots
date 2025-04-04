@@ -1,16 +1,21 @@
 import React, { useEffect, useState } from 'react'
 import { toggleHistoryTab } from '../../utils/toggleHistoryTab'
-import { useGetAllBusinessesQuery } from '../../redux/api/business/business';
+import {useDeleteAllBusinessesMutation, useGetAllBusinessesQuery } from '../../redux/api/business/business';
 import "./Product.css"
 import "./Products.css"
 import "./History.css"
 import  '../../components/HistoryCard.css';
+import { AiOutlineHeart } from "react-icons/ai";
+import { TfiLocationPin } from "react-icons/tfi";
 
 import HistoryCard from '../../components/HistoryCard';
+import DeleteHistoryButton from '../../components/DeleteHistoryButton';
 
 const History = () => {
   const { data, refetch} = useGetAllBusinessesQuery();
   const [businesses, setBusinesses] = useState([])
+
+  const [ deleteAllBusinesses ] = useDeleteAllBusinessesMutation()
 
 
   useEffect(()=>{
@@ -18,6 +23,14 @@ const History = () => {
       setBusinesses(data)
     }
   },[data])
+
+  const onClickHandler = ()=>{
+
+    deleteAllBusinesses();
+         
+  }
+
+  
   
   return (
     <div style={{minHeight:"100vh"}}>
@@ -25,6 +38,11 @@ const History = () => {
       <h2 className="w3-center">Tabs</h2>
 <div className="w3-border">
 <div className="w3-bar w3-theme">
+<DeleteHistoryButton onClick={()=>{onClickHandler()}}
+    title={"Clear History"} icon={<AiOutlineHeart className="mx-2" />}
+    className="flex h-12 w-1/3 items-center justify-center bg-red-400 duration-100 hover:bg-red-300"
+  
+  />
   <button className="w3-half w3-button historybtn w3-block w3-padding-16" onClick={(event)=>{toggleHistoryTab(event,'Liked')}}>Liked</button>
   <button className="w3-half w3-button historybtn w3-padding-16" onClick={(event)=>{toggleHistoryTab(event,'Visited')}}>Visited</button>
 </div>
@@ -39,10 +57,6 @@ const History = () => {
   {
     businesses.map((business, index)=>{
       if(business.liked)
-      //  return <div className='item'
-      //  key={index} style={{width:400,height:300, backgroundColor : "goldenrod"}}>
-      //           <h1>{index}</h1>
-
 
       // </div>
       return <HistoryCard  key={index} business={business} index={index}
@@ -51,8 +65,8 @@ const History = () => {
             />
     })
   }
-    
   </div>
+
 </div>
 
 <div id="Visited" className="w3-container history w3-animate-opacity" style={{display :"none",height:"100vh"}}>
@@ -72,12 +86,7 @@ const History = () => {
   {
     businesses.map((business, index)=>{
       if(business.visited)
-      //  return <div key={index} className='item w3-quarter'
-      //  style={{width:400,height:300, display: "flex", backgroundColor : "green"}}>
-      //   <h1>{index}</h1>
 
-      // </div>
-      
       return <HistoryCard  key={index} business={business} index={index}
       business_id={business.business_id} liked={business.liked}
       visited={business.visited} detail={business.detail}      
@@ -86,7 +95,7 @@ const History = () => {
   }
     
   </div>
-  {/* </div>   */}
+
   </div>
 
 
