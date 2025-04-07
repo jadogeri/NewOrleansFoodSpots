@@ -5,7 +5,7 @@ import { authReducer } from "../reducers/authReducer";
 
 
 const signIn = (dispatch)=>{
-    return (value)=>{
+    return async (value)=>{
         try{
             console.log("calling signin in auth context")
             dispatch({ type: 'SIGN_IN', payload: { token: value } });

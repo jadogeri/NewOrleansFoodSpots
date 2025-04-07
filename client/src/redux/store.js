@@ -2,6 +2,8 @@ import { configureStore } from "@reduxjs/toolkit";
 import { setupListeners } from "@reduxjs/toolkit/query/react";
 import { apiSlice } from "./api/apiSlice";
 import sessionReducer from "./feature/session/sessionSlice"
+import userReducer from "./feature/user/userSlice"
+
 import { userApiSlice } from "./api/user/user";
 import { businessApiSlice } from "./api/business/business";
 import { loadState,saveState } from "../configs/localStorage";
@@ -15,6 +17,7 @@ export const store = configureStore({
     [businessApiSlice.reducerPath] : businessApiSlice.reducer,
 
     session : sessionReducer,
+    user : userReducer
   },
   preloadedState: persistedState,
 
@@ -30,6 +33,9 @@ setupListeners(store.dispatch);
 store.subscribe(() => {
   saveState(store.getState());
 });
+
+export const token =store.getState().session.token
+console.log("token ====================================================", token)
 
 
 

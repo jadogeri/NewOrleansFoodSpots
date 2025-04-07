@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState, useContext} from 'react'
+import React, { useEffect, useRef, useState} from 'react'
 import {useLocation, useNavigate } from 'react-router-dom'
 import { useLoginMutation } from '../../../redux/api/user/user'
 import { handleNavClickDelay } from "../../../utils/handleNavClickDelay";
@@ -6,11 +6,9 @@ import "./styles.css"
 import {  useDispatch } from "react-redux";
 import { setError } from '../../../redux/feature/session/sessionSlice';
 import FormFieldInput from '../../inputs/FormFieldInput';
-import { Context as AuthContext } from '../../../contexts/AuthContext';
 
 
 const LoginForm = () => {
-  const { signIn } = useContext(AuthContext)
   const location = useLocation();
   const navigate = useNavigate();
   const [email, setEmail] = useState(location.state?.email ? location.state.email : ""  );
@@ -25,7 +23,6 @@ const LoginForm = () => {
 
   const onChangePasswordHandler=(e)=>{
     e.preventDefault();
-    //setPassword(loginForm.current.password.value)
     dispatch(setError(""))  
   }
 
@@ -58,9 +55,8 @@ const LoginForm = () => {
         console.log(response.data)
         console.log("before storage of token using signIn",response.data.accessToken)
 
-        signIn(response.data.accessToken)
-      console.log("after from storage == ",localStorage.getItem(process.env.REACT_APP_AUTH_KEY))
-      navigate("/dashboard",{ state : response.data})
+        navigate("/dashboard",{ state : response.data})
+
       }
 
     })

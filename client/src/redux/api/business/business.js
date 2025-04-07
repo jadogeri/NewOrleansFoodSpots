@@ -1,21 +1,40 @@
 import { apiSlice } from "../apiSlice";
+import { setLogoutStatus} from "../../feature/session/sessionSlice"
 
-let token = ""
-const serializedState =  localStorage.getItem(process.env.REACT_APP_AUTH_KEY);
-console.log("sereilized ", serializedState)
+const testfn = async (args, { dispatch, queryFulfilled, getState,  }) => {
+  try {
+    console.log("...........................................args .....................................", args)
+    console.log("...........................................dispatch .....................................",dispatch)
+    console.log("...........................................getState .....................................",getState())
 
-if(serializedState){
-  const state = JSON.parse(serializedState)
-  token = state.token
-}
 
-console.log("v*************************alue of token****************************", token)
 
-const headers ={
-    'Content-Type': 'application/json',
-    "Accept":'application/json',
-    "Access-Control-Allow-Origin": "*"  ,
-    "Authorization":`Bearer ${token}`
+    await queryFulfilled;
+    console.log("...........................................dispatch .....................................",dispatch)
+    const result = await queryFulfilled;
+    console.log("...........................................result .....................................",result)
+    if(result){
+      return result;
+    }
+
+    // Handle successful query
+  } catch (error) {
+    //  if (error.status === 401) {
+      if (error.error.originalStatus === 401) {
+        const el = document.getElementById("unauthorized-modal")
+        el.style.display = "block"
+        console.log('Unauthorized access:', error);
+
+    } else {
+      // Handle other errors
+      console.error('Query error:', JSON.stringify(error));
+      if(error.error.originalStatus ===401){
+        dispatch(setLogoutStatus())
+        return error
+      }
+
+    }
+  }
 }
 
 export const businessApiSlice = apiSlice.injectEndpoints({
@@ -24,10 +43,11 @@ export const businessApiSlice = apiSlice.injectEndpoints({
         query: () => ({
             url : "/businesses",
             method : "GET",
-            headers: headers
+           // headers: headers
         }),
+        
        providesTags: ['Business'],
-       
+       onQueryStarted: testfn    
 
       }),
   
@@ -35,9 +55,11 @@ export const businessApiSlice = apiSlice.injectEndpoints({
         query: (id) => ({
             url: `/businesses/${id}`,
             method : "GET",
-            headers: headers
+            //headers: headers
         }),
       providesTags: ['Business'],
+      //onQueryStarted: Authenticated
+
 
     }),
  
@@ -51,25 +73,28 @@ export const businessApiSlice = apiSlice.injectEndpoints({
                 visited,visited,
                 detail : detail
             },
-            headers: headers
+            //headers: headers
         }),
      invalidatesTags: ['Business'],
+
     }),
     deleteBusiness: builder.mutation({
         query: (id) => ({
             url: `/businesses/${id}`,
             method: "DELETE",
-            headers: headers
+            //headers: headers
       }),
     invalidatesTags: ['Business'],
+
   }),
     deleteAllBusinesses: builder.mutation({
         query: () => ({
             url: `/businesses`,
             method: "DELETE",
-            headers: headers
+           // headers: headers
         }),
     invalidatesTags: ['Business'],
+
     }),
   
     updateBusiness: builder.mutation({
@@ -81,9 +106,10 @@ export const businessApiSlice = apiSlice.injectEndpoints({
               liked :liked,
               visited,visited,
           },
-          headers: headers
+          //headers: headers
         }),
       invalidatesTags: ['Business'],
+
     }),  
   }),
 });
@@ -100,3 +126,27 @@ export const {
     
 
 } = businessApiSlice;
+
+
+/**
+ * 
+ 
+
+
+async (args, { dispatch, queryFulfilled, getState, extra, ... }) => {
+  try {
+    const result = await queryFulfilled;
+    // Handle successful query
+  } catch (error) {
+     if (error.status === 401) {
+      // Handle 401 error - e.g., redirect to login, refresh token
+      console.error('Unauthorized access:', error);
+      // Optionally dispatch an action or update state
+    } else {
+      // Handle other errors
+      console.error('Query error:', error);
+    }
+  }
+},
+
+ */

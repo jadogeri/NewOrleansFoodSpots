@@ -15,7 +15,6 @@ const loadState = () => {
   try {
     const serializedState = localStorage.getItem(process.env.REACT_APP_REDUX_STATE);
     console.log("loading state..............................")
-    console.log(serializedState)
     
     return serializedState ? JSON.parse(serializedState) : undefined;
   } catch (err) {

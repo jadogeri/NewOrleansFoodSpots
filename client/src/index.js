@@ -5,18 +5,15 @@ import "./styles/global.css"
 import 'font-awesome/css/font-awesome.min.css'; 
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { Provider as AuthProvider } from './contexts/AuthContext'
 import {Provider as ReduxProvider} from "react-redux";
 import { store } from './redux/store';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   // <React.StrictMode>
-  <AuthProvider>
   <ReduxProvider store={store} >
     <App />
   </ReduxProvider>
-</AuthProvider>
   // </React.StrictMode>
 );
 

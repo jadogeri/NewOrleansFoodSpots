@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react"
-import yelpApi from "../configs/yelpApi"
+import yelpApi from "../configs/axios"
 
 
 export default () => {
@@ -9,15 +9,11 @@ export default () => {
 
     const searchBusiness = async (id) => {
         try {
-            console.log("id from business detail screen ===============", id)
             const business = JSON.parse(sessionStorage.getItem(id))
             if(business){
-                console.log("storage =====================",business)
                   setBusiness(business)
             }else{
-                console.log("calling yelpApi instance ====================",yelpApi)
                 const response = await yelpApi.get(`/yelp/businesses/${id}`);
-                console.log("response in search business ====", response)
                 let data = await response.data;  
                 sessionStorage.setItem(id,JSON.stringify(data))                
                 setBusiness(data)
@@ -32,9 +28,6 @@ export default () => {
 
     }
 
-    // useEffect(() => {
-    //     searchBusiness()
-    // }, [])
 
 
     return [searchBusiness, business, errorMessage];

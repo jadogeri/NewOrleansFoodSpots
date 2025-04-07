@@ -5,7 +5,19 @@ const BASE_URL =  process.env.REACT_APP_NOFS_SERVER_URL
 console.log("base url ==================================",BASE_URL)
 
 
-const baseQuery = fetchBaseQuery({ baseUrl: BASE_URL });
+const baseQuery = 
+  fetchBaseQuery({ baseUrl: BASE_URL ,
+    prepareHeaders: (headers, { getState }) => {
+      const token = getState().session.token
+      if (token) {
+       // include token in req header
+       console.log("token===================================== ==================================",token)
+
+        headers.set('authorization', `Bearer ${token}`)  
+        return headers
+      }
+    },
+  });
 
 export const apiSlice = createApi({
   baseQuery,
@@ -13,6 +25,7 @@ export const apiSlice = createApi({
   invalidationBehavior:"immediately",
   refetchOnMountOrArgChange:true,
   endpoints: () => ({}),
-  tagTypes: ['User','Test', 'Business'],
-  refetchOnReconnect:true
+  tagTypes: ['User','Test', 'Business','Session'],
+  refetchOnReconnect:true,
+  
 });

@@ -3,14 +3,12 @@ import { createSlice } from "@reduxjs/toolkit";
 
 
 let initialState = {
-    username : "user", 
-    email : "mail",
-    password : "pass",
-    roles : [],
+    token : null, 
+    email : "",
+    username : "",
     errorMessage : '', 
     isLoading :  true,
     isLoggedIn : false,
-    expiration : null 
   
 }
 
@@ -21,14 +19,29 @@ const sessionSlice = createSlice({
 
   reducers: {
 
-    setSessionData : (state, action) => {
-        return {...state, ...action.payload};
+    setToken : (state, action) => {
+        return {...state, 
+                token : action.payload};
     },
-    setUsername : (state , action) =>{
-        state.username = action.payload
+    setProfile: (state , action) =>{
+        state.username = action.payload.username;
+        state.email = action.payload.email;
     },
-    setEmail : (state , action) =>{
-        state.email = action.payload
+    clearProfile: (state) =>{
+        state.username = "";
+        state.email = "";
+    },
+    setLoginStatus : (state , action) =>{
+        state.token = action.payload.token;
+        state.isLoading = false;
+        state.isLoggedIn = true;
+    },
+    setLogoutStatus : (state ) =>{
+        state.token = null;
+        state.isLoading = false;
+        state.isLoggedIn = false;
+        state.username = "";
+        state.email = "";
     },
     setError : (state , action) =>{
         state.errorMessage= action.payload
@@ -38,10 +51,12 @@ const sessionSlice = createSlice({
 });
 
 export const {
-    setSessionData,
-    setUsername,
-    setEmail,
-    setError
+    setLoginStatus,
+    setLogoutStatus,
+    setProfile,
+    setError,
+    setToken,
+    clearProfile
 } = sessionSlice.actions;
 
 export const selectSessionState= (state) => { return state.session};

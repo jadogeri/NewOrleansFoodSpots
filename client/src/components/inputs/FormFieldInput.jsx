@@ -37,7 +37,6 @@ width
     <input 
       type={type}
       name={name} 
-      //className='btn'
       placeholder={placeholder}
       autoComplete={autoComplete}
       style={style}

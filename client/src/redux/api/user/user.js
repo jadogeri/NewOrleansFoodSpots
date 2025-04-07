@@ -1,12 +1,29 @@
 import { apiSlice } from "../apiSlice";
+import { setToken } from "../../feature/session/sessionSlice";
+
+const onQueryStartedErrorToast = async (args, { dispatch,queryFulfilled }) => {
+    try {
+      console.log("]]]]]]]]]]]]]]]]]]]]]]dispatch ==========",JSON.stringify(dispatch, null,4));
+  
+      console.log(JSON.stringify(queryFulfilled, null,4));
+  
+      await queryFulfilled;
+    } catch (error) {
+      // handle error here, dispatch toast message
+      console.log("error", error);
+      console.log("queryfufilled", queryFulfilled);
+  
+     console.log(JSON.stringify(error, null,4))
+    }
+  };
+  
 
 let token = ""
-const serializedState =  localStorage.getItem(process.env.REACT_APP_AUTH_KEY);
-console.log("sereilized ", serializedState)
+const serializedState =  localStorage.getItem(process.env.REACT_APP_REDUX_STATE);
 
 if(serializedState){
   const state = JSON.parse(serializedState)
-  token = state.token
+  token = state.session.token
 }
 
 console.log("calling api current with user ****************************", token)
@@ -25,7 +42,18 @@ export const userApiSlice = apiSlice.injectEndpoints({
         query: () => ({
             url : "/users/current",
             method : "GET",
-            headers: headers
+            //headers: headers,
+            
+        }),
+       providesTags: ['User'],
+
+      }),
+    profile: builder.query({
+        query: () => ({
+            url : "/users/profile",
+            method : "GET",
+            //headers: headers,
+          
         }),
        providesTags: ['User'],
 
@@ -51,7 +79,23 @@ export const userApiSlice = apiSlice.injectEndpoints({
             url: "/users/login",
             method: "POST",
             body: { email : email, password : password},
-        })
+        }),
+        onQueryStarted:async (args, { dispatch,queryFulfilled }) => {
+            try {
+         
+              console.log(JSON.stringify(queryFulfilled, null,4));
+                        
+              let result = await queryFulfilled;
+
+              dispatch(setToken(result.data.accessToken))
+            } catch (error) {
+              // handle error here, dispatch toast message
+              console.log("error", error);
+              console.log("queryfufilled", queryFulfilled);
+          
+             console.log(JSON.stringify(error, null,4))
+            }
+          },
     }),
     contact : builder.mutation({
         query: ({ email, name, subject , message}) => ({
@@ -103,6 +147,7 @@ export const {
     useContactMutation,
     useForgotPasswordMutation,
     useResetPasswordMutation,  
-    useCurrentQuery
+    useCurrentQuery,
+    useProfileQuery
 
 } = userApiSlice;

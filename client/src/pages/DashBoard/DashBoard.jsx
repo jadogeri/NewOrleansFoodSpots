@@ -1,6 +1,4 @@
-import React, { useState, useEffect } from 'react'
-import { Context as AuthContext } from '../../contexts/AuthContext';
-import { useContext } from 'react';
+import React, { useState, useEffect , useReducer} from 'react'
 import SideBarMenu from './SideBarMenu';
 import AppHeader from './AppHeader';
 import AppBarMenu from './AppBarMenu';
@@ -22,25 +20,23 @@ const DashBoard = ({
       const [selectedRating, setSelectedRating] = useState(null);
       const [selectedDelivery ,setSelectedDelivery] = useState(false);
       const [selectedPickup ,setSelectedPickup] = useState(false);
-      const { data, refetch, error, isError } = useGetAllBusinessesQuery()
-      const { signOut } = useContext(AuthContext);
+      const { data, refetch, error, isError, status} = 
+      useGetAllBusinessesQuery()
       const navigate = useNavigate();
- 
-        const [businesses, setBusinesses] = useState([])  
+      const [, forceUpdate] = useReducer(x => x + 1, 0);
+      const [businesses, setBusinesses] = useState([]);
+
+      useEffect(()=>{
+        if(data){
+          setBusinesses(data)
+          forceUpdate();       
+
+        }
+        refetch()
       
-        useEffect(()=>{
-          if(data){
-            setBusinesses(data)
-          if(error){
-            signOut().then(()=>{
-              navigate("/login")
-            })
-          }
-          }
-        },[data, error])
+      },[data])
 
       // ----------- Radio Filtering -----------
-
 
       const handleRatingChange = (event) => {
         const rating = event.target.value;
@@ -89,8 +85,7 @@ const DashBoard = ({
           if (selectedPickup ) {
             filteredBusinesses = filteredBusinesses.filter(business => business.transactions.includes("pickup") );
           }
-          console.log("selected after rating filter length ===", filteredBusinesses.length)
-    
+   
         return filteredBusinesses
 
       }    
@@ -101,15 +96,10 @@ const DashBoard = ({
  
       const handleInputChange = (event) => {
         const { value } = event.target;
-        console.log("value ====",value)
-        //const lettersOnly = value.replace(/[^a-zA-Z]/g, '');
         setInputValue(value);
       };
 
       const handleSubmit = () => {
-        console.log("pressing hanlde submit")
-        //alert("pressing hanlde submit")
-        console.log("input value to search api =====",inputValue)
         searchApi(inputValue);
       };
    
@@ -123,7 +113,7 @@ const DashBoard = ({
     delivery={selectedDelivery} pickup={selectedPickup}
   />
   {/* Top menu on small screens */}
-  <AppHeader />
+  {/* <AppHeader /> */}
 
   {/* Overlay effect when opening sidebar on small screens */}
   <AppBarMenu/>
@@ -133,8 +123,6 @@ const DashBoard = ({
   <Spacer  paddingTop={100}/>
 
 <div>{JSON.stringify(businesses,null,2)}</div>
-
-
   
     {/* Push down content on small screens */}
     <div className="w3-hide-large" style={{ marginTop: 83 }} />

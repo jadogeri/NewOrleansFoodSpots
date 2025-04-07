@@ -1,11 +1,14 @@
 import React, {useEffect, useState, useContext} from 'react'
 import { closeNavBar } from '../utils/html/closeNavBar'
 import { Link } from 'react-router-dom'
-import { Context as AuthContext } from '../contexts/AuthContext'
 import { openModal } from '../utils/html/openModal'
 import LogoutModal from '../components/modals/LogoutModal/LogoutModal'
 import { FaLocationDot } from "react-icons/fa6";
 import { useGetAllBusinessesQuery } from '../redux/api/business/business';
+import { useSelector } from 'react-redux'
+import { selectSessionState } from '../redux/feature/session/sessionSlice'
+import { clearUser } from '../redux/feature/user/userSlice'
+
 
 
 const getLikedCount = (businesses)=>{
@@ -32,16 +35,18 @@ const getVisitedCount = (businesses)=>{
 }
 const NavBar = ({
 }) => {
-  //const [auth, setAuth] = useState(null);
-  const {state, signOut} = useContext(AuthContext)
-  const { token : auth} = state
-  console.log("state==== ",state)
+  const [auth, setAuth] = useState(null);
+ // const {state, signOut} = useContext(AuthContext)
+  //const { token : auth} = state
+  //console.log("state==== ",state)
   const { data: businesses, refetch, isLoading, error, isFetching } = useGetAllBusinessesQuery();
   const [ likedCount, setLikedCount] = useState(0);
   const [ visitedCount, setVisitdCount] = useState(0)
+  const state = useSelector(selectSessionState);
 
 //console.log("businesses in navbar",JSON.stringify(businesses))
   useEffect(() => {
+    setAuth(state.token)
     for(let i = 0; i < businesses?.length ;i++) {
       if(businesses[i].liked){
         setLikedCount(likedCount+1)
@@ -59,7 +64,7 @@ const NavBar = ({
 
     <nav>
       {/* <!-- Navbar --> */}
-      <LogoutModal   token={state.token} signOut={signOut} />
+      <LogoutModal   token={state.token} signOut={clearUser} />
       <div className="w3-top">
         <div className="w3-bar w3-black w3-card">
           <button className="w3-bar-item w3-button w3-padding-large w3-hide-medium w3-hide-large w3-right" 

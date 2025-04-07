@@ -1,7 +1,8 @@
 import express from "express";
 
 
-const {loginUser, registerUser, logoutUser, resetUser, currentUser, forgotUser, deactivateUser} = require("../controllers/userController/index");
+const {loginUser, registerUser, logoutUser, resetUser, currentUser, profileUser,
+     forgotUser, deactivateUser} = require("../controllers/userController/index");
 
 const validateToken = require("../middlewares/validateTokenHandler");
 
@@ -16,6 +17,8 @@ router.post("/logout",validateToken, logoutUser);
 router.post("/reset", resetUser);
 
 router.get("/current", validateToken, currentUser);
+
+router.get("/profile", validateToken, profileUser);
 
 router.post("/forgot", forgotUser);
 

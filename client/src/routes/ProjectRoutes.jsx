@@ -22,27 +22,25 @@ import Review from "../pages/Review/Review.jsx";
 import MapView from "../pages/MapView/MapView.jsx";
 import ProductDetail from "../pages/ProductDetail.jsx";
 import History from "../pages/History/History.jsx";
+import { useSelector } from "react-redux";
+import { selectSessionState } from "../redux/feature/session/sessionSlice.js";
+import UnAuthorizedModal from "../components/modals/UnAuthorizedModal/UnAuthorizedModal.js";
 
 const ProjectRoutes = ({
-	state,
 }) => {
-	console.log("state from app =================*******", JSON.stringify(state,null,3))
 
-	console.log("auth ===========================", state.token)
-	const {token : auth} = state	
-
-
-
+	const state = useSelector(selectSessionState)
+	const auth = state.token
 
   return (
-
 
 	<>
 	
 	<BrowserRouter >
-	{/* <NavBar state={state}/>	 */}
+	{/* <NavBar />	 */}
 
-	<AppBar/>	
+	{/* <AppBar/>	 */}
+	{<UnAuthorizedModal />}
 		<Routes >				
 			<Route path="/" element={auth ? <Navigate to="/dashboard" /> : <Home />} index /> 
 			<Route path="/resetpassword" element={auth ? <Navigate to="/dashboard" /> : <ResetPassword />} /> 
@@ -58,7 +56,8 @@ const ProjectRoutes = ({
 				 
 
     		<Route element={<PrivateRoutes />}>			
-			<Route path="/dashboard" element={<DashBoard  state={state}/>  } />
+			<Route path="/dashboard" element={<DashBoard  //state={state}
+			/>  } />
 			<Route path="/dashboard/business" element={<BusinessDetail />  } />
 			<Route path="/dashboard/business/mapview" element={<MapView /> } />
 			<Route path="/history" element={<History />  } />

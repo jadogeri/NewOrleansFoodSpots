@@ -12,7 +12,6 @@ const BusinessCard = ({
   businesses,
   refetch,
   image_url,
-  is_closed,
   name,
   price,
   rating,
@@ -20,7 +19,8 @@ const BusinessCard = ({
   id,
   display_phone,
   location,
-  transactions
+  transactions,
+  is_closed
 }) => {
   const navigate = useNavigate();
   const  [ business, setBusiness ] = useState();
@@ -29,11 +29,11 @@ const BusinessCard = ({
   const [deleteBusiness] = useDeleteBusinessMutation();
   const [heartSelected, setHeartSelected] = useState(false);
   const [pinSelected, setPinSelected] = useState(false);
+  
 
   useEffect(()=>{
     refetch()
     const b = findBusiness(businesses);
-    console.log("b====================================================", b)
     if(b?.length ===1){
       setBusiness(b[0])
       setHeartSelected(b[0].liked);
@@ -54,12 +54,8 @@ const BusinessCard = ({
   }
 
   const handleIconClick = ({icon})=>{
-    console.log("clicking icon..................................")
-    // const businessFound = businesses?.filter((business)=>{
-    //   return id === business.business_id
-    // })
+
     const businessFound = findBusiness(businesses);
-    console.log("businessfound =============", businessFound)
     //if no business found, create business
     if(businessFound.length === 0){
       createBusiness({
@@ -67,17 +63,11 @@ const BusinessCard = ({
         liked: icon==="heart"? true : false,
         visited: icon==="pin"? true : false,
         detail: {
-          name: name,
-          phone: display_phone,
-          rating:rating,    
-          image_url : image_url,
-          price : price,
-          reviews : reviews,
-          location : location,
-          transactions : transactions     
+           name: name,
+           phone: display_phone,
+           rating:rating,           
         }
       })
-        console.log("refetching..................................")
 
     }else{
       if(((icon==="heart" && businessFound[0].liked === true && businessFound[0].visited === false ) || 
@@ -131,7 +121,7 @@ const BusinessCard = ({
 
          </div>    
         
-      <img src={image_url} style={{ width: "100%",height:200,cursor:"pointer" }}  alt='image'
+      <img src={image_url || null} style={{ width: "100%",height:200,cursor:"pointer" }}  alt='image'
       onClick={()=>{     
         navigate("/dashboard/business", {
           state:{

@@ -5,6 +5,8 @@ import { resetUser }  from "./resetUser"
 import { forgotUser }  from "./forgotUser"
 import { currentUser}  from "./currentUser"
 import { deactivateUser } from "./deactivateUser"
+import { profileUser} from "./profileUser"
 
 
-module.exports = { registerUser, loginUser, logoutUser, currentUser, forgotUser, resetUser, deactivateUser }
+module.exports = { registerUser, loginUser, logoutUser, 
+    currentUser, forgotUser, resetUser, deactivateUser, profileUser }
